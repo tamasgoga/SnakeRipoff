@@ -26,13 +26,13 @@ void noCoreMain() {
 
 	// check flags individually:
 	std::cout << "Video          " << (isSubsystemFlagOn(INIT_VIDEO)          ? "ON" : "OFF") << '\n'
-			  << "Audio          " << (isSubsystemFlagOn(INIT_AUDIO)          ? "ON" : "OFF") << '\n'
-			  << "Events         " << (isSubsystemFlagOn(INIT_EVENTS)         ? "ON" : "OFF") << '\n'
-			  << "Timer          " << (isSubsystemFlagOn(INIT_TIMER)          ? "ON" : "OFF") << '\n'
-			  << "Joystick       " << (isSubsystemFlagOn(INIT_JOYSTICK)       ? "ON" : "OFF") << '\n'
-			  << "Haptic         " << (isSubsystemFlagOn(INIT_HAPTIC)         ? "ON" : "OFF") << '\n'
-			  << "Gamecontroller " << (isSubsystemFlagOn(INIT_GAMECONTROLLER) ? "ON" : "OFF") << '\n'
-			  << "Everything     " << (isSubsystemFlagOn(INIT_EVERYTHING)     ? "YES" : "NO") << std::endl;
+	          << "Audio          " << (isSubsystemFlagOn(INIT_AUDIO)          ? "ON" : "OFF") << '\n'
+	          << "Events         " << (isSubsystemFlagOn(INIT_EVENTS)         ? "ON" : "OFF") << '\n'
+	          << "Timer          " << (isSubsystemFlagOn(INIT_TIMER)          ? "ON" : "OFF") << '\n'
+	          << "Joystick       " << (isSubsystemFlagOn(INIT_JOYSTICK)       ? "ON" : "OFF") << '\n'
+	          << "Haptic         " << (isSubsystemFlagOn(INIT_HAPTIC)         ? "ON" : "OFF") << '\n'
+	          << "Gamecontroller " << (isSubsystemFlagOn(INIT_GAMECONTROLLER) ? "ON" : "OFF") << '\n'
+	          << "Everything     " << (isSubsystemFlagOn(INIT_EVERYTHING)     ? "YES" : "NO") << std::endl;
 	;
 
 	// directorues
@@ -42,10 +42,10 @@ void noCoreMain() {
 
 bool core::init() noexcept {
 	// flags
-	toggleSubsystemFlagsOff(INIT_AUDIO);		// audio OFF
+	toggleSubsystemFlagsOff(INIT_AUDIO);      // audio OFF
 
 	// management
-	setAppInfo("TerriblyMediocre", "Snake");	// "Terribly Mediocre Software" ^_^
+	setAppInfo("TerriblyMediocre", "Snake");  // "Terribly Mediocre Software" ^_^
 	setNoCoreFn(noCoreMain);
 
 	// window attributes
@@ -77,9 +77,8 @@ void core::main() {
 	// smart pointers
 	auto pFontPath = std::make_unique<AppDirPath>("res/ponde___.ttf");
 	auto pSmallButtonFont = std::make_unique<Font>(pFontPath->path.c_str(), 10);
-	auto pQuitButton = std::make_unique<Button>(Button(*pSmallButtonFont,
-	                                                   "x",
-	                                                   {10, getWindowHeight() - Tile::size - 10, Tile::size, Tile::size})
+	auto pQuitButton = std::make_unique<Button>(
+		Button(*pSmallButtonFont, "x", {10, getWindowHeight() - Tile::size - 10, Tile::size, Tile::size})
 	);
 	auto pTexman = std::make_unique<core::Texman>();
 

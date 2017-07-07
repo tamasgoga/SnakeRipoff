@@ -29,14 +29,14 @@ namespace core {
 
 	/** Subsystem initialization flags which hold the same value as their equivalent SDL_INIT_... flags.
 		VIDEO, AUDIO and EVENTS are initialized implicitly. */
-	extern const int INIT_VIDEO;			// video subsystem; implies INIT_EVENTS
-	extern const int INIT_AUDIO;			// audio subsystem
-	extern const int INIT_EVENTS;			// events subsystem
-	extern const int INIT_TIMER;			// timer subsystem
-	extern const int INIT_JOYSTICK;			// joystick subsystem
-	extern const int INIT_HAPTIC;			// haptic (force feedback) subsystem
-	extern const int INIT_GAMECONTROLLER;	// controller subsystem; implies INIT_JOYSTICK
-	extern const int INIT_EVERYTHING;		// all of the above subsystems
+	extern const int INIT_VIDEO;           // video subsystem; implies INIT_EVENTS
+	extern const int INIT_AUDIO;           // audio subsystem
+	extern const int INIT_EVENTS;          // events subsystem
+	extern const int INIT_TIMER;           // timer subsystem
+	extern const int INIT_JOYSTICK;        // joystick subsystem
+	extern const int INIT_HAPTIC;          // haptic (force feedback) subsystem
+	extern const int INIT_GAMECONTROLLER;  // controller subsystem; implies INIT_JOYSTICK
+	extern const int INIT_EVERYTHING;      // all of the above subsystems
 
 	/** The window of the application. */
 	extern SDL_Window* window;
@@ -48,11 +48,15 @@ namespace core {
 	// Flow control
 	//------------------------------------------------------------
 
-	/** Undefined functions */
-	CORE_PROTOTYPE bool init() noexcept;	/** This is the first function to be called. Should contain CORE_INIT calls.
-												If it returns false, nothing else is performed and the program exits with -1. */
-	CORE_PROTOTYPE void main();				/** Should contain data initialization and the main loop.
-												It's called after every internal variable is initialized. */
+	/** Not defined:
+	    This is the first function to be called. Should contain CORE_INIT calls.
+	    If it returns false, nothing else is performed and the program exits with -1. */
+	CORE_PROTOTYPE bool init() noexcept;
+
+	/** Not defined:
+	    Should contain data initialization and the main loop.
+	    It's called after every internal variable is initialized. */
+	CORE_PROTOTYPE void main();
 
 	/** The only way to quit Core (and close the window) */
 	void quit() noexcept;
@@ -65,9 +69,9 @@ namespace core {
 	//------------------------------------------------------------
 
 	/** Get window parameters */
-	int getWindowWidth()	noexcept;
-	int getWindowHeight()	noexcept;
-	std::string getWindowTitle() noexcept;
+	int         getWindowWidth()  noexcept;
+	int         getWindowHeight() noexcept;
+	std::string getWindowTitle()  noexcept;
 
 	/** Set application info */
 	CORE_INIT void setAppInfo(const char* dev, const char* app) noexcept;
@@ -77,8 +81,8 @@ namespace core {
 	/** Toggle subsystem flags. VIDEO, AUDIO and EVENTS are initialized implicitly.
 		More flags can be passed separated by logical ORing ('|') them together.
 		Has no effect outside of core::init(). */
-	CORE_INIT void toggleSubsystemFlagsOn  (int flags) noexcept;
-	CORE_INIT void toggleSubsystemFlagsOff (int flags) noexcept;
+	CORE_INIT void toggleSubsystemFlagsOn(int flags)  noexcept;
+	CORE_INIT void toggleSubsystemFlagsOff(int flags) noexcept;
 
 	/** Check whether a flag is set. */
 	bool isSubsystemFlagOn(int flag) noexcept;
