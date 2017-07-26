@@ -19,7 +19,8 @@ namespace core {
 		using sec	= std::chrono::duration<int_least64_t>;
 		using min	= std::chrono::duration<int_least32_t, std::ratio<60>>;
 		using hour	= std::chrono::duration<int_least32_t, std::ratio<3600>>;
-	} // namespace time
+	}
+
 
 	/** A very basic timer class */
 	class SimpleTimer {
@@ -51,6 +52,7 @@ namespace core {
 		/** Getters */
 		inline clock::time_point getStart() const noexcept {return start;}
 	};
+
 
 	/** Measures the frame-rate */
 	class FramerateCounter {

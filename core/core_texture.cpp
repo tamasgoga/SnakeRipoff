@@ -15,12 +15,17 @@ namespace core {
 	// the app's renderer
 	extern SDL_Renderer* renderer;
 
-	/** CONSTRUCTION & DESTRUCTION */
+
+	//------------------------------------------------------------
+	// CONSTRUCTION & DESTRUCTION
+	//------------------------------------------------------------
+
 
 	Texman::Texman() noexcept
 		: textures()
 		, firstEmptySlot(0)
 	{;}
+
 
 	Texman::~Texman() {
 		for(auto t: textures) {
@@ -28,7 +33,11 @@ namespace core {
 		}
 	}
 
-	/** TEXTURE LOADING, CREATION, INSERION & REMOVAL */
+
+	//------------------------------------------------------------
+	// TEXTURE LOADING, CREATION, INSERION & REMOVAL
+	//------------------------------------------------------------
+
 
 	texindex Texman::insert(Texture&& texture) {
 		texindex indexInsertedTo;
@@ -55,6 +64,7 @@ namespace core {
 		return indexInsertedTo;
 	}
 
+
 	Texman::texindex Texman::load(const char* path) {
 		SDL_Surface* surface = IMG_Load(path);
 
@@ -78,6 +88,7 @@ namespace core {
 
 		return insert(Texture({texture, width, height}));
 	}
+
 
 	Texman::texindex Texman::load(const char* path, uint redKey, uint greenKey, uint blueKey) {
 		SDL_Surface* surface = IMG_Load(path);
@@ -106,6 +117,7 @@ namespace core {
 
 		return insert(Texture({texture, width, height}));
 	}
+
 
 	Texman::texindex Texman::create(int width, int height, uint red, uint green, uint blue) {
 		SDL_Surface* surface = SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0);
@@ -140,6 +152,7 @@ namespace core {
 		return insert(Texture({texture, width, height}));
 	}
 
+
 	texindex Texman::create(SDL_Surface* surface) {
 		if (surface == nullptr) {
 			throw LoadingFailure("Cannot create texture from a null surface!");
@@ -152,6 +165,7 @@ namespace core {
 
 		return insert(Texture({texture, surface->w, surface->h}));
 	}
+
 
 	bool Texman::remove(texindex i) noexcept {
 		if (i >= textures.size()) {
@@ -167,7 +181,11 @@ namespace core {
 		return true;
 	}
 
-	/** TEXTURE RENDERING */
+
+	//------------------------------------------------------------
+	// TEXTURE RENDERING
+	//------------------------------------------------------------
+
 
 	/** Draw the full texture at a specified position. */
 	error Texman::draw(texindex i, int x, int y, float scaleAmount) const {
@@ -179,6 +197,7 @@ namespace core {
 		return SDL_RenderCopy(renderer, textures[i].texture, nullptr, &bbox);
 	}
 
+
 	/** Draw a part of the texture at the specified position. */
 	error Texman::draw(texindex i, int x, int y, const SDL_Rect& clip, float scaleAmount) const {
 		if (i >= textures.size()) {
@@ -188,6 +207,7 @@ namespace core {
 		SDL_Rect bbox = scale({x, y, textures[i].width, textures[i].height}, scaleAmount);
 		return SDL_RenderCopy(renderer, textures[i].texture, &clip, &bbox);
 	}
+
 
 	/** Draw the full texture within the specified bounding box. */
 	error Texman::draw(texindex i, const SDL_Rect& boundingBox, float scaleAmount) const {
@@ -199,6 +219,7 @@ namespace core {
 		return SDL_RenderCopy(renderer, textures[i].texture, nullptr, &bbox);
 	}
 
+
 	/** Draw a part of the texture within the specified bounding box. */
 	error Texman::draw(texindex i, const SDL_Rect& boundingBox, const SDL_Rect& clip, float scaleAmount) const {
 		if (i >= textures.size()) {
@@ -209,7 +230,11 @@ namespace core {
 		return SDL_RenderCopy(renderer, textures[i].texture, &clip, &bbox);
 	}
 
-	/** TEXTURE MODULATION */
+
+	//------------------------------------------------------------
+	// TEXTURE MODULATION
+	//------------------------------------------------------------
+
 
 	error Texman::setAlphaMod(texindex i, uint alpha) noexcept {
 		if (i >= textures.size()) {
@@ -219,6 +244,7 @@ namespace core {
 		return SDL_SetTextureAlphaMod(textures[i].texture, alpha);
 	}
 
+
 	error Texman::setColorMod(texindex i, uint red, uint green, uint blue) noexcept {
 		if (i >= textures.size()) {
 			return 1;
@@ -227,7 +253,11 @@ namespace core {
 		return SDL_SetTextureColorMod(textures[i].texture, red, green, blue);
 	}
 
-	/** TEXTURE INFO */
+
+	//------------------------------------------------------------
+	// TEXTURE MODULATION
+	//------------------------------------------------------------
+
 
 	int Texman::getWidth(texindex i) const noexcept {
 		if (isTextureAt(i)) {
@@ -236,6 +266,7 @@ namespace core {
 			return -1;
 		}
 	}
+
 
 	int Texman::getHeight(texindex i) const noexcept {
 		if (isTextureAt(i)) {

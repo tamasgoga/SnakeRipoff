@@ -5,6 +5,7 @@
 // Random number generation
 //------------------------------------------------------------
 
+
 #include <random>
 #include <limits>
 #include <type_traits>
@@ -15,13 +16,14 @@
 namespace core {
 
 	/** SLOW, possibly non-deterministic random number generator */
-	extern std::random_device sys_rand;		// whether it's non-deterministic depends on the platform
+	extern std::random_device sys_rand;
 
 	/** FAST deterministic generator of 32 or 64 random bits:
 		Seed with sys_rand() for simulated non-determinism.
 		Use the functions below to get a proper number out of the generated bits. */
 	using Random32 = std::mt19937;
 	using Random64 = std::mt19937_64;
+
 
 	/** Get a random integral number */
 	template <typename RNG, typename IntType = int>
@@ -33,6 +35,7 @@ namespace core {
 		std::uniform_int_distribution<IntType> dist(min, max);
 		return dist(rng);
 	}
+
 
 	/** Get a random real number */
 	template <typename RNG, typename RealType = float>

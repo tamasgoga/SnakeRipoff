@@ -5,6 +5,7 @@
 // Texture manager
 //------------------------------------------------------------
 
+
 #include "core_def.hpp"
 #include <vector>
 
@@ -25,35 +26,38 @@ namespace core {
 			int width, height;
 		};
 
-		/** Acts as both size information and index type for Texmen. (Ha, cos it's plural!) */
+		/** Acts as both size information and index type for Texmen. (Ha! It's plural.) */
 		using texindex = std::vector<Texture>::size_type;
 
+
 	private:
-		std::vector<Texture> textures;				// vector containing the textures
-		texindex firstEmptySlot;					// used internally to fill in gaps left after deletion
+		std::vector<Texture> textures;        // vector containing the textures
+		texindex             firstEmptySlot;  // used internally to fill in gaps left after deletion
 
 		/** Inserts the texture into the first empty slot.
-			The texture is deallocated if insertion fails. */
+		    The texture is deallocated if insertion fails. */
 		texindex insert(Texture&&);
+
 
 	public:
 		/** Construction & destruction */
 		Texman() noexcept;
 		~Texman();
-		Texman(const Texman&)				= delete;	// copying and moving is forbidden
+		Texman(const Texman&)				= delete;  // copying and moving is forbidden
 		Texman(Texman&&)					= delete;
 		Texman& operator=(const Texman&)	= delete;
 		Texman& operator=(Texman&&)			= delete;
 
+
 		/** Loading operations THROW:
-			- LoadingFailure
-			- Exceptions of std::vector::push_back() */
+		    - LoadingFailure;
+		    - Exceptions of std::vector::push_back(). */
 
-		/** Load images from file-system into the container */
+		/** Load images from file-system into the container. */
 		texindex load(const char* path);
-		texindex load(const char* path, uint redKey, uint greenKey, uint blueKey);	// color-keyed textures
+		texindex load(const char* path, uint redKey, uint greenKey, uint blueKey);  // color-keyed textures
 
-		/** Create a texture out of a preexisting surface */
+		/** Create a texture from a preexisting surface. */
 		texindex create(SDL_Surface* surface);
 
 		/** Create a texture containing a plain color */
@@ -64,7 +68,7 @@ namespace core {
 
 
 		/** Draw methods MAY THROW:
-			- floating point exceptions */
+		    - floating point exceptions. */
 
 		/** Draw the full texture at a specified position. */
 		error draw(texindex i, int x, int y, float scaleAmount = 1.f) const;
@@ -78,18 +82,26 @@ namespace core {
 		/** Draw a part of the texture within the specified bounding box. */
 		error draw(texindex i, const SDL_Rect& boundingBox, const SDL_Rect& clip, float scaleAmount = 1.f) const;
 
+
 		/** Modulate textures */
 		error setAlphaMod(texindex i, uint alpha)						noexcept;
 		error setColorMod(texindex i, uint red, uint green, uint blue)	noexcept;
 
-		/** Get texture information */
-		inline bool isTextureAt(texindex i) const noexcept {return i < textures.size() && textures[i].texture != nullptr;}
+
+		/** Check for the existence of a texture. */
+		inline bool isTextureAt(texindex i) const noexcept {
+			return i < textures.size() && textures[i].texture != nullptr;
+		}
+
+		/** Get size info about a texture. */
 		int getWidth(texindex i)	const noexcept;
 		int getHeight(texindex i)	const noexcept;
+
 
 		/** Information about the underlying vector */
 		inline texindex	size() const noexcept {return textures.size();};
 	};
+
 
 	/** Shorthand for Texman::texindex */
 	using texindex = Texman::texindex;
