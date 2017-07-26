@@ -7,23 +7,28 @@
 #include <exception>
 #include <iostream>
 
-static int         windowWidth  = 720;       // height of the window; can only be set when Core isn't running
-static int         windowHeight = 480;       // width of the window; same as above
-static std::string windowTitle  = "Window";  // title of the window; same as above
 
-static bool run_core = true;                 // whether the engine's subsystems should be initialized or not
-static bool running  = false;                // whether the Core is running or not
+//------------------------------------------------------------
+// Internal vars
+//------------------------------------------------------------
 
-static char* devName = nullptr;              // name of developer (used in creating save directory)
-static char* appName = nullptr;              // name of application (same as above)
-static char* appDir	 = nullptr;              // path to application
-static char* saveDir = nullptr;              // path to save/preference files
 
-static bool shouldCreateSaveDir = false;     // whether to create a save/preferences directory or not
+static int         windowWidth         = 720;      // height of the window; can only be set when Core isn't running
+static int         windowHeight        = 480;      // width of the window; same as above
+static std::string windowTitle         = "Window"; // title of the window; same as above
+
+static bool        run_core            = true;     // whether the engine's subsystems should be initialized or not
+static bool        running             = false;    // whether the Core is running or not
+
+static char*       devName             = nullptr;  // name of developer (used in creating save directory)
+static char*       appName             = nullptr;  // name of application (same as above)
+static char*       appDir              = nullptr;  // path to application
+static char*       saveDir             = nullptr;  // path to save/preference files
+
+static bool        shouldCreateSaveDir = false;    // whether to create a save/preferences directory or not
 
 // SDL init flags w/ default value
 static int sdlFlags = SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS;
-
 // function called if core isn't initialized
 static void (*nocorefn) (void) = nullptr;
 
@@ -44,13 +49,14 @@ namespace core {
 	SDL_Window*	  window   = nullptr;  // the one and only window of the application
 	SDL_Renderer* renderer = nullptr;  // the one and only renderer of the application
 
-
 	// command-line arguments
 	std::vector<std::string> args;
+
 
 	//------------------------------------------------------------
 	// Flow control
 	//------------------------------------------------------------
+
 
 	void quit() noexcept {
 		if (!::running)
@@ -77,17 +83,21 @@ namespace core {
 		return running;
 	}
 
+
 	//------------------------------------------------------------
 	// Getters & setters
 	//------------------------------------------------------------
+
 
 	int getWindowWidth() noexcept {
 		return windowWidth;
 	}
 
+
 	int getWindowHeight() noexcept {
 		return windowHeight;
 	}
+
 
 	std::string getWindowTitle() noexcept {
 		return windowTitle;
@@ -98,13 +108,16 @@ namespace core {
 		if (!running) sdlFlags |=  flags;
 	}
 
+
 	CORE_INIT void toggleSubsystemFlagsOff(int flags) noexcept {
 		if (!running) sdlFlags &= ~flags;
 	}
 
+
 	bool isSubsystemFlagOn(int flag) noexcept {
 		return ((sdlFlags & flag) == flag);
 	}
+
 
 	int getSubsystemFlags() noexcept {
 		return sdlFlags;
@@ -118,6 +131,7 @@ namespace core {
 		}
 	}
 
+
 	CORE_INIT void createSaveDir(bool val) noexcept {
 		::shouldCreateSaveDir = val;
 	}
@@ -129,6 +143,7 @@ namespace core {
 		::windowWidth = width;
 		::windowHeight = height;
 	}
+
 
 	CORE_INIT void setWindowTitle(std::string title) noexcept {
 		if (::running)
@@ -142,15 +157,18 @@ namespace core {
 			::nocorefn = ncf;
 	}
 
+
 	CORE_INIT void doNotInitCore() noexcept {
 		if (!::running)
 			::run_core = false;
 	}
 
 
+
 	const char* getAppDir()  {
 		return appDir;
 	}
+
 
 	const char* getSaveDir() {
 		return saveDir;
@@ -160,6 +178,7 @@ namespace core {
 	//------------------------------------------------------------
 	// Classes
 	//------------------------------------------------------------
+
 
 	AppDirPath::AppDirPath(const char* relative)
 		: path(appDir + std::string(relative))
@@ -179,6 +198,7 @@ namespace core {
 //------------------------------------------------------------
 // Main
 //------------------------------------------------------------
+
 
 static bool init_env() noexcept {
 	::running = true;

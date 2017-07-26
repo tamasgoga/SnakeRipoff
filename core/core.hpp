@@ -28,7 +28,7 @@ namespace core {
 	//------------------------------------------------------------
 
 	/** Subsystem initialization flags which hold the same value as their equivalent SDL_INIT_... flags.
-		VIDEO, AUDIO and EVENTS are initialized implicitly. */
+	    VIDEO, AUDIO and EVENTS are initialized implicitly. */
 	extern const int INIT_VIDEO;           // video subsystem; implies INIT_EVENTS
 	extern const int INIT_AUDIO;           // audio subsystem
 	extern const int INIT_EVENTS;          // events subsystem
@@ -79,8 +79,8 @@ namespace core {
 	CORE_INIT void createSaveDir(bool val = true) noexcept;
 
 	/** Toggle subsystem flags. VIDEO, AUDIO and EVENTS are initialized implicitly.
-		More flags can be passed separated by logical ORing ('|') them together.
-		Has no effect outside of core::init(). */
+	    More flags can be passed separated by logical ORing ('|') them together.
+	    Has no effect outside of core::init(). */
 	CORE_INIT void toggleSubsystemFlagsOn(int flags)  noexcept;
 	CORE_INIT void toggleSubsystemFlagsOff(int flags) noexcept;
 
@@ -94,16 +94,16 @@ namespace core {
 	CORE_INIT void setWindowTitle(std::string title) 	noexcept;
 
 	/** Calls the function passed as a parameter whenever the app is run without Core.
-		Core won't run if any of the following is true:
-			(1) "nocore" is one of the command-line arguments;
-			(2) doNotInitCore() is called in core::init().
+	    Core won't run if any of the following is true:
+	      (1) "nocore" is one of the command-line arguments;
+	      (2) doNotInitCore() is called in core::init().
 
-		Only has effect when core is not already running.
+	    Only has effect when core is not already running.
 	*/
 	CORE_INIT void setNoCoreFn(void (*ncf) (void)) noexcept;
 
 	/** Disables Core. Only has effect when core is not already running. */
-	CORE_INIT void doNotInitCore() noexcept;	// no effect if already running
+	CORE_INIT void doNotInitCore() noexcept;
 
 	/** Directory paths */
 	const char* getAppDir();

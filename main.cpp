@@ -23,10 +23,12 @@
 	July 26, 2017 -- Trivia: Last update to this comment on "21.06.2016" (more than a year ago) :3
 */
 
+
 #include "game/game.hpp"
 
 #include <iostream>
 #include <memory>
+
 
 void noCoreMain() {
 	using namespace core;
@@ -43,7 +45,7 @@ void noCoreMain() {
 	          << "Timer          " << (isSubsystemFlagOn(INIT_TIMER)          ? "ON" : "OFF") << '\n'
 	          << "Joystick       " << (isSubsystemFlagOn(INIT_JOYSTICK)       ? "ON" : "OFF") << '\n'
 	          << "Haptic         " << (isSubsystemFlagOn(INIT_HAPTIC)         ? "ON" : "OFF") << '\n'
-	          << "Gamecontroller " << (isSubsystemFlagOn(INIT_GAMECONTROLLER) ? "ON" : "OFF") << '\n'
+	          << "Gamecontroller " << (isSubsystemFlagOn(INIT_GAMECONTROLLER) ? "ON" : "OFF") << "\n\n"
 	          << "Everything     " << (isSubsystemFlagOn(INIT_EVERYTHING)     ? "YES" : "NO") << std::endl;
 	;
 
@@ -51,6 +53,7 @@ void noCoreMain() {
 	std::cout << "\nApp:  " << getAppDir() << '\n';
 	std::cout << "Save: " << (getSaveDir() == nullptr ? "n/a" : getSaveDir()) << std::endl;
 }
+
 
 bool core::init() noexcept {
 	// flags
@@ -82,6 +85,7 @@ bool core::init() noexcept {
 	return true;
 }
 
+
 void core::main() {
 	// local
 	AppDirPath titlePicPath("res/title.png");
@@ -111,10 +115,11 @@ void core::main() {
 }
 
 
-
 //--------------------------------------------------------------
 // Version history
 //--------------------------------------------------------------
+
+
 /**
 	:: Version 0.7 :: Classy Folded Code ::
 	- reorganized the source files
