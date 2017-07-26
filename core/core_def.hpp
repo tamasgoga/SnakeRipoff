@@ -2,11 +2,13 @@
 #define FLAG_CORE_CORE_DEF_HPP
 
 //------------------------------------------------------------
-// Definitions (non-types) & abbreviations
+// Definitions & abbreviations
 //------------------------------------------------------------
+
 
 #define CORE_PROTOTYPE			// undefined functions
 #define CORE_INIT				// functions that should be called in core::init()
+
 
 #ifndef CORE_NO_TYPE_ABBREVIATIONS
 
@@ -24,10 +26,11 @@ namespace core {
 		Interchangeable with int.
 
 		Meaning:
-			- 0: success;
-			- negative: SDL errors;
-			- positive: Core errors. */
+		  - 0: success;
+		  - negative: SDL errors;
+		  - positive: Core errors. */
 	using error = int;
+
 }
 
 #endif // FLAG_CORE_CORE_DEF_HPP

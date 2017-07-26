@@ -8,13 +8,15 @@
 #include <string>
 #include <exception>
 
+
 namespace core {
 
 	/** Handles for all the different types of error messages */
-	void errorMessage(std::string msg);		// used for library independent error messages
-	void sdlErrorMessage(std::string msg);	// also displays SDL_GetError()
-	void imgErrorMessage(std::string msg);	// also displays IMG_GetError()
-	void ttfErrorMessage(std::string msg);	// also displays TTF_GetError();
+	void errorMessage(std::string msg);     // used for library independent error messages
+	void sdlErrorMessage(std::string msg);  // also displays SDL_GetError()
+	void imgErrorMessage(std::string msg);  // also displays IMG_GetError()
+	void ttfErrorMessage(std::string msg);  // also displays TTF_GetError();
+
 
 	/** Base class for all Core exceptions */
 	class Failure: public std::exception {
@@ -26,14 +28,16 @@ namespace core {
 		virtual ~Failure();
 	};
 
-	/** Thrown when loading, or creating something fails */
+
+	/** Thrown when loading, or creating something fails. */
 	class LoadingFailure: public Failure {
 	public:
 		LoadingFailure(std::string msg) noexcept;
 		const char* what() const noexcept;
 	};
 
-	/** Thrown when the save directory doesn't exist and an operation needs it */
+
+	/** Thrown when the save directory doesn't exist and an operation needs it. */
 	class SaveDirFailure: public Failure {
 	public:
 		SaveDirFailure(std::string msg) noexcept;

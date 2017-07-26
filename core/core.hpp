@@ -5,6 +5,7 @@
 // Core (main header file)
 //------------------------------------------------------------
 
+
 /* Note! All exceptions are handled within main, after which core::quit() is called.
 Any or all of them can, of course, be caught before. */
 
@@ -27,6 +28,7 @@ namespace core {
 	// Application management
 	//------------------------------------------------------------
 
+
 	/** Subsystem initialization flags which hold the same value as their equivalent SDL_INIT_... flags.
 	    VIDEO, AUDIO and EVENTS are initialized implicitly. */
 	extern const int INIT_VIDEO;           // video subsystem; implies INIT_EVENTS
@@ -44,9 +46,11 @@ namespace core {
 	/** Vector containing all command-line arguments. */
 	extern std::vector<std::string> args;
 
+
 	//------------------------------------------------------------
 	// Flow control
 	//------------------------------------------------------------
+
 
 	/** Not defined:
 	    This is the first function to be called. Should contain CORE_INIT calls.
@@ -64,9 +68,11 @@ namespace core {
 	/** Check if Core is running */
 	bool isRunning() noexcept;
 
+
 	//------------------------------------------------------------
 	// Getters & setters
 	//------------------------------------------------------------
+
 
 	/** Get window parameters */
 	int         getWindowWidth()  noexcept;
@@ -109,15 +115,18 @@ namespace core {
 	const char* getAppDir();
 	const char* getSaveDir();
 
+
 	//------------------------------------------------------------
 	// Classes
 	//------------------------------------------------------------
+
 
 	/** Contains a path in the application directory. */
 	struct AppDirPath {
 		const std::string path;
 		AppDirPath(const char* relative);
 	};
+
 
 	/** Contains a path in the save directory. */
 	struct SaveDirPath {

@@ -13,6 +13,7 @@ namespace core {
 
 	}
 
+
 	error drawLine(int x1, int y1, int x2, int y2, int red, int green, int blue) noexcept {
 		int err = SDL_SetRenderDrawColor(renderer, red, green, blue, 255);
 		if (err == 0) {
@@ -21,6 +22,7 @@ namespace core {
 			return err;
 		}
 	}
+
 
 	error drawRect(const SDL_Rect& rect, int red, int green, int blue) noexcept {
 		int err = SDL_SetRenderDrawColor(renderer, red, green, blue, 255);
@@ -31,6 +33,7 @@ namespace core {
 		}
 	}
 
+
 	error fillRect(const SDL_Rect& rect, int red, int green, int blue) noexcept {
 		int err = SDL_SetRenderDrawColor(renderer, red, green, blue, 255);
 		if (err == 0) {
@@ -40,6 +43,7 @@ namespace core {
 		}
 	}
 
+
 	error fillDisplay(int red, int green, int blue) noexcept {
 		int err = SDL_SetRenderDrawColor(renderer, red, green, blue, 255);
 		if (err == 0) {
@@ -48,6 +52,7 @@ namespace core {
 			return err;
 		}
 	}
+
 
 	error clearDisplay() noexcept {
 		int err = SDL_SetRenderDrawColor(renderer, 0,0,0, 255);
