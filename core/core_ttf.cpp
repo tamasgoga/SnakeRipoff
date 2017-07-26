@@ -20,9 +20,11 @@ namespace core {
 		}
 	}
 
+
 	Font::~Font() {
 		TTF_CloseFont(font);
 	}
+
 
 	texindex Font::loadText(const std::string& text, const SDL_Color& color) {
 		//Render text surface
@@ -43,6 +45,7 @@ namespace core {
         SDL_FreeSurface(surface);
         return index;
 	}
+
 
 	texindex Font::changeText(texindex i, const std::string& text, const SDL_Color& color) {
 		remove(i);

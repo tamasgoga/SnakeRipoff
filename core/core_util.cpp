@@ -10,6 +10,7 @@ namespace core {
 	// Operations on rectangles
 	//------------------------------------------------------------
 
+
 	SDL_Rect scale(SDL_Rect rect, float amount) {
 		if (amount == 1.f) return rect;
 		if (amount <= 0.f) return {rect.x, rect.y, 0, 0};
@@ -38,6 +39,7 @@ namespace core {
 		return rect;
 	}
 
+
 	bool isInside(int x, int y, const SDL_Rect& rect) {
 		if (x < rect.x) return false;
 		if (y < rect.y) return false;
@@ -47,9 +49,11 @@ namespace core {
 		return true;
 	}
 
+
 	//------------------------------------------------------------
 	// Extra
 	//------------------------------------------------------------
+
 
 	float rsqrt(float x) {
 		float half_x = x * 0.5f;
