@@ -1,7 +1,7 @@
 #ifndef SNAKE_DEF_HPP
 #define SNAKE_DEF_HPP
 
-#include "core/core.hpp"
+#include "../core/core.hpp"
 
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_rect.h>
@@ -12,9 +12,9 @@
 
 #define GAME_VERSION_MAJOR	0
 #define GAME_VERSION_MINOR	7
-#define GAME_VERSION_BUILD	6
+#define GAME_VERSION_BUILD	7
 
-#define GAME_VERSION_NAME	"Classy Code"
+#define GAME_VERSION_NAME	"Classy Folded Code"
 
 #define TILES_IN_ROW	30
 
@@ -59,7 +59,6 @@ namespace ui {
 	// yellow: 251, 167, 5 (title)
 
 	// not owners, just normal pointers, only use after core::main() was called
-
 	extern core::AppDirPath* fontPath;
 
 	extern core::Font* smallButtonFont;

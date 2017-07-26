@@ -1,17 +1,29 @@
 /** Snake clone, by Goga Tamas */
 
 /**
-- the order is interchangeable
+	Bugs:
+	  (?) bug at button removal (working now, but in a hack-y way)
 
-0.8 -> sound & "vicinity food generation"
-1.0 -> bug-fixes
+	Plans:
+	  0.7.8:
+	    > credit myself (bottom right on menu screen)
+	  0.8:
+	    > storing the score
+	    > proper icons for buttons (exit, options, etc.)
+	  0.9:
+	    > sound (old-school bleeps; melody based on snake action)
+	    > vicinity food generation
+	  1.0 -> testing, bug-fixes, removing unused code
 
-1.x -> storing the score
+	Future ideas:
+	  - map editor, wall tiles
+	  - multiple resolutions, full-screen
+	  ! NO MORE "CORE" REWORKS
 
-21.06.2016
-**/
+	July 26, 2017 -- Trivia: Last update to this comment on "21.06.2016" (more than a year ago) :3
+*/
 
-#include "game.hpp"
+#include "game/game.hpp"
 
 #include <iostream>
 #include <memory>
@@ -104,6 +116,14 @@ void core::main() {
 // Version history
 //--------------------------------------------------------------
 /**
+	:: Version 0.7 :: Classy Folded Code ::
+	- reorganized the source files
+
+	(Project resumed on July 26, 2017.)
+
+	:: Version 0.7 :: Classy Code ::
+	- more classes, I presume
+
 	(Project resumed at the beginning of September, 2016.)
 
 	:: Version 0.6 :: "Polish Party" ::
