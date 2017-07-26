@@ -1,29 +1,5 @@
 /** Snake clone, by Goga Tamas */
 
-/**
-	Bugs:
-	  (?) bug at button removal (working now, but in a hack-y way)
-
-	Plans:
-	  0.7.8:
-	    > credit myself (bottom right on menu screen)
-	  0.8:
-	    > storing the score
-	    > proper icons for buttons (exit, options, etc.)
-	  0.9:
-	    > sound (old-school bleeps; melody based on snake action)
-	    > vicinity food generation
-	  1.0 -> testing, bug-fixes, removing unused code
-
-	Future ideas:
-	  - map editor, wall tiles
-	  - multiple resolutions, full-screen
-	  ! NO MORE "CORE" REWORKS
-
-	July 26, 2017 -- Trivia: Last update to this comment on "21.06.2016" (more than a year ago) :3
-*/
-
-
 #include "game/game.hpp"
 
 #include <iostream>
