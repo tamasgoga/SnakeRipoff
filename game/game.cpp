@@ -4,6 +4,7 @@
 // Class: Game
 //--------------------------------------------------------------
 
+
 Game::Game()
 	: grid(), texman(), font(ui::fontPath->path.c_str(), 20), scoreText("00000"), clock(true), state(State::PLAYING)
 {
@@ -39,6 +40,7 @@ Game::Game()
 	updateDisplay();
 }
 
+
 bool Game::run() {
 	using namespace core;
 
@@ -70,6 +72,7 @@ bool Game::run() {
 		}
 	}
 }
+
 
 void Game::play() {
 	using namespace core;
@@ -149,6 +152,7 @@ void Game::play() {
 	updateDisplay();
 }
 
+
 void Game::pause() {
 	using namespace core;
 
@@ -199,6 +203,7 @@ void Game::pause() {
 	}
 }
 
+
 void Game::endGame() {
 	using namespace core;
 
@@ -240,6 +245,7 @@ void Game::endGame() {
 	}
 }
 
+
 void Game::drawGrid() {
 	grid.draw();
 	core::drawRect(ui::playArea, ui::WHITE.r, ui::WHITE.g, ui::WHITE.g);
@@ -250,11 +256,13 @@ void Game::drawGrid() {
 	font.draw(ftFrateNumber, 10, 100);
 }
 
+
 void Game::drawGameOver() {
 	texman.draw(txBlackOverlay, 0, 0);
 	font.draw(ftGameOver, midFtGameOver_w, midFtGameOver_h);
 	font.draw(ftScoreNumber, midFtScoreNumber_w, midFtScoreNumber_h);
 }
+
 
 void Game::flashScreenAndDelay() {
 	using namespace core;
@@ -278,6 +286,7 @@ void Game::flashScreenAndDelay() {
 	while (clock.elapsed_ms().count() < 500)
 		; // yup, nothing should happen here
 }
+
 
 void Game::collapseSnake() {
 	using namespace core;
@@ -323,9 +332,11 @@ void Game::collapseSnake() {
 	} while (grid.collapseSnakeTowardsItsMiddle());
 }
 
+
 //--------------------------------------------------------------
 // Other
 //--------------------------------------------------------------
+
 
 bool menu() {
 	using namespace core;

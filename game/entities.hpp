@@ -1,11 +1,13 @@
 #ifndef SNAKE_ENTITY_HPP
 #define SNAKE_ENTITY_HPP
 
+//--------------------------------------------------------------
+// Game & menu entities
+//--------------------------------------------------------------
+
+
 #include "def.hpp"
 
-//--------------------------------------------------------------
-// Classes
-//--------------------------------------------------------------
 
 struct Tile {
 	enum Entity {
@@ -31,13 +33,14 @@ struct Tile {
 	inline operator SDL_Rect() const noexcept {return {x, y, size, size};}
 };
 
+
 class Button {
 public:
 	enum ButtonState {
 		NORMAL,
 		HOVER,
-		SELECTED,	// left mouse button DOWN
-		CLICKED		// left mouse button UP
+		SELECTED,   // left mouse button DOWN
+		CLICKED     // left mouse button UP
 	};
 
 	Button(core::Font& font, std::string text, const SDL_Rect& box) noexcept;
@@ -60,6 +63,7 @@ private:
 	static SDL_Color normal, hover, select;
 };
 
+
 class Slider {
 public:
 	static const int MIN = 0;
@@ -78,6 +82,7 @@ private:
 	int& level;
 	bool mousedOver;
 };
+
 
 class Grid {
 public:

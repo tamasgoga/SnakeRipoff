@@ -1,12 +1,19 @@
 #ifndef SNAKE_SNAKE_HPP
 #define SNAKE_SNAKE_HPP
 
+//--------------------------------------------------------------
+// Game code
+//--------------------------------------------------------------
+
+
 #include "def.hpp"
 #include "entities.hpp"
+
 
 inline int calculateTimeStep() {
 	return 220 - ui::speedLevel*20;
 }
+
 
 class Game {
 public:
@@ -60,6 +67,7 @@ private:
 	void flashScreenAndDelay();
 	void collapseSnake();
 };
+
 
 bool menu();
 

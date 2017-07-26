@@ -1,10 +1,16 @@
 #ifndef SNAKE_DEF_HPP
 #define SNAKE_DEF_HPP
 
+//--------------------------------------------------------------
+// Includes & definitions
+//--------------------------------------------------------------
+
+
 #include "../core/core.hpp"
 
 #include <SDL2/SDL_events.h>
 #include <SDL2/SDL_rect.h>
+
 
 //--------------------------------------------------------------
 // Management
@@ -20,9 +26,11 @@
 
 extern core::Random32 rng32;
 
+
 //--------------------------------------------------------------
 // Enumerations
 //--------------------------------------------------------------
+
 
 enum class State {
 	PLAYING,
@@ -42,11 +50,11 @@ enum class Direction {
 	RIGHT	= 0x8	// 1000
 };
 
+
 //--------------------------------------------------------------
-// User interface
+// User interface variables
 //--------------------------------------------------------------
 
-// forward declarations
 class Button;
 
 namespace ui {

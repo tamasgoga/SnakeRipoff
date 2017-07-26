@@ -4,11 +4,13 @@
 // class: Tile
 //--------------------------------------------------------------
 
+
 Tile::Tile() noexcept
 	: x(0)
 	, y(0)
 	, entity(NONE)
 {;}
+
 
 Tile::Tile(int x, int y, Entity entity) noexcept
 	: x(x)
@@ -16,11 +18,14 @@ Tile::Tile(int x, int y, Entity entity) noexcept
 	, entity(entity)
 {;}
 
+
 int Tile::size = 0;
+
 
 //--------------------------------------------------------------
 // class: Button
 //--------------------------------------------------------------
+
 
 Button::Button(core::Font& font, std::string text, const SDL_Rect& box) noexcept
 	: box(box)
@@ -32,11 +37,13 @@ Button::Button(core::Font& font, std::string text, const SDL_Rect& box) noexcept
 	midFtText_h = (2*box.y + box.h) / 2 - font.getHeight(ftText) / 2;
 }
 
+
 // this doesn't work, "x" button's font (first button's font) is always removed, potentially overridden
 // commenting it out could potentially lead to a memory leak?
 /*~Button() {
 	font.remove(ftText);
 }*/
+
 
 void Button::draw() const {
 	if (state == NORMAL) {
@@ -52,6 +59,7 @@ void Button::draw() const {
 	core::drawRect(box);
 	font.draw(ftText, midFtText_w, midFtText_h);
 }
+
 
 Button::ButtonState Button::handleMouse(SDL_Event& event) noexcept {
 	// mouse
@@ -92,13 +100,16 @@ Button::ButtonState Button::handleMouse(SDL_Event& event) noexcept {
 	return state;
 }
 
+
 SDL_Color Button::normal = ui::WHITE;
 SDL_Color Button::hover = ui::BLUE;
 SDL_Color Button::select = ui::RED;
 
+
 //--------------------------------------------------------------
 // class: Slider
 //--------------------------------------------------------------
+
 
 Slider::Slider(core::Font& font, int& sliderVariable, int x, int y)
 	: decButton(font, "-", {x, y, Tile::size, Tile::size})
@@ -112,6 +123,7 @@ Slider::Slider(core::Font& font, int& sliderVariable, int x, int y)
 		level = MAX;
 	}
 }
+
 
 void Slider::handleMouse(SDL_Event& event) {
 	int mx, my;
@@ -142,6 +154,7 @@ void Slider::handleMouse(SDL_Event& event) {
 	}
 }
 
+
 void Slider::draw() const {
 	decButton.draw();
 	int posx = decButton.box.x + 2*Tile::size;
@@ -158,9 +171,11 @@ void Slider::draw() const {
 	incButton.draw();
 }
 
+
 //--------------------------------------------------------------
 // class: Grid
 //--------------------------------------------------------------
+
 
 Grid::Grid()
 	: grid(), snake(), snakeHead(0), snakeSize(1)
@@ -206,6 +221,7 @@ Grid::Grid()
 	score = 0;
 }
 
+
 // returns false if no more food can be generated
 State Grid::generateFood() {
 	// won
@@ -237,6 +253,7 @@ State Grid::generateFood() {
 	return State::PLAYING;
 }
 
+
 void Grid::draw() const {
 	for (auto tile: grid) {
 		switch (tile.entity) {
@@ -256,6 +273,7 @@ void Grid::draw() const {
 		}
 	}
 }
+
 
 void Grid::handleKeyboard() {
 	const Uint8* keystates = SDL_GetKeyboardState(nullptr);
@@ -278,6 +296,7 @@ void Grid::handleKeyboard() {
 		}
 	}
 }
+
 
 // returns a game state
 State Grid::advanceState() {
@@ -360,6 +379,7 @@ State Grid::advanceState() {
 
 	return State::PLAYING;
 }
+
 
 // used when killing the snake; returns false if the snake collapsed already
 bool Grid::collapseSnakeTowardsItsMiddle() {

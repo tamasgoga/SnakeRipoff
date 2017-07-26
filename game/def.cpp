@@ -12,7 +12,6 @@ namespace ui {
 	// yellow: 251, 167, 5 (title)
 
 	// not owners, just normal pointers, only use after core::main() was called
-
 	core::AppDirPath* fontPath = nullptr;
 
 	core::Font* smallButtonFont = nullptr;
