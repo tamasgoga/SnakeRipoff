@@ -1,7 +1,7 @@
 **Snake** clone, by _Goga Tamas_.
 
 ## BUGS ##
-1. **Bug at button removal** (working now, but in a hacky way). This may not exist at this point.
+1. **Bug at button removal** (working now, but in a hacky way). Check commented out ~Button in `game/entities.hpp, line 47`.
 
 ## PLANS ##
 - **0.8:**
