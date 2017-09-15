@@ -63,14 +63,25 @@ namespace core {
 		}
 
 
+		/** Modulate textures */
+
+		inline error setAlphaMod(texindex i, uint alpha) noexcept {
+			return texman.setAlphaMod(i, alpha);
+		}
+
+		inline error setColorMod(texindex i, uint red, uint green, uint blue) noexcept {
+			return texman.setColorMod(i, red, green, blue);
+		}
+
+
 		/** Size information */
-		int getWidth(texindex i)	const noexcept {return texman.getWidth(i);}
-		int getHeight(texindex i)	const noexcept {return texman.getHeight(i);}
+		inline int getWidth(texindex i)  const noexcept {return texman.getWidth(i);}
+		inline int getHeight(texindex i) const noexcept {return texman.getHeight(i);}
 
 
 		/** Information about the underlying Texman */
-		inline texindex	size()					const noexcept {return texman.size();};
-		inline bool		isTextureAt(texindex i)	const noexcept {return texman.isTextureAt(i);}
+		inline texindex	size()                  const noexcept {return texman.size();};
+		inline bool     isTextureAt(texindex i)	const noexcept {return texman.isTextureAt(i);}
 	};
 
 } // namespace core

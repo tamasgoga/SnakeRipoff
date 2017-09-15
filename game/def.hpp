@@ -18,7 +18,7 @@
 
 #define GAME_VERSION_MAJOR	0
 #define GAME_VERSION_MINOR	7
-#define GAME_VERSION_BUILD	7
+#define GAME_VERSION_BUILD	8
 
 #define GAME_VERSION_NAME	"Classy Folded Code"
 

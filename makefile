@@ -3,7 +3,7 @@
 NAME = snake
 
 WARNINGS = -Wall -Wextra -Winline -Werror
-COMPILER = clang++-3.8 -std=c++1y -O3
+COMPILER = clang++-3.8 -std=c++1y -O2
 
 GAME_SRC = main.cpp game/*.cpp
 CORE_SRC = core/*.cpp

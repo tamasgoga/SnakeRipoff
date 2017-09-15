@@ -43,20 +43,21 @@ bool core::init() noexcept {
 	setWindowTitle("Let's Rip Off: Snake");
 	setWindowSize(800, 600);
 
-	// initialize the screen coordinates of the greed
+	// initialize the screen coordinates of the grid
 	const int windowWidth = getWindowWidth();
 	const int windowHeight = getWindowHeight();
+	ui::playArea.w = ui::playArea.h = std::min(windowWidth, windowHeight);
 
+	if (windowWidth >= windowHeight) {
+		ui::playArea.x = (windowWidth - windowHeight) / 2;
+		ui::playArea.y = 0;
+	} else {
+		ui::playArea.x = 0;
+		ui::playArea.y = (windowHeight - windowWidth) / 2;
+	}
+
+	Tile::size = ui::playArea.w / TILES_IN_ROW;
 	ui::speedLevel = 5;
-
-	ui::playArea = {
-		(windowWidth - windowHeight) / 2,
-		0,
-		windowHeight,
-		windowHeight
-	};
-
-	Tile::size = windowHeight / TILES_IN_ROW;
 
 	return true;
 }

@@ -10,9 +10,12 @@ Game::Game()
 {
 	using namespace core;
 
-	txBlackOverlay = texman.create(getWindowWidth(), getWindowHeight(), 0,0,0);
+	const int window_w = getWindowWidth();
+	const int window_h = getWindowHeight();
+
+	txBlackOverlay = texman.create(window_w, window_h, 0,0,0);
 	texman.setAlphaMod(txBlackOverlay, 170);
-	txWhiteOverlay = texman.create(getWindowWidth(), getWindowHeight(), 255, 255, 255);
+	txWhiteOverlay = texman.create(window_w, window_h, 255, 255, 255);
 
 	ftScoreTitle = font.loadText("SCORE", ui::WHITE);
 	ftScoreNumber = font.loadText(scoreText, ui::WHITE);
@@ -21,8 +24,11 @@ Game::Game()
 	ftPaused = font.loadText("PAUSED", ui::WHITE);
 	ftGameOver = font.loadText("GAME OVER", ui::WHITE);
 
-	int midWindow_w = getWindowWidth() / 2;
-	int midWindow_h = getWindowHeight() / 2;
+	font.setAlphaMod(ftScoreTitle, 180);
+	font.setAlphaMod(ftFrateTitle, 180);
+
+	int midWindow_w = window_w / 2;
+	int midWindow_h = window_h / 2;
 
 	midFtPaused_w = midWindow_w - font.getWidth(ftPaused) / 2;
 	midFtPaused_h = midWindow_h - font.getHeight(ftPaused) / 2;
@@ -250,10 +256,21 @@ void Game::drawGrid() {
 	grid.draw();
 	core::drawRect(ui::playArea, ui::WHITE.r, ui::WHITE.g, ui::WHITE.g);
 
-	font.draw(ftScoreTitle, 10, 10);
-	font.draw(ftScoreNumber, 10, 30);
-	font.draw(ftFrateTitle, 10, 80);
-	font.draw(ftFrateNumber, 10, 100);
+	if (core::getWindowWidth() >= core::getWindowHeight()) {
+		font.draw(ftScoreTitle, 10, 10);
+		font.draw(ftScoreNumber, 10, 30);
+		font.draw(ftFrateTitle, 10, 80);
+		font.draw(ftFrateNumber, 10, 100);
+	} else {
+		const int bottom_y = ui::playArea.y - font.getHeight(ftScoreNumber);
+		const int top_y = bottom_y - font.getHeight(ftScoreTitle);
+		const int second_x = font.getWidth(ftScoreTitle) + font.getWidth(ftScoreNumber) + 20;
+
+		font.draw(ftScoreTitle, 10, top_y);
+		font.draw(ftScoreNumber, 10, bottom_y);
+		font.draw(ftFrateTitle, second_x, top_y);
+		font.draw(ftFrateNumber, second_x, bottom_y);
+	}
 }
 
 
@@ -358,13 +375,15 @@ bool menu() {
 
 	// buttons
 	Font buttonFont(ui::fontPath->path.c_str(), 30);
-	Button playButton(buttonFont,
-	                  "Play",
-	                  {menuButtonX, menuButtonY, menuButtonWidth, menuButtonHeight}
+	Button playButton(
+		buttonFont,
+		"Play",
+		{menuButtonX, menuButtonY, menuButtonWidth, menuButtonHeight}
 	);
-	Button optionsButton(buttonFont,
-	                     "Options",
-	                     {menuButtonX + menuWidth - menuButtonWidth, menuButtonY, menuButtonWidth, menuButtonHeight}
+	Button optionsButton(
+		buttonFont,
+		"Options",
+		{menuButtonX + menuWidth - menuButtonWidth, menuButtonY, menuButtonWidth, menuButtonHeight}
 	);
 
 	// fonts
@@ -375,9 +394,9 @@ bool menu() {
 	// sliders
 	Font sliderFont(ui::fontPath->path.c_str(), 10);
 	Slider timeStepSlider(sliderFont,
-	                      ui::speedLevel,
-	                      getWindowWidth()/2 - 7*Tile::size - Tile::size/2,
-	                      menuButtonY + menuButtonHeight + 2*Tile::size
+		ui::speedLevel,
+		getWindowWidth()/2 - 7*Tile::size - Tile::size/2,
+		menuButtonY + menuButtonHeight + 2*Tile::size
 	);
 
 	// initial draw

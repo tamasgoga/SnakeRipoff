@@ -6,7 +6,18 @@
 ## PLANS ##
 - **0.8:**
   - Credit myself (bottom right on menu screen);
-  - Store highscores.
+  - Actual random place for the snake to start from;
+  - Vicinity food generation;
+  - Support multiple (hopefully any) resolutions;
+  - TTF: changeText() -> load in same place.
+- **0.9:**
+  - Sound (Old-school bleeps. Melody based on the snake's actions);
+  - Store highscores;
+  - Add notifications/warnings (like "Are you sure you want to quit?").
+- **??:**
+  - AI for the snake;
+  - Proper ending.
+
 - **1.0:**
   - Testing, bug-fixes, removing unused code.
 
@@ -16,10 +27,7 @@
   - Map editor;
   - Vicinity food generation.
 - Options:
-  - Multiple resolutions;
   - Full-screen.
-- Sound:
-  - Old-school bleeps. Melody based on the snake's actions.
 - **No more _Core_ reworks.**
 
 ## LICENSE ##
