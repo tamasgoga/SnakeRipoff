@@ -228,25 +228,28 @@ State Grid::generateFood() {
 	if (snakeSize == MAX)
 		return State::WON;
 
-	// snake is very large generate a random number within the first 30 empty spaces
-	if (snakeSize >= MAX - TILES_IN_ROW) {
-		int emptyTiles[TILES_IN_ROW];
-		int emptyTilesLength = 0;
+	int freeTileCount = MAX - snakeSize;
+	if (freeTileCount > TILES_IN_ROW) {
+		// generate a random number
+		do {
+			simpleFood = core::randomInt(rng32, 0, MAX - 1);
+		} while (grid[simpleFood].entity != Tile::NONE);
 
-		// (!) bias towards the top
-		for (int i = 0; i < MAX && emptyTilesLength < TILES_IN_ROW; ++i) {
+	} else {
+		// the snake is very large, pick one of the empty spaces
+		int emptyTiles[TILES_IN_ROW];
+		int emptyTilesCount = 0;
+
+		for (int i = 0; i < MAX; ++i) {
 			if (grid[i].entity == Tile::NONE) {
-				emptyTiles[emptyTilesLength++] = i;
+				emptyTiles[emptyTilesCount++] = i;
+
+				if (emptyTilesCount == TILES_IN_ROW)
+					break;
 			}
 		}
 
-		simpleFood = emptyTiles[core::randomInt(rng32, 0, emptyTilesLength-1)];
-
-	// generate random number
-	} else {
-		do {
-			simpleFood = core::randomInt(rng32, 0, MAX-1);
-		} while (grid[simpleFood].entity != Tile::NONE);
+		simpleFood = emptyTiles[core::randomInt(rng32, 0, emptyTilesCount - 1)];
 	}
 
 	grid[simpleFood].entity = Tile::SIMPLE_FOOD;
