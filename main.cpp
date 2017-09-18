@@ -86,7 +86,7 @@ void core::main() {
 
 	while (menu()) {
 		Game game;
-		if(!game.run())
+		if (!game.run())
 			break;
 	}
 }

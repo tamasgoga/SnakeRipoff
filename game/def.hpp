@@ -22,7 +22,7 @@
 
 #define GAME_VERSION_NAME	"Classy Folded Code"
 
-#define TILES_IN_ROW	30
+constexpr int TILES_IN_ROW = 30;
 
 extern core::Random32 rng32;
 

@@ -131,7 +131,8 @@ void Slider::handleMouse(SDL_Event& event) {
 
 	// check if mouse is inside
 	if (mx >= decButton.box.x && mx <= incButton.box.x + incButton.box.w &&
-	    my >= decButton.box.y && my <= decButton.box.y + decButton.box.h) {
+	    my >= decButton.box.y && my <= decButton.box.y + decButton.box.h)
+	{
 		mousedOver = true;
 
 		// mouse-wheel event
@@ -160,11 +161,10 @@ void Slider::draw() const {
 	int posx = decButton.box.x + 2*Tile::size;
 
 	for (int i = 0; i < level; ++i) {
-		if (mousedOver) {
+		if (mousedOver)
 			ui::gTexman->draw(ui::txSimpleFood, {posx + 1, decButton.box.y + 1, Tile::size - 2, Tile::size - 2});
-		} else {
+		else
 			ui::gTexman->draw(ui::txSnake, posx + 1, decButton.box.y + 1);
-		}
 		posx += Tile::size;
 	}
 
@@ -313,36 +313,31 @@ State Grid::advanceState() {
 	// move head
 	switch (direction) {
 	case Direction::UP:
-		if (prev < TILES_IN_ROW) {
+		if (prev < TILES_IN_ROW)
 			snake[0] = (TILES_IN_ROW - 1) * TILES_IN_ROW + prev;
-		} else {
+		else
 			snake[0] = prev - TILES_IN_ROW;
-		}
 		break;
 
 	case Direction::DOWN:
-		if (prev >= (TILES_IN_ROW - 1) * TILES_IN_ROW) {
+		if (prev >= (TILES_IN_ROW - 1) * TILES_IN_ROW)
 			snake[0] = prev % TILES_IN_ROW;
-		} else {
+		else
 			snake[0] = prev + TILES_IN_ROW;
-		}
-
 		break;
 
 	case Direction::LEFT:
-		if (prev % 30 == 0) {
+		if (prev % TILES_IN_ROW == 0)
 			snake[0] = prev + (TILES_IN_ROW - 1);
-		} else {
+		else
 			snake[0] -= 1;
-		}
 		break;
 
 	case Direction::RIGHT:
-		if (prev % 30 == 29) {
+		if (prev % TILES_IN_ROW == TILES_IN_ROW - 1)
 			snake[0] = prev - (TILES_IN_ROW - 1);
-		} else {
+		else
 			snake[0] += 1;
-		}
 		break;
 
 	default: break;
