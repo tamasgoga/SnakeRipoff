@@ -132,22 +132,36 @@ void Game::play() {
 
 	/// GAME LOGIC ///
 
+	auto oldScore = grid.getScore();
 	state = grid.advanceState();
+	auto newScore = grid.getScore();
 
 	// the score
-	if (grid.getScore() < 10) {
-		scoreText = "0000" + std::to_string(grid.getScore());
-	} else if (grid.getScore() < 100) {
-		scoreText = "000" + std::to_string(grid.getScore());
-	} else if (grid.getScore() < 1000) {
-		scoreText = "00" + std::to_string(grid.getScore());
-	} else if (grid.getScore() < 10000) {
-		scoreText = "0" + std::to_string(grid.getScore());
-	} else {
-		scoreText = std::to_string(grid.getScore());
+	if (newScore < 10)
+		scoreText = "0000" + std::to_string(newScore);
+	else if (newScore < 100)
+		scoreText = "000" + std::to_string(newScore);
+	else if (newScore < 1000)
+		scoreText = "00" + std::to_string(newScore);
+	else if (newScore < 10000)
+		scoreText = "0" + std::to_string(newScore);
+	else
+		scoreText = std::to_string(newScore);
+
+	// pulse score color if increased
+	static core::SimpleTimer pulseTimer;
+	const SDL_Color* color = &ui::WHITE;
+
+	if (state == State::PLAYING) {
+		if (newScore > oldScore) {
+			pulseTimer.reset();
+			color = &ui::BLUE;
+		} else if (pulseTimer.elapsed_ms().count() <= 70) {
+			color = &ui::BLUE;
+		}
 	}
 
-	font.changeText(ftScoreNumber, scoreText, ui::WHITE);
+	font.changeText(ftScoreNumber, scoreText, *color);
 	font.changeText(ftFrateNumber, std::to_string(timeStep), ui::WHITE);
 
 	/// RENDERING ///
@@ -275,6 +289,8 @@ void Game::drawGrid() {
 
 
 void Game::drawGameOver() {
+	font.changeText(ftScoreNumber, scoreText, ui::WHITE);
+
 	texman.draw(txBlackOverlay, 0, 0);
 	font.draw(ftGameOver, midFtGameOver_w, midFtGameOver_h);
 	font.draw(ftScoreNumber, midFtScoreNumber_w, midFtScoreNumber_h);

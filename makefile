@@ -11,6 +11,8 @@ SOURCES = $(CORE_SRC) $(GAME_SRC)
 
 SDL = -lSDL2 -lSDL2_image -lSDL2_ttf
 
+all: clang
+	date +"%nCompiled on: %A, %T (%Y %b %d)"
 
 clang: $(SOURCES)
 	$(COMPILER) $(WARNINGS) -o $(NAME) $(SOURCES) $(SDL)
