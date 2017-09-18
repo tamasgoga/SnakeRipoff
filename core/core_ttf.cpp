@@ -28,22 +28,22 @@ namespace core {
 
 	texindex Font::loadText(const std::string& text, const SDL_Color& color) {
 		//Render text surface
-	    SDL_Surface* surface = TTF_RenderText_Solid(font, text.c_str(), color);
-	    if(surface == nullptr) {
-	    	throw LoadingFailure("Failed to create text surface: \"" + text + "\" (RGB: " + std::to_string(color.r) + " "
-	    	                     + std::to_string(color.g) + " " + std::to_string(color.b) + ")");
-	    }
+		SDL_Surface* surface = TTF_RenderText_Solid(font, text.c_str(), color);
+		if(surface == nullptr) {
+			throw LoadingFailure("Failed to create text surface: \"" + text + "\" (RGB: " + std::to_string(color.r) + " "
+			                     + std::to_string(color.g) + " " + std::to_string(color.b) + ")");
+		}
 
-        texindex index;
-        try {
-        	index = texman.create(surface);
-        } catch (...) {
-        	SDL_FreeSurface(surface);
-        	throw;
-        }
+		texindex index;
+		try {
+			index = texman.create(surface);
+		} catch (...) {
+			SDL_FreeSurface(surface);
+			throw;
+		}
 
-        SDL_FreeSurface(surface);
-        return index;
+		SDL_FreeSurface(surface);
+		return index;
 	}
 
 

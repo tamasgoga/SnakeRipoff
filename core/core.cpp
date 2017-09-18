@@ -244,9 +244,8 @@ static bool init_env() noexcept {
 
 int main(int argc, char** argv) {
 	// user's init
-	if (!core::init()) {
+	if (!core::init())
 		return -1;
-	}
 
 	// application directory path
 	appDir = SDL_GetBasePath();
@@ -257,12 +256,10 @@ int main(int argc, char** argv) {
 
 	// save directory path
 	if (::shouldCreateSaveDir) {
-		if (devName == nullptr) {
+		if (devName == nullptr)
 			core::errorMessage("Developer name not specified, use core::setAppInfo().");
-		}
-		if (appName == nullptr) {
+		if (appName == nullptr)
 			core::errorMessage("Application name not specified, use core::setAppInfo().");
-		}
 
 		saveDir = SDL_GetPrefPath(devName, appName);
 		if (saveDir == nullptr) {
@@ -276,14 +273,13 @@ int main(int argc, char** argv) {
 			core::args.push_back((const char*) argv[i]);
 
 			// handle "nocore"
-			if (core::args[i].compare("nocore") == 0) {
+			if (core::args[i].compare("nocore") == 0)
 				::run_core = false;
-			}
 		}
 
 		// init & run engine
 		if (::run_core) {
-			if(::init_env())
+			if (::init_env())
 				core::main();
 		// run nocore function
 		} else if (::nocorefn != nullptr) {

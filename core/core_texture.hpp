@@ -17,7 +17,7 @@ struct SDL_Surface;
 namespace core {
 
 	/** Non-inheritable random access container.
-		Manages the lifetime (owns) any number of textures limited by memory. */
+	    Manages the lifetime (owns) any number of textures limited by memory. */
 	class Texman {
 	public:
 		/** Holds information about a texture. Not very useful on it's own. */
@@ -43,10 +43,10 @@ namespace core {
 		/** Construction & destruction */
 		Texman() noexcept;
 		~Texman();
-		Texman(const Texman&)				= delete;  // copying and moving is forbidden
-		Texman(Texman&&)					= delete;
-		Texman& operator=(const Texman&)	= delete;
-		Texman& operator=(Texman&&)			= delete;
+		Texman(const Texman&)               = delete;  // copying and moving is forbidden
+		Texman(Texman&&)                    = delete;
+		Texman& operator=(const Texman&)    = delete;
+		Texman& operator=(Texman&&)         = delete;
 
 
 		/** Loading operations THROW:

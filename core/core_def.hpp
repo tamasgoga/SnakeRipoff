@@ -6,8 +6,8 @@
 //------------------------------------------------------------
 
 
-#define CORE_PROTOTYPE			// undefined functions
-#define CORE_INIT				// functions that should be called in core::init()
+#define CORE_PROTOTYPE          // undefined functions
+#define CORE_INIT               // functions that should be called in core::init()
 
 
 #ifndef CORE_NO_TYPE_ABBREVIATIONS
@@ -22,13 +22,13 @@ using ulong = unsigned long int;
 namespace core {
 
 	/** Represents the error code returned by Core & SDL calls.
-		The error message can be reached reached by calling errorMessage calls.
-		Interchangeable with int.
+	    The error message can be reached reached by calling errorMessage calls.
+	    Interchangeable with int.
 
-		Meaning:
-		  - 0: success;
-		  - negative: SDL errors;
-		  - positive: Core errors. */
+	    Meaning:
+	      - 0: success;
+	      - negative: SDL errors;
+	      - positive: Core errors. */
 	using error = int;
 
 }

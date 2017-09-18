@@ -69,6 +69,3 @@ namespace core {
 	}
 
 } // namespace core
-
-
-
