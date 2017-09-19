@@ -15,6 +15,7 @@ inline int calculateTimeStep() {
 }
 
 
+/* I don't advise instantiating more than 1 of this */
 class Game {
 public:
 	/** Constructor */

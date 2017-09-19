@@ -1,5 +1,35 @@
 #include "game.hpp"
 
+
+/** Get a lighter or darker (factor < 0) shade of a color
+    Doesn't change the alpha */
+static SDL_Color tint(const SDL_Color& color, float factor) {
+	bool lighten = true;
+
+	if (factor < 0) {
+		lighten = false;
+		factor = -factor;
+	}
+
+	if (lighten) {
+		return {
+			uint8_t(color.r + (255 - color.r) * factor),
+			uint8_t(color.g + (255 - color.g) * factor),
+			uint8_t(color.b + (255 - color.b) * factor),
+			color.a
+		};
+	}
+
+	factor = 1.f + factor;
+	return {
+		uint8_t(color.r * factor),
+		uint8_t(color.g * factor),
+		uint8_t(color.b * factor),
+		color.a
+	};
+}
+
+
 //--------------------------------------------------------------
 // Class: Game
 //--------------------------------------------------------------
@@ -160,7 +190,12 @@ void Game::play() {
 
 	// pulse score color if increased
 	static core::SimpleTimer pulseTimer;
-	static bool isPulsing = false;
+	static auto pulseColor = tint(ui::BLUE, -0.3);
+	static std::string pulseText;
+
+	constexpr static uint8_t PULSE_AMPL_MAX  = 255;
+	constexpr static uint8_t PULSE_AMPL_STEP = 40;
+	static uint8_t pulseAmpl = 0;
 
 	auto oldScore = grid.getScore();
 	state = grid.advanceState();
@@ -168,13 +203,16 @@ void Game::play() {
 
 	// the score
 	if (newScore != oldScore) {
-		font.changeText(ftScoreNumberOverlay, set5DigitNum(scoreText, newScore), (newScore > oldScore ? ui::BLUE : ui::RED));
+		pulseAmpl = PULSE_AMPL_MAX;
+		pulseText = set5DigitNum(scoreText, newScore);
+		font.changeText(ftScoreNumberOverlay, pulseText, pulseColor);
+		font.setAlphaMod(ftScoreNumberOverlay, pulseAmpl);
 		font.changeText(ftScoreNumber, scoreText, ui::WHITE);
 		pulseTimer.reset();
-		isPulsing = true;
-	} else if (isPulsing && pulseTimer.elapsed_ms().count() > 200) {
-		font.changeText(ftScoreNumberOverlay, "     ", ui::BLUE);
-		isPulsing = false;
+	} else if (pulseAmpl >= PULSE_AMPL_STEP && pulseTimer.elapsed_ms().count() > 50) {
+		pulseAmpl -= PULSE_AMPL_STEP;
+		font.setAlphaMod(ftScoreNumberOverlay, pulseAmpl);
+		pulseTimer.reset();
 	}
 
 	font.changeText(ftFrateNumber, std::to_string(timeStep), ui::WHITE);
@@ -182,7 +220,7 @@ void Game::play() {
 	/// RENDERING ///
 
 	clearDisplay();
-	drawGrid(isPulsing);
+	drawGrid(pulseAmpl >= PULSE_AMPL_STEP);
 	ui::quitButton->draw();
 	updateDisplay();
 }
@@ -191,14 +229,18 @@ void Game::play() {
 void Game::pause() {
 	using namespace core;
 
-	clearDisplay();
-	drawGrid();
+	auto render = [this] () {
+		clearDisplay();
 
-	texman.draw(txBlackOverlay, 0, 0);
-	font.draw(ftPaused, midFtPaused_w, midFtPaused_h);
+		this->drawGrid();
+		this->texman.draw(txBlackOverlay, 0, 0);
+		this->font.draw(ftPaused, midFtPaused_w, midFtPaused_h);
+		ui::quitButton->draw();
 
-	ui::quitButton->draw();
-	updateDisplay();
+		updateDisplay();
+	};
+
+	render();
 
 	while (SDL_WaitEvent(&event)) {
 		switch (event.type) {
@@ -226,15 +268,7 @@ void Game::pause() {
 			return;
 		}
 
-		clearDisplay();
-
-		drawGrid();
-
-		texman.draw(txBlackOverlay, 0, 0);
-		font.draw(ftPaused, midFtPaused_w, midFtPaused_h);
-
-		ui::quitButton->draw();
-		updateDisplay();
+		render();
 	}
 }
 
