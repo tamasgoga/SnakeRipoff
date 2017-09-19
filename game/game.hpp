@@ -45,6 +45,7 @@ private:
 	// fonts
 	core::texindex ftScoreTitle;
 	core::texindex ftScoreNumber;
+	core::texindex ftScoreNumberOverlay;
 	core::texindex ftFrateTitle;
 	core::texindex ftFrateNumber;
 	core::texindex ftPaused;
@@ -60,7 +61,7 @@ private:
 	void endGame();
 
 	// draw
-	void drawGrid();
+	void drawGrid(bool scoreChanged = false);
 	void drawGameOver();
 
 	// animations

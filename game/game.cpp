@@ -6,7 +6,12 @@
 
 
 Game::Game()
-	: grid(), texman(), font(ui::fontPath->path.c_str(), 20), scoreText("00000"), clock(true), state(State::PLAYING)
+	: grid()
+	, texman()
+	, font(ui::fontPath->path.c_str(), 20)
+	, scoreText("00000")
+	, clock(true)
+	, state(State::PLAYING)
 {
 	using namespace core;
 
@@ -19,6 +24,7 @@ Game::Game()
 
 	ftScoreTitle = font.loadText("SCORE", ui::WHITE);
 	ftScoreNumber = font.loadText(scoreText, ui::WHITE);
+	ftScoreNumberOverlay = font.loadText("     ", ui::BLUE);
 	ftFrateTitle = font.loadText("TSTEP", ui::WHITE);
 	ftFrateNumber = font.loadText("?", ui::WHITE);
 	ftPaused = font.loadText("PAUSED", ui::WHITE);
@@ -80,6 +86,26 @@ bool Game::run() {
 }
 
 
+/** Changes num in place, and returns a string containing the digits where they changed and spaces otherwise
+    Sample return value: " 5 12"
+    Assumes that num.size() is at least 5 */
+static std::string set5DigitNum(std::string& num, int value) {
+	auto changed = std::string("     ");
+	value = std::abs(value);
+
+	for (int i = 4; i >= 0; --i) {
+		auto digit = static_cast<char>('0' + (value % 10));
+
+		if (num[i] != digit)
+			num[i] = changed[i] = digit;
+
+		value /= 10;
+	}
+
+	return changed;
+}
+
+
 void Game::play() {
 	using namespace core;
 
@@ -132,42 +158,31 @@ void Game::play() {
 
 	/// GAME LOGIC ///
 
+	// pulse score color if increased
+	static core::SimpleTimer pulseTimer;
+	static bool isPulsing = false;
+
 	auto oldScore = grid.getScore();
 	state = grid.advanceState();
 	auto newScore = grid.getScore();
 
 	// the score
-	if (newScore < 10)
-		scoreText = "0000" + std::to_string(newScore);
-	else if (newScore < 100)
-		scoreText = "000" + std::to_string(newScore);
-	else if (newScore < 1000)
-		scoreText = "00" + std::to_string(newScore);
-	else if (newScore < 10000)
-		scoreText = "0" + std::to_string(newScore);
-	else
-		scoreText = std::to_string(newScore);
-
-	// pulse score color if increased
-	static core::SimpleTimer pulseTimer;
-	const SDL_Color* color = &ui::WHITE;
-
-	if (state == State::PLAYING) {
-		if (newScore > oldScore) {
-			pulseTimer.reset();
-			color = &ui::BLUE;
-		} else if (pulseTimer.elapsed_ms().count() <= 70) {
-			color = &ui::BLUE;
-		}
+	if (newScore != oldScore) {
+		font.changeText(ftScoreNumberOverlay, set5DigitNum(scoreText, newScore), (newScore > oldScore ? ui::BLUE : ui::RED));
+		font.changeText(ftScoreNumber, scoreText, ui::WHITE);
+		pulseTimer.reset();
+		isPulsing = true;
+	} else if (isPulsing && pulseTimer.elapsed_ms().count() > 200) {
+		font.changeText(ftScoreNumberOverlay, "     ", ui::BLUE);
+		isPulsing = false;
 	}
 
-	font.changeText(ftScoreNumber, scoreText, *color);
 	font.changeText(ftFrateNumber, std::to_string(timeStep), ui::WHITE);
 
 	/// RENDERING ///
 
 	clearDisplay();
-	drawGrid();
+	drawGrid(isPulsing);
 	ui::quitButton->draw();
 	updateDisplay();
 }
@@ -266,13 +281,15 @@ void Game::endGame() {
 }
 
 
-void Game::drawGrid() {
+void Game::drawGrid(bool scoreChanged) {
 	grid.draw();
 	core::drawRect(ui::playArea, ui::WHITE.r, ui::WHITE.g, ui::WHITE.g);
 
 	if (core::getWindowWidth() >= core::getWindowHeight()) {
 		font.draw(ftScoreTitle, 10, 10);
 		font.draw(ftScoreNumber, 10, 30);
+		if (scoreChanged)
+			font.draw(ftScoreNumberOverlay, 10, 30);
 		font.draw(ftFrateTitle, 10, 80);
 		font.draw(ftFrateNumber, 10, 100);
 	} else {
@@ -282,6 +299,8 @@ void Game::drawGrid() {
 
 		font.draw(ftScoreTitle, 10, top_y);
 		font.draw(ftScoreNumber, 10, bottom_y);
+		if (scoreChanged)
+			font.draw(ftScoreNumberOverlay, 10, bottom_y);
 		font.draw(ftFrateTitle, second_x, top_y);
 		font.draw(ftFrateNumber, second_x, bottom_y);
 	}
