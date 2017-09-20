@@ -30,6 +30,61 @@ static SDL_Color tint(const SDL_Color& color, float factor) {
 }
 
 
+/** Changes num in place, and returns a string containing the digits where they changed and spaces otherwise
+    Sample return value: " 5 12"
+    Assumes that num.size() is at least 5 */
+static std::string set5DigitNum(std::string& num, int value) {
+	auto changed = std::string("     ");
+	value = std::abs(value);
+
+	for (int i = 4; i >= 0; --i) {
+		auto digit = static_cast<char>('0' + (value % 10));
+
+		if (num[i] != digit)
+			num[i] = changed[i] = digit;
+
+		value /= 10;
+	}
+
+	return changed;
+}
+
+
+//--------------------------------------------------------------
+// Class: Game
+//--------------------------------------------------------------
+
+
+Pulse::Pulse(uint64_t max, uint64_t initDecay, tstep_t timeStep)
+	: max(max)
+	, initDecay(initDecay)
+	, timeStep(timeStep)
+	, decay(initDecay)
+	, value(0)
+	, timer(true)
+{;}
+
+
+void Pulse::reset() {
+	value = max;
+	decay = initDecay;
+	timer.reset();
+}
+
+
+uint64_t Pulse::get() {
+	uint64_t decrease = decay * (timer.elapsed_ms().count() / timeStep);
+
+	if (decrease > 0) {
+		decay += (decay >> 2);
+		value = value >= decrease ? value - decrease : 0;
+		timer.reset();
+	}
+
+	return value;
+}
+
+
 //--------------------------------------------------------------
 // Class: Game
 //--------------------------------------------------------------
@@ -116,26 +171,6 @@ bool Game::run() {
 }
 
 
-/** Changes num in place, and returns a string containing the digits where they changed and spaces otherwise
-    Sample return value: " 5 12"
-    Assumes that num.size() is at least 5 */
-static std::string set5DigitNum(std::string& num, int value) {
-	auto changed = std::string("     ");
-	value = std::abs(value);
-
-	for (int i = 4; i >= 0; --i) {
-		auto digit = static_cast<char>('0' + (value % 10));
-
-		if (num[i] != digit)
-			num[i] = changed[i] = digit;
-
-		value /= 10;
-	}
-
-	return changed;
-}
-
-
 void Game::play() {
 	using namespace core;
 
@@ -189,30 +224,24 @@ void Game::play() {
 	/// GAME LOGIC ///
 
 	// pulse score color if increased
-	static core::SimpleTimer pulseTimer;
+	static Pulse scoreHighlight(255, 40, 50);
 	static auto pulseColor = tint(ui::BLUE, -0.3);
-	static std::string pulseText;
-
-	constexpr static uint8_t PULSE_AMPL_MAX  = 255;
-	constexpr static uint8_t PULSE_AMPL_STEP = 40;
-	static uint8_t pulseAmpl = 0;
 
 	auto oldScore = grid.getScore();
 	state = grid.advanceState();
 	auto newScore = grid.getScore();
 
 	// the score
+	bool redrawScoreHighlight = false;
 	if (newScore != oldScore) {
-		pulseAmpl = PULSE_AMPL_MAX;
-		pulseText = set5DigitNum(scoreText, newScore);
-		font.changeText(ftScoreNumberOverlay, pulseText, pulseColor);
-		font.setAlphaMod(ftScoreNumberOverlay, pulseAmpl);
+		font.changeText(ftScoreNumberOverlay, set5DigitNum(scoreText, newScore), pulseColor);
+		font.setAlphaMod(ftScoreNumberOverlay, scoreHighlight.max);
 		font.changeText(ftScoreNumber, scoreText, ui::WHITE);
-		pulseTimer.reset();
-	} else if (pulseAmpl >= PULSE_AMPL_STEP && pulseTimer.elapsed_ms().count() > 50) {
-		pulseAmpl -= PULSE_AMPL_STEP;
-		font.setAlphaMod(ftScoreNumberOverlay, pulseAmpl);
-		pulseTimer.reset();
+		redrawScoreHighlight = true;
+		scoreHighlight.reset();
+	} else if (scoreHighlight.pulsed()) {
+		redrawScoreHighlight = true;
+		font.setAlphaMod(ftScoreNumberOverlay, scoreHighlight.get());
 	}
 
 	font.changeText(ftFrateNumber, std::to_string(timeStep), ui::WHITE);
@@ -220,7 +249,7 @@ void Game::play() {
 	/// RENDERING ///
 
 	clearDisplay();
-	drawGrid(pulseAmpl >= PULSE_AMPL_STEP);
+	drawGrid(redrawScoreHighlight);
 	ui::quitButton->draw();
 	updateDisplay();
 }
@@ -229,18 +258,14 @@ void Game::play() {
 void Game::pause() {
 	using namespace core;
 
-	auto render = [this] () {
-		clearDisplay();
+	clearDisplay();
 
-		this->drawGrid();
-		this->texman.draw(txBlackOverlay, 0, 0);
-		this->font.draw(ftPaused, midFtPaused_w, midFtPaused_h);
-		ui::quitButton->draw();
+	drawGrid();
+	texman.draw(txBlackOverlay, 0, 0);
+	font.draw(ftPaused, midFtPaused_w, midFtPaused_h);
+	ui::quitButton->draw();
 
-		updateDisplay();
-	};
-
-	render();
+	updateDisplay();
 
 	while (SDL_WaitEvent(&event)) {
 		switch (event.type) {
@@ -268,7 +293,14 @@ void Game::pause() {
 			return;
 		}
 
-		render();
+		clearDisplay();
+
+		drawGrid();
+		texman.draw(txBlackOverlay, 0, 0);
+		font.draw(ftPaused, midFtPaused_w, midFtPaused_h);
+		ui::quitButton->draw();
+
+		updateDisplay();
 	}
 }
 
@@ -277,8 +309,10 @@ void Game::endGame() {
 	using namespace core;
 
 	clearDisplay();
+
 	drawGameOver();
 	ui::quitButton->draw();
+
 	updateDisplay();
 
 	while (SDL_WaitEvent(&event)) {
@@ -308,8 +342,10 @@ void Game::endGame() {
 		}
 
 		clearDisplay();
+
 		drawGameOver();
 		ui::quitButton->draw();
+
 		updateDisplay();
 	}
 }
@@ -317,7 +353,7 @@ void Game::endGame() {
 
 void Game::drawGrid(bool scoreChanged) {
 	grid.draw();
-	core::drawRect(ui::playArea, ui::WHITE.r, ui::WHITE.g, ui::WHITE.g);
+	core::drawRect(ui::playArea, ui::WHITE.r, ui::WHITE.g, ui::WHITE.b);
 
 	if (core::getWindowWidth() >= core::getWindowHeight()) {
 		font.draw(ftScoreTitle, 10, 10);
@@ -369,7 +405,7 @@ void Game::flashScreenAndDelay() {
 
 	// a bit of delay (for good measure)
 	clock.reset();
-	while (clock.elapsed_ms().count() < 500)
+	while (clock.elapsed_ms().count() < 1000)
 		; // yup, nothing should happen here
 }
 
