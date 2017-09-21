@@ -5,7 +5,8 @@
 
 ## ROADMAP ##
 - **0.8:**
-  - Credit myself (bottom right on menu screen);
+  - ~~Credit myself (bottom right on menu screen);~~
+  - Reorganize, split files in `game/`;
   - Support multiple (hopefully any) resolutions;
   - ~~TTF: changeText() -> load in same place~~ -- _it already works like that_;
   - Effects when:

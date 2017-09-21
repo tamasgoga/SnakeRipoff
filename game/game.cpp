@@ -240,7 +240,6 @@ void Game::play() {
 	}
 
 	/// RENDERING ///
-
 	bool hasScoreHighlChanged = scoreHighlight.hasPulsed();
 
 	if (hasTicked || hasScoreHighlChanged) {
@@ -498,26 +497,37 @@ bool menu() {
 	Font smallFont(ui::fontPath->path.c_str(), 15);
 	auto ftVersion = smallFont.loadText("Version: " + std::to_string(GAME_VERSION_MAJOR) + "." + std::to_string(GAME_VERSION_MINOR)
 	                                    + "." + std::to_string(GAME_VERSION_BUILD) + " " + GAME_VERSION_NAME, ui::RED);
+	auto ftCredits = smallFont.loadText("by Goga Tamas", ui::RED);
+
+	const int credit_posx = getWindowWidth() - smallFont.getWidth(ftCredits) - 5;
+	const int credit_posy = getWindowHeight() - smallFont.getHeight(ftCredits) - 5;
 
 	// sliders
 	Font sliderFont(ui::fontPath->path.c_str(), 10);
-	Slider timeStepSlider(sliderFont,
+	Slider timeStepSlider(
+		sliderFont,
 		ui::speedLevel,
 		getWindowWidth()/2 - 7*Tile::size - Tile::size/2,
 		menuButtonY + menuButtonHeight + 2*Tile::size
 	);
 
+	// draw the menu
+	auto render = [&] () {
+		clearDisplay();
+
+		ui::gTexman->draw(ui::txTitle, title_posx, title_posy);
+		playButton.draw();
+		optionsButton.draw();
+		smallFont.draw(ftVersion, 5, 5);
+		smallFont.draw(ftCredits, credit_posx, credit_posy);
+		timeStepSlider.draw();
+		ui::quitButton->draw();
+
+		updateDisplay();
+	};
+
 	// initial draw
-	clearDisplay();
-	ui::gTexman->draw(ui::txTitle, title_posx, title_posy);
-
-	playButton.draw();
-	optionsButton.draw();
-	smallFont.draw(ftVersion, 5, 5);
-	timeStepSlider.draw();
-
-	ui::quitButton->draw();
-	updateDisplay();
+	render();
 
 	// event & draw loop
 	while (SDL_WaitEvent(&menuEvent)) {
@@ -557,17 +567,7 @@ bool menu() {
 		if (ui::quitButton->isState(Button::CLICKED))
 			return false;
 
-		// draw
-		clearDisplay();
-		ui::gTexman->draw(ui::txTitle, title_posx, title_posy);
-
-		playButton.draw();
-		optionsButton.draw();
-		smallFont.draw(ftVersion, 5, 5);
-		timeStepSlider.draw();
-
-		ui::quitButton->draw();
-		updateDisplay();
+		render();
 	}
 
 	throw Failure("menu() ended at end of function (should NEVER happen)");
