@@ -1,4 +1,4 @@
-**Snake** clone, by _Goga Tamas_.
+[Snake](https://en.wikipedia.org/wiki/Snake_(video_game) "Wikipedia article") clone, by _Goga Tamas_.
 
 ## BUGS ##
 1. **Bug at button removal** (working now, but in a hacky way). Check commented out ~Button in `game/entities.hpp, line 47`.
@@ -24,7 +24,7 @@
   - Proper ending.
 
 - **1.0:**
-  - Testing, bug-fixes, removing unused code.
+  - Test, fix bugs, remove unused code...
 
 ## FUTURE IDEAS ##
 - Gameplay:
