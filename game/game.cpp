@@ -97,7 +97,7 @@ Game::Game()
 	, scoreText("00000")
 	, clock(true)
 	, state(State::PLAYING)
-	, scoreHighlight(255, 5, 20)
+	, scoreHighlight(255, 5, 25)
 	, scoreHighlightColor(tint(ui::BLUE, -0.3))
 {
 	using namespace core;
