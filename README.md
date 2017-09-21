@@ -6,8 +6,6 @@
 ## ROADMAP ##
 - **0.8:**
   - Credit myself (bottom right on menu screen);
-  - Actual random place for the snake to start from;
-  - Vicinity food generation;
   - Support multiple (hopefully any) resolutions;
   - ~~TTF: changeText() -> load in same place~~ -- _it already works like that_;
   - Effects when:
@@ -16,10 +14,12 @@
   - Gameplay: speed up over time (this completes classic mode).
 - **0.9:**
   - Endless mode with events and powerups;
+  - Vicinity food generation;
   - Sound (Old-school bleeps. Melody based on the snake's actions);
   - Store highscores;
   - Add notifications/warnings (like "Are you sure you want to quit?").
 - **??:**
+  - Actual random place for the snake to start from;
   - AI for the snake;
   - Proper ending.
 
