@@ -14,6 +14,7 @@
   - Gameplay: speed up over time (this completes classic mode).
 - **0.9:**
   - Endless mode with events and powerups;
+  - Wall tiles;
   - Vicinity food generation;
   - Sound (Old-school bleeps. Melody based on the snake's actions);
   - Store highscores;
@@ -23,20 +24,14 @@
   - AI for the snake;
   - Proper ending.
 
-- **1.0:**
-  - Test, fix bugs, remove unused code...
-
 ## FUTURE IDEAS ##
 - Gameplay:
-  - Wall tiles;
-  - Map editor;
-  - Vicinity food generation.
+  - Map editor.
 - Options:
   - Full-screen.
 - **No more _Core_ reworks.**
 
 ## LICENSE ##
-
 > **All right reserved**, until I choose a license (something open-source, like MIT, most probably).
 
 ## CHANGELOG ##
