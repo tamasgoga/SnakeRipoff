@@ -9,7 +9,7 @@
   - Actual random place for the snake to start from;
   - Vicinity food generation;
   - Support multiple (hopefully any) resolutions;
-  - ~~TTF: changeText() -> load in same place~~ -> it already works like that;
+  - ~~TTF: changeText() -> load in same place~~ -- _it already works like that_;
   - Effects when:
     - ~~The snake eats food;~~
     - Game speed increases;
