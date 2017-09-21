@@ -10,7 +10,9 @@
   - Vicinity food generation;
   - Support multiple (hopefully any) resolutions;
   - TTF: changeText() -> load in same place;
-  - Effects when snake eats food & other actions;
+  - Effects when:
+    - ~~The snake eats food;~~
+    - Game speed increases;
   - Gameplay: speed up over time.
 - **0.9:**
   - Sound (Old-school bleeps. Melody based on the snake's actions);
