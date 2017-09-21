@@ -29,8 +29,12 @@ public:
 	void reset();
 	uint64_t get();
 
-	inline bool pulsed() {
+	inline bool hasPulsed() {
 		return (value > 0) && (timer.elapsed_ms().count() / timeStep > 0);
+	}
+
+	inline bool isActive() {
+		return value > 0;
 	}
 
 private:

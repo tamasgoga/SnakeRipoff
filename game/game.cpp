@@ -216,42 +216,44 @@ void Game::play() {
 		return;
 	}
 
-	// skip the rest, unless reached time-step (or first)
-	if (clock.elapsed_ms().count() < timeStep)
-		return;
-	clock.reset();
-
-	/// GAME LOGIC ///
-
 	// pulse score color if increased
 	static Pulse scoreHighlight(255, 40, 50);
 	static auto pulseColor = tint(ui::BLUE, -0.3);
 
-	auto oldScore = grid.getScore();
-	state = grid.advanceState();
-	auto newScore = grid.getScore();
+	/// GAME LOGIC ///
 
-	// the score
-	bool redrawScoreHighlight = false;
-	if (newScore != oldScore) {
-		font.changeText(ftScoreNumberOverlay, set5DigitNum(scoreText, newScore), pulseColor);
-		font.setAlphaMod(ftScoreNumberOverlay, scoreHighlight.max);
-		font.changeText(ftScoreNumber, scoreText, ui::WHITE);
-		redrawScoreHighlight = true;
-		scoreHighlight.reset();
-	} else if (scoreHighlight.pulsed()) {
-		redrawScoreHighlight = true;
-		font.setAlphaMod(ftScoreNumberOverlay, scoreHighlight.get());
+	bool hasTicked = clock.elapsed_ms().count() >= timeStep;
+
+	if (hasTicked) {
+		clock.reset();
+
+		auto oldScore = grid.getScore();
+		state = grid.advanceState();
+		auto newScore = grid.getScore();
+
+		// the score
+		if (newScore != oldScore) {
+			font.changeText(ftScoreNumberOverlay, set5DigitNum(scoreText, newScore), pulseColor);
+			font.changeText(ftScoreNumber, scoreText, ui::WHITE);
+			scoreHighlight.reset();
+		}
+
+		font.changeText(ftFrateNumber, std::to_string(timeStep), ui::WHITE);
 	}
-
-	font.changeText(ftFrateNumber, std::to_string(timeStep), ui::WHITE);
 
 	/// RENDERING ///
 
-	clearDisplay();
-	drawGrid(redrawScoreHighlight);
-	ui::quitButton->draw();
-	updateDisplay();
+	bool hasScoreHighlChanged = scoreHighlight.hasPulsed();
+
+	if (hasTicked || hasScoreHighlChanged) {
+		if (hasScoreHighlChanged)
+			font.setAlphaMod(ftScoreNumberOverlay, scoreHighlight.get());
+
+		clearDisplay();
+		drawGrid(scoreHighlight.isActive());
+		ui::quitButton->draw();
+		updateDisplay();
+	}
 }
 
 
