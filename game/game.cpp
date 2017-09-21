@@ -97,6 +97,8 @@ Game::Game()
 	, scoreText("00000")
 	, clock(true)
 	, state(State::PLAYING)
+	, scoreHighlight(255, 5, 20)
+	, scoreHighlightColor(tint(ui::BLUE, -0.3))
 {
 	using namespace core;
 
@@ -109,7 +111,7 @@ Game::Game()
 
 	ftScoreTitle = font.loadText("SCORE", ui::WHITE);
 	ftScoreNumber = font.loadText(scoreText, ui::WHITE);
-	ftScoreNumberOverlay = font.loadText("     ", ui::BLUE);
+	ftScoreNumberHighlight = font.loadText("     ", ui::BLUE);
 	ftFrateTitle = font.loadText("TSTEP", ui::WHITE);
 	ftFrateNumber = font.loadText("?", ui::WHITE);
 	ftPaused = font.loadText("PAUSED", ui::WHITE);
@@ -216,10 +218,6 @@ void Game::play() {
 		return;
 	}
 
-	// pulse score color if increased
-	static Pulse scoreHighlight(255, 40, 50);
-	static auto pulseColor = tint(ui::BLUE, -0.3);
-
 	/// GAME LOGIC ///
 
 	bool hasTicked = clock.elapsed_ms().count() >= timeStep;
@@ -233,7 +231,7 @@ void Game::play() {
 
 		// the score
 		if (newScore != oldScore) {
-			font.changeText(ftScoreNumberOverlay, set5DigitNum(scoreText, newScore), pulseColor);
+			font.changeText(ftScoreNumberHighlight, set5DigitNum(scoreText, newScore), scoreHighlightColor);
 			font.changeText(ftScoreNumber, scoreText, ui::WHITE);
 			scoreHighlight.reset();
 		}
@@ -247,10 +245,10 @@ void Game::play() {
 
 	if (hasTicked || hasScoreHighlChanged) {
 		if (hasScoreHighlChanged)
-			font.setAlphaMod(ftScoreNumberOverlay, scoreHighlight.get());
+			font.setAlphaMod(ftScoreNumberHighlight, scoreHighlight.get());
 
 		clearDisplay();
-		drawGrid(scoreHighlight.isActive());
+		drawGrid();
 		ui::quitButton->draw();
 		updateDisplay();
 	}
@@ -353,15 +351,18 @@ void Game::endGame() {
 }
 
 
-void Game::drawGrid(bool scoreChanged) {
+void Game::drawGrid() {
 	grid.draw();
 	core::drawRect(ui::playArea, ui::WHITE.r, ui::WHITE.g, ui::WHITE.b);
+
+	// scale highlight
+	// 1.f + 0.001f * (scoreHighlight.max - scoreHighlight.get())
 
 	if (core::getWindowWidth() >= core::getWindowHeight()) {
 		font.draw(ftScoreTitle, 10, 10);
 		font.draw(ftScoreNumber, 10, 30);
-		if (scoreChanged)
-			font.draw(ftScoreNumberOverlay, 10, 30);
+		if (scoreHighlight.isActive())
+			font.draw(ftScoreNumberHighlight, 10, 30);
 		font.draw(ftFrateTitle, 10, 80);
 		font.draw(ftFrateNumber, 10, 100);
 	} else {
@@ -371,8 +372,8 @@ void Game::drawGrid(bool scoreChanged) {
 
 		font.draw(ftScoreTitle, 10, top_y);
 		font.draw(ftScoreNumber, 10, bottom_y);
-		if (scoreChanged)
-			font.draw(ftScoreNumberOverlay, 10, bottom_y);
+		if (scoreHighlight.isActive())
+			font.draw(ftScoreNumberHighlight, 10, bottom_y);
 		font.draw(ftFrateTitle, second_x, top_y);
 		font.draw(ftFrateNumber, second_x, bottom_y);
 	}

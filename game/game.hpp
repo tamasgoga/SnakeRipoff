@@ -62,9 +62,15 @@ private:
 	// general variables
 	std::string scoreText;
 
-	// management
+	// management 1
 	core::SimpleTimer clock;
 	State state;
+
+	// text pulses
+	Pulse scoreHighlight;
+	SDL_Color scoreHighlightColor;
+
+	// management 2
 	int timeStep;
 	SDL_Event event;
 
@@ -75,7 +81,7 @@ private:
 	// fonts
 	core::texindex ftScoreTitle;
 	core::texindex ftScoreNumber;
-	core::texindex ftScoreNumberOverlay;
+	core::texindex ftScoreNumberHighlight;
 	core::texindex ftFrateTitle;
 	core::texindex ftFrateNumber;
 	core::texindex ftPaused;
@@ -91,7 +97,7 @@ private:
 	void endGame();
 
 	// draw
-	void drawGrid(bool scoreChanged = false);
+	void drawGrid();
 	void drawGameOver();
 
 	// animations
