@@ -90,34 +90,3 @@ void core::main() {
 			break;
 	}
 }
-
-
-//--------------------------------------------------------------
-// Version history
-//--------------------------------------------------------------
-
-
-/**
-	:: Version 0.7 :: Classy Folded Code ::
-	- reorganized the source files
-
-	(Project resumed on July 26, 2017.)
-
-	:: Version 0.7 :: Classy Code ::
-	- more classes, I presume
-
-	(Project resumed at the beginning of September, 2016.)
-
-	:: Version 0.6 :: "Polish Party" ::
-	- old code reorganized
-	- polishing touches added
-	- menus (hard coded), buttons, sliders were added
-
-	:: Version 0.5 ::
-	- first version, because no project should start from zero
-	  (plus, a most of the Core library was done)
-	- a functioning, rough prototype of the game
-
-	(Project started in the 2nd quarter of 2016.)
-*/
-
