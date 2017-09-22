@@ -5,14 +5,15 @@
 
 ## ROADMAP ##
 - **0.8:**
-  - ~~Credit myself (bottom right on menu screen);~~
+  - UI revision;
   - Reorganize, split files in `game/`;
   - Support multiple (hopefully any) resolutions;
   - ~~TTF: changeText() -> load in same place~~ -- _it already works like that_;
   - Effects when:
     - ~~The snake eats food;~~
     - Game speed increases;
-  - Gameplay: speed up over time (this completes classic mode).
+  - Gameplay: speed up over time (this completes classic mode).;
+  - ~~Credit myself (bottom right on menu screen).~~
 - **0.9:**
   - Endless mode with events and powerups;
   - Wall tiles;
