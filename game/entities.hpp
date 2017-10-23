@@ -44,7 +44,13 @@ public:
 	};
 
 	Button(core::Font& font, std::string text, const SDL_Rect& box) noexcept;
-	//~Button(); // !! BUG: removed "x"-button-font too, dunno why
+	/** (!) BUG:
+	    Q: Removed "x"-button-font too, dunno why
+	    A: Because, make_unique calls the destructor too, which in turn removes the code.
+
+	    Make unique copies, but ftText is a shallow copy.
+	*/
+	virtual ~Button();
 
 	void draw() const;
 	ButtonState handleMouse(SDL_Event& event) noexcept;
@@ -55,6 +61,9 @@ public:
 private:
 	SDL_Rect box;
 	ButtonState state;
+
+	// DEBUG
+	std::string text;
 
 	core::Font& font;
 	core::texindex ftText;

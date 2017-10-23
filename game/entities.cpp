@@ -30,6 +30,7 @@ int Tile::size = 0;
 Button::Button(core::Font& font, std::string text, const SDL_Rect& box) noexcept
 	: box(box)
 	, state(NORMAL)
+	, text(text)
 	, font(font)
 {
 	ftText = font.loadText(text, normal);
@@ -40,9 +41,13 @@ Button::Button(core::Font& font, std::string text, const SDL_Rect& box) noexcept
 
 // this doesn't work, "x" button's font (first button's font) is always removed, potentially overridden
 // commenting it out could potentially lead to a memory leak?
-/*~Button() {
-	font.remove(ftText);
-}*/
+#include <iostream>
+Button::~Button() {
+	using namespace std;
+	bool success = font.remove(ftText);
+	if (text == "x")
+		cout << "~Button called on [" << ftText << "] \"" << text << "\" with success: " << boolalpha << success << endl;
+}
 
 
 void Button::draw() const {
