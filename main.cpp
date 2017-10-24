@@ -70,8 +70,6 @@ void core::main() {
 	// smart pointers
 	auto pFontPath = std::make_unique<AppDirPath>("res/ponde___.ttf");
 	auto pSmallButtonFont = std::make_unique<Font>(pFontPath->path.c_str(), 10);
-
-	std::cout << "C-tor starting" << std::endl;
 	auto pQuitButton = std::make_unique<Button>(
 		Button(
 			*pSmallButtonFont,
@@ -79,8 +77,6 @@ void core::main() {
 			{10, getWindowHeight() - Tile::size - 10, Tile::size, Tile::size}
 		)
 	);
-	std::cout << "C-tor DONE" << std::endl;
-
 	auto pTexman = std::make_unique<core::Texman>();
 
 	// assign smart pointers to globals

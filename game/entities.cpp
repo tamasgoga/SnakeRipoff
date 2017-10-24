@@ -27,7 +27,7 @@ int Tile::size = 0;
 //--------------------------------------------------------------
 
 
-Button::Button(core::Font& font, std::string text, const SDL_Rect& box) noexcept
+Button::Button(core::Font& font, std::string text, const SDL_Rect& box)
 	: box(box)
 	, state(NORMAL)
 	, text(text)
@@ -39,26 +39,51 @@ Button::Button(core::Font& font, std::string text, const SDL_Rect& box) noexcept
 }
 
 
-// this doesn't work, "x" button's font (first button's font) is always removed, potentially overridden
-// commenting it out could potentially lead to a memory leak?
-#include <iostream>
+Button::Button(const Button& other)
+	: box(other.box)
+	, state(other.state)
+	, text(other.text)
+	, font(other.font)
+{
+	ftText = ftText = font.loadText(text, normal);
+	midFtText_w = other.midFtText_w;
+	midFtText_h = other.midFtText_h;
+}
+
+
+Button::Button(Button&& other)
+	: box(other.box)
+	, state(other.state)
+	, text(other.text)
+	, font(other.font)
+	, ftText(other.ftText)
+	, midFtText_w(other.midFtText_w)
+	, midFtText_h(other.midFtText_h)
+{
+	// empty text signals move
+	other.text.clear();
+}
+
+
 Button::~Button() {
-	using namespace std;
-	bool success = font.remove(ftText);
-	if (text == "x")
-		cout << "~Button called on [" << ftText << "] \"" << text << "\" with success: " << boolalpha << success << endl;
+	// empty text signals move
+	if (!text.empty())
+		font.remove(ftText);
 }
 
 
 void Button::draw() const {
-	if (state == NORMAL) {
+	switch(state) {
+	case NORMAL:
 		core::setDrawColor(normal.r, normal.g, normal.b);
-	} else if (state == HOVER) {
+		break;
+	case CLICKED:
+	case HOVER:
 		core::setDrawColor(hover.r, hover.g, hover.b);
-	} else if (state == SELECTED) {
+		break;
+	case SELECTED:
 		core::setDrawColor(select.r, select.g, select.b);
-	} else { // state == CLICKED
-		core::setDrawColor(hover.r, hover.g, hover.b);
+		break;
 	}
 
 	core::drawRect(box);

@@ -43,13 +43,10 @@ public:
 		CLICKED     // left mouse button UP
 	};
 
-	Button(core::Font& font, std::string text, const SDL_Rect& box) noexcept;
-	/** (!) BUG:
-	    Q: Removed "x"-button-font too, dunno why
-	    A: Because, make_unique calls the destructor too, which in turn removes the code.
+	Button(core::Font& font, std::string text, const SDL_Rect& box);
+	Button(const Button& other);
+	Button(Button&& other);
 
-	    Make unique copies, but ftText is a shallow copy.
-	*/
 	virtual ~Button();
 
 	void draw() const;
@@ -62,9 +59,7 @@ private:
 	SDL_Rect box;
 	ButtonState state;
 
-	// DEBUG
 	std::string text;
-
 	core::Font& font;
 	core::texindex ftText;
 	int midFtText_w, midFtText_h;
