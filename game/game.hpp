@@ -61,15 +61,13 @@ private:
 	// general variables
 	std::string scoreText;
 
-	// management 1
-	core::SimpleTimer clock;
-	State state;
-
 	// text pulses
 	Pulse scoreHighlight;
 	SDL_Color scoreHighlightColor;
 
-	// management 2
+	// management
+	core::SimpleTimer clock;
+	State state;
 	int timeStep;
 	SDL_Event event;
 

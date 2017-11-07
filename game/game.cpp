@@ -95,10 +95,10 @@ Game::Game()
 	, texman()
 	, font(ui::fontPath->path.c_str(), 20)
 	, scoreText("00000")
-	, clock(true)
-	, state(State::PLAYING)
 	, scoreHighlight(255, 5, 25)
 	, scoreHighlightColor(tint(ui::BLUE, -0.3))
+	, clock(true)
+	, state(State::PLAYING)
 {
 	using namespace core;
 

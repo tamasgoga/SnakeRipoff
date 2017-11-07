@@ -1,5 +1,8 @@
 [Snake](https://en.wikipedia.org/wiki/Snake_(video_game) "Wikipedia article") clone, by _Goga Tamas_.
 
+**Note!** The _roadmap_ will be trimmed, because there are other projects I'd rather be working on but I wouldn't like to leave this one unfinished.
+Namely: endless mode with "vicinity food generation" & possibly sound are going to be dropped.
+
 ## ROADMAP ##
 - **0.8:**
   - UI revision;
