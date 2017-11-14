@@ -1,8 +1,5 @@
 [Snake](https://en.wikipedia.org/wiki/Snake_(video_game) "Wikipedia article") clone, by _Goga Tamas_.
 
-**Note!** The _roadmap_ will be trimmed, because there are other projects I'd rather be working on but I wouldn't like to leave this one unfinished.
-Namely: endless mode with "vicinity food generation" & possibly sound are going to be dropped.
-
 ## ROADMAP ##
 - **0.8:**
   - UI revision;
@@ -34,10 +31,12 @@ Namely: endless mode with "vicinity food generation" & possibly sound are going 
 - **No more _Core_ reworks.**
 
 ## LICENSE ##
-> **All right reserved**, until I choose a license (something open-source, like MIT, most probably).
+> Distributed under the MIT license.
 
 ## CHANGELOG ##
-- **0.7 "Classy Folded Code":**
+- **0.7.11 "Classy MIT Code":**
+  - License changed to MIT.
+- **0.7.x "Classy Folded Code":**
   - _Project resumed on July 26, 2017;_
   - Reorganized the source files.
 - **0.7 "Classy Code":**

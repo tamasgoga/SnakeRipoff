@@ -18,9 +18,9 @@
 
 #define GAME_VERSION_MAJOR	0
 #define GAME_VERSION_MINOR	7
-#define GAME_VERSION_BUILD	10
+#define GAME_VERSION_BUILD	11
 
-#define GAME_VERSION_NAME	"Classy Folded Code"
+#define GAME_VERSION_NAME	"Classy MIT Code"
 
 constexpr int TILES_IN_ROW = 30;
 
