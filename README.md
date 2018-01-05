@@ -1,5 +1,8 @@
 [Snake](https://en.wikipedia.org/wiki/Snake_(video_game) "Wikipedia article") clone, by _Goga Tamas_.
 
+## DEPENDENCIES ##
+```SDL2```, ```SDL2-image```, ```SDL2-ttf``` -- [Setting up SDL2](http://lazyfoo.net/tutorials/SDL/01_hello_SDL/index.php); [Setting up SDL extensions](http://lazyfoo.net/tutorials/SDL/06_extension_libraries_and_loading_other_image_formats/index.php)
+
 ## ROADMAP ##
 - **0.8:**
   - UI revision;
