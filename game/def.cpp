@@ -18,7 +18,6 @@ namespace ui {
 	Button* quitButton = nullptr;
 
 	core::Texman* gTexman = nullptr;
-	core::texindex txTitle;
 	core::texindex txSnake;
 	core::texindex txSimpleFood;
 

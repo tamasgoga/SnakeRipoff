@@ -103,6 +103,6 @@ private:
 };
 
 
-bool menu();
+bool showMenu();
 
 #endif // SNAKE_SNAKE_HPP

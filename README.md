@@ -37,6 +37,8 @@
 > Distributed under the MIT license.
 
 ## CHANGELOG ##
+- **0.7.12 "Classy Cleanup":**
+  - Removed unnecessary resources.
 - **0.7.11 "Classy MIT Code":**
   - License changed to MIT.
 - **0.7.x "Classy Folded Code":**

@@ -64,31 +64,29 @@ bool core::init() noexcept {
 
 
 void core::main() {
-	// local
-	AppDirPath titlePicPath("res/title.png");
-
-	// smart pointers
+	// smart pointers (auto memory management)
 	auto pFontPath = std::make_unique<AppDirPath>("res/ponde___.ttf");
 	auto pSmallButtonFont = std::make_unique<Font>(pFontPath->path.c_str(), 10);
 	auto pQuitButton = std::make_unique<Button>(
 		Button(
 			*pSmallButtonFont,
 			"x",
-			{10, getWindowHeight() - Tile::size - 10, Tile::size, Tile::size}
+			{getWindowWidth() - Tile::size - 10, 10, Tile::size, Tile::size}
 		)
 	);
 	auto pTexman = std::make_unique<core::Texman>();
 
-	// assign smart pointers to globals
+	// assign smart pointers to non-owning globals (ease of access)
 	ui::fontPath = pFontPath.get();
 	ui::smallButtonFont = pSmallButtonFont.get();
 	ui::quitButton = pQuitButton.get();
 	ui::gTexman = pTexman.get();
-	ui::txTitle = pTexman->load(titlePicPath.path.c_str(), 0,0,0);
+
 	ui::txSnake = pTexman->create(Tile::size - 2, Tile::size - 2, ui::BLUE.r, ui::BLUE.g, ui::BLUE.b);
 	ui::txSimpleFood = pTexman->create(Tile::size - 4, Tile::size - 4, ui::RED.r , ui::RED.g, ui::RED.b);
 
-	while (menu()) {
+	// main loop
+	while (showMenu()) {
 		Game game;
 		if (!game.run())
 			break;

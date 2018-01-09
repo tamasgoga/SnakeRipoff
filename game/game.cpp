@@ -462,26 +462,35 @@ void Game::collapseSnake() {
 //--------------------------------------------------------------
 
 
-bool menu() {
+bool showMenu() {
 	using namespace core;
 
 	// management
 	SDL_Event menuEvent;
 
+	// fonts
+	Font titleFont(ui::fontPath->path.c_str(), 40);
+	Font smallFont(ui::fontPath->path.c_str(), 15);
+	Font buttonFont(ui::fontPath->path.c_str(), 30);
+
 	// general variables
 	const int menuButtonWidth = Tile::size * 10;
 	const int menuButtonHeight = Tile::size * 3;
 
-	const int menuWidth = (2*menuButtonWidth + 20);
+	const int menuWidth = (2 * menuButtonWidth + 20);
 
 	const int menuButtonX = (getWindowWidth() - menuWidth) / 2;
 	const int menuButtonY = 340;
 
-	const int title_posx = (getWindowWidth() - ui::gTexman->getWidth(ui::txTitle))/ 2;
-	const int title_posy = 170;
+	// title text
+	auto ftTitleSeries = titleFont.loadText("Let's Rip Off:", ui::BLUE);
+	auto ftTitleGame = titleFont.loadText("Snake", ui::BLUE);
+	const int titleSeries_posx = (getWindowWidth() - titleFont.getWidth(ftTitleSeries)) / 2;
+	const int titleSeries_posy = 170;
+	const int titleGame_posx = (getWindowWidth() - titleFont.getWidth(ftTitleGame)) / 2;
+	const int titleGame_posy = titleSeries_posy + titleFont.getHeight(ftTitleSeries) + 5;
 
 	// buttons
-	Font buttonFont(ui::fontPath->path.c_str(), 30);
 	Button playButton(
 		buttonFont,
 		"Play",
@@ -493,8 +502,7 @@ bool menu() {
 		{menuButtonX + menuWidth - menuButtonWidth, menuButtonY, menuButtonWidth, menuButtonHeight}
 	);
 
-	// fonts
-	Font smallFont(ui::fontPath->path.c_str(), 15);
+	// credits text
 	auto ftVersion = smallFont.loadText("Version: " + std::to_string(GAME_VERSION_MAJOR) + "." + std::to_string(GAME_VERSION_MINOR)
 	                                    + "." + std::to_string(GAME_VERSION_BUILD) + " " + GAME_VERSION_NAME, ui::RED);
 	auto ftCredits = smallFont.loadText("by Goga Tamas", ui::RED);
@@ -515,7 +523,8 @@ bool menu() {
 	auto render = [&] () {
 		clearDisplay();
 
-		ui::gTexman->draw(ui::txTitle, title_posx, title_posy);
+		titleFont.draw(ftTitleSeries, titleSeries_posx, titleSeries_posy);
+		titleFont.draw(ftTitleGame, titleGame_posx, titleGame_posy);
 		playButton.draw();
 		optionsButton.draw();
 		smallFont.draw(ftVersion, 5, 5);

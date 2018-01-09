@@ -18,9 +18,9 @@
 
 #define GAME_VERSION_MAJOR	0
 #define GAME_VERSION_MINOR	7
-#define GAME_VERSION_BUILD	11
+#define GAME_VERSION_BUILD	12
 
-#define GAME_VERSION_NAME	"Classy MIT Code"
+#define GAME_VERSION_NAME	"Classy Cleanup"
 
 constexpr int TILES_IN_ROW = 30;
 
@@ -73,7 +73,6 @@ namespace ui {
 	extern Button* quitButton;
 
 	extern core::Texman* gTexman;
-	extern core::texindex txTitle;
 	extern core::texindex txSnake;
 	extern core::texindex txSimpleFood;
 
