@@ -2,7 +2,7 @@
 
 NAME = snake
 
-WARNINGS = -Wall -Wextra -Winline -Werror
+WARNINGS = -Wall -Wextra -Werror
 COMPILER = clang++-5.0 -std=c++14
 
 GAME_SRC = main.cpp game/*.cpp

@@ -7,7 +7,9 @@
 
 
 #include "def.hpp"
-#include "entities.hpp"
+
+#include "g_grid.hpp"
+#include "ui_slider.hpp"
 
 
 inline int calculateTimeStep() {
