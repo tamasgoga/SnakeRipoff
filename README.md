@@ -6,7 +6,7 @@
 ## ROADMAP ##
 - **0.8:**
   - UI revision;
-  - Reorganize, split files in `game/`;
+  - ~~Reorganize code & split files in ```game/```;~~
   - Support multiple (hopefully any) resolutions;
   - ~~TTF: changeText() -> load in same place~~ -- _it already works like that_;
   - Effects when:
@@ -37,6 +37,8 @@
 > Distributed under the MIT license.
 
 ## CHANGELOG ##
+- **0.7.13 "Classy Cleanup":**
+  - Reorganized code & split files in ```game/```.
 - **0.7.12 "Classy Cleanup":**
   - Removed unnecessary resources.
 - **0.7.11 "Classy MIT Code":**

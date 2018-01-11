@@ -1,5 +1,8 @@
 #include "g_grid.hpp"
+
 #include "../core/core_random.hpp"
+#include "../core/core_error.hpp"
+
 #include <SDL2/SDL_events.h>
 
 
@@ -9,6 +12,12 @@ core::Random32 rng32(CORE_GET_RANDOM_SEED);
 namespace ui {
 
 	core::Texman* gTexman = nullptr;
+
+	core::texindex txSnake;
+	core::texindex txSimpleFood;
+
+	int speedLevel;
+	SDL_Rect playArea;
 
 } // namespace ui
 

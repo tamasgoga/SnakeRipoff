@@ -1,6 +1,6 @@
 /** Snake clone, by Goga Tamas */
 
-#include "game/game.hpp"
+#include "game/g_main.hpp"
 
 #include <iostream>
 #include <memory>

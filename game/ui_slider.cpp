@@ -1,6 +1,5 @@
 #include "ui_slider.hpp"
 #include "g_tile.hpp"
-#include "def.hpp"
 
 #include <SDL2/SDL_mouse.h>
 #include <SDL2/SDL_events.h>
@@ -13,6 +12,9 @@ const int Slider::MAX = 10;
 namespace ui {
 
 	extern core::Texman* gTexman;
+
+	extern core::texindex txSnake;
+	extern core::texindex txSimpleFood;
 
 } // namespace ui
 

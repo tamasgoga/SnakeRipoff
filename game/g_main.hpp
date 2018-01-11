@@ -8,7 +8,7 @@
 
 #define GAME_VERSION_MAJOR	0
 #define GAME_VERSION_MINOR	7
-#define GAME_VERSION_BUILD	12
+#define GAME_VERSION_BUILD	13
 
 #define GAME_VERSION_NAME	"Classy Cleanup"
 
@@ -17,7 +17,7 @@
 // Game code
 //--------------------------------------------------------------
 
-#include "def.hpp"
+#include "../core/core.hpp"
 
 #include "g_grid.hpp"
 #include "g_pulse.hpp"

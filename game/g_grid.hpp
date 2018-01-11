@@ -6,8 +6,9 @@
 // In-game tile
 //--------------------------------------------------------------
 
-#include "def.hpp"
 #include "g_tile.hpp"
+#include "../core/core_texture.hpp"
+#include <SDL2/SDL_rect.h>
 
 
 constexpr int TILES_IN_ROW = 30;
@@ -17,7 +18,33 @@ namespace ui {
 
 	extern core::Texman* gTexman;
 
+	extern core::texindex txSnake;
+	extern core::texindex txSimpleFood;
+
+	extern int speedLevel;
+	extern SDL_Rect playArea;
+
 } // namespace ui
+
+
+enum class State {
+	PLAYING,
+	PAUSED,
+	OVER,
+	WON,
+	MENU,
+	QUIT
+};
+
+
+enum class Direction {
+	NONE	= 0x0,	// 0000
+
+	UP		= 0x1,	// 0001
+	DOWN	= 0x2,	// 0010
+	LEFT	= 0x4,	// 0100
+	RIGHT	= 0x8	// 1000
+};
 
 
 class Grid {

@@ -1,4 +1,4 @@
-#include "game.hpp"
+#include "g_main.hpp"
 
 
 namespace ui {
