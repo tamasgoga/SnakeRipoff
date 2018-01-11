@@ -11,6 +11,8 @@
 #include "g_grid.hpp"
 #include "ui_slider.hpp"
 
+#include <SDL2/SDL_events.h>
+
 
 inline int calculateTimeStep() {
 	return 220 - ui::speedLevel*20;

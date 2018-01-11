@@ -1,16 +1,15 @@
 #ifndef SNAKE_DEF_HPP
 #define SNAKE_DEF_HPP
 
+
 //--------------------------------------------------------------
 // Includes & definitions
 //--------------------------------------------------------------
 
-
 #include "../core/core.hpp"
 
-#include <SDL2/SDL_events.h>
 #include <SDL2/SDL_rect.h>
-
+#include <SDL2/SDL_pixels.h>
 
 //--------------------------------------------------------------
 // Management
@@ -30,7 +29,6 @@ extern core::Random32 rng32;
 //--------------------------------------------------------------
 // Enumerations
 //--------------------------------------------------------------
-
 
 enum class State {
 	PLAYING,

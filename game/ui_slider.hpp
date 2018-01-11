@@ -11,8 +11,8 @@
 
 class Slider {
 public:
-	static const int MIN = 0;
-	static const int MAX = 10;
+	static const int MIN;
+	static const int MAX;
 
 	Slider(core::Font& font, int& sliderVariable, int x, int y);
 

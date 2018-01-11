@@ -9,6 +9,10 @@
 #include <SDL2/SDL_events.h>
 
 
+const int Slider::MIN = 0;
+const int Slider::MAX = 10;
+
+
 Slider::Slider(core::Font& font, int& sliderVariable, int x, int y)
 	: decButton(font, "-", {x, y, Tile::size, Tile::size})
 	, incButton(font, "+", {x + Tile::size*13, y, Tile::size, Tile::size})
