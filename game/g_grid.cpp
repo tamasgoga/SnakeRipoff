@@ -1,5 +1,16 @@
 #include "g_grid.hpp"
+#include "../core/core_random.hpp"
 #include <SDL2/SDL_events.h>
+
+
+core::Random32 rng32(CORE_GET_RANDOM_SEED);
+
+
+namespace ui {
+
+	core::Texman* gTexman = nullptr;
+
+} // namespace ui
 
 
 Grid::Grid()

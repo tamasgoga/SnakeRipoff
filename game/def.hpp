@@ -9,21 +9,6 @@
 #include "../core/core.hpp"
 
 #include <SDL2/SDL_rect.h>
-#include <SDL2/SDL_pixels.h>
-
-//--------------------------------------------------------------
-// Management
-//--------------------------------------------------------------
-
-#define GAME_VERSION_MAJOR	0
-#define GAME_VERSION_MINOR	7
-#define GAME_VERSION_BUILD	12
-
-#define GAME_VERSION_NAME	"Classy Cleanup"
-
-constexpr int TILES_IN_ROW = 30;
-
-extern core::Random32 rng32;
 
 
 //--------------------------------------------------------------
@@ -59,18 +44,6 @@ namespace ui {
 
 	extern SDL_Rect playArea;
 
-	extern const SDL_Color WHITE;
-	extern const SDL_Color RED;
-	extern const SDL_Color BLUE;
-	// yellow: 251, 167, 5 (title)
-
-	// not owners, just normal pointers, only use after core::main() was called
-	extern core::AppDirPath* fontPath;
-
-	extern core::Font* smallButtonFont;
-	extern Button* quitButton;
-
-	extern core::Texman* gTexman;
 	extern core::texindex txSnake;
 	extern core::texindex txSimpleFood;
 

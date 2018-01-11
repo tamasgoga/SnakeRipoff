@@ -1,5 +1,5 @@
-#ifndef SNAKE_UI_SLIDER_HPP
-#define SNAKE_UI_SLIDER_HPP
+#ifndef SNAKE_GAME_UI_SLIDER_HPP
+#define SNAKE_GAME_UI_SLIDER_HPP
 
 
 //--------------------------------------------------------------
@@ -29,4 +29,4 @@ private:
 };
 
 
-#endif // SNAKE_UI_SLIDER_HPP
+#endif // SNAKE_GAME_UI_SLIDER_HPP

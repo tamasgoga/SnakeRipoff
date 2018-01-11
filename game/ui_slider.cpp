@@ -2,15 +2,19 @@
 #include "g_tile.hpp"
 #include "def.hpp"
 
-// #include "../core/core_draw.hpp"
-
-// #include <SDL2/SDL_pixels.h>
 #include <SDL2/SDL_mouse.h>
 #include <SDL2/SDL_events.h>
 
 
 const int Slider::MIN = 0;
 const int Slider::MAX = 10;
+
+
+namespace ui {
+
+	extern core::Texman* gTexman;
+
+} // namespace ui
 
 
 Slider::Slider(core::Font& font, int& sliderVariable, int x, int y)

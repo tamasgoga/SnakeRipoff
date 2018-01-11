@@ -1,5 +1,5 @@
-#ifndef SNAKE_G_TILE_HPP
-#define SNAKE_G_TILE_HPP
+#ifndef SNAKE_GAME_G_TILE_HPP
+#define SNAKE_GAME_G_TILE_HPP
 
 
 //--------------------------------------------------------------
@@ -34,4 +34,4 @@ struct Tile {
 };
 
 
-#endif // SNAKE_G_TILE_HPP
+#endif // SNAKE_GAME_G_TILE_HPP

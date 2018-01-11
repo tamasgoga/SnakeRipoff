@@ -1,51 +1,44 @@
 #ifndef SNAKE_SNAKE_HPP
 #define SNAKE_SNAKE_HPP
 
+
+//--------------------------------------------------------------
+// Version info
+//--------------------------------------------------------------
+
+#define GAME_VERSION_MAJOR	0
+#define GAME_VERSION_MINOR	7
+#define GAME_VERSION_BUILD	12
+
+#define GAME_VERSION_NAME	"Classy Cleanup"
+
+
 //--------------------------------------------------------------
 // Game code
 //--------------------------------------------------------------
 
-
 #include "def.hpp"
 
 #include "g_grid.hpp"
+#include "g_pulse.hpp"
 #include "ui_slider.hpp"
 
 #include <SDL2/SDL_events.h>
 
 
+namespace ui {
+
+	extern core::AppDirPath* fontPath;
+
+	extern core::Font* smallButtonFont;
+	extern Button* quitButton;
+
+} // namespace ui
+
+
 inline int calculateTimeStep() {
 	return 220 - ui::speedLevel*20;
 }
-
-
-/** Pulse with linear decay in milliseconds */
-class Pulse {
-public:
-	using tstep_t = core::SimpleTimer::clock::rep;
-
-	const uint64_t max;
-	const uint64_t initDecay;
-	const tstep_t timeStep;
-
-	Pulse(uint64_t max, uint64_t initDecay, tstep_t timeStep);
-
-	void reset();
-	uint64_t get();
-
-	inline bool hasPulsed() {
-		return (value > 0) && (timer.elapsed_ms().count() / timeStep > 0);
-	}
-
-	inline bool isActive() {
-		return value > 0;
-	}
-
-private:
-	uint64_t decay;
-	uint64_t value;
-	core::SimpleTimer timer;
-};
 
 
 class Game {

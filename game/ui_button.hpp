@@ -1,11 +1,12 @@
-#ifndef SNAKE_UI_BUTTON_HPP
-#define SNAKE_UI_BUTTON_HPP
+#ifndef SNAKE_GAME_UI_BUTTON_HPP
+#define SNAKE_GAME_UI_BUTTON_HPP
 
 
 //--------------------------------------------------------------
 // Button
 //--------------------------------------------------------------
 
+#include "ui_color.hpp"
 #include "../core/core_ttf.hpp"
 #include <SDL2/SDL_rect.h>
 #include <string>
@@ -47,4 +48,4 @@ private:
 };
 
 
-#endif // SNAKE_UI_BUTTON_HPP
+#endif // SNAKE_GAME_UI_BUTTON_HPP

@@ -1,5 +1,5 @@
-#ifndef SNAKE_G_GRID_HPP
-#define SNAKE_G_GRID_HPP
+#ifndef SNAKE_GAME_G_GRID_HPP
+#define SNAKE_GAME_G_GRID_HPP
 
 
 //--------------------------------------------------------------
@@ -8,6 +8,16 @@
 
 #include "def.hpp"
 #include "g_tile.hpp"
+
+
+constexpr int TILES_IN_ROW = 30;
+
+
+namespace ui {
+
+	extern core::Texman* gTexman;
+
+} // namespace ui
 
 
 class Grid {
@@ -48,4 +58,4 @@ private:
 };
 
 
-#endif // SNAKE_G_GRID_HPP
+#endif // SNAKE_GAME_G_GRID_HPP
