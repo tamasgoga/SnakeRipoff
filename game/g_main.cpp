@@ -2,6 +2,8 @@
 #include "ui_color.hpp"
 #include "ui_slider.hpp"
 
+#include "../core/core_draw.hpp"
+
 
 namespace ui {
 
