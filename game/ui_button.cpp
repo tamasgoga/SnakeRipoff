@@ -1,10 +1,9 @@
 #include "ui_button.hpp"
+#include "ui_color.hpp"
 
 #include "../core/core_draw.hpp"
 #include "../core/core_util.hpp"
 
-#include <SDL2/SDL_pixels.h>
-#include <SDL2/SDL_mouse.h>
 #include <SDL2/SDL_events.h>
 
 

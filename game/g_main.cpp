@@ -1,4 +1,6 @@
 #include "g_main.hpp"
+#include "ui_color.hpp"
+#include "ui_slider.hpp"
 
 
 namespace ui {

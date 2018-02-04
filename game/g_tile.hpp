@@ -30,7 +30,9 @@ struct Tile {
 	Tile() noexcept;
 	Tile(int x, int y, Entity entity) noexcept;
 
-	inline operator SDL_Rect() const noexcept {return {x, y, size, size};}
+	inline operator SDL_Rect() const noexcept {
+		return {x, y, size, size};
+	}
 };
 
 

@@ -65,7 +65,9 @@ public:
 	State advanceState();
 	bool collapseSnakeTowardsItsMiddle();
 
-	inline uint getScore() {return score;}
+	inline uint getScore() {
+		return score;
+	}
 
 private:
 	// tiles & snake

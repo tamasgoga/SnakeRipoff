@@ -16,8 +16,13 @@ public:
 
 	Slider(core::Font& font, int& sliderVariable, int x, int y);
 
-	inline void inc() {if (level < MAX) ++level;}
-	inline void dec() {if (level > MIN) --level;}
+	inline void inc() {
+		if (level < MAX) ++level;
+	}
+
+	inline void dec() {
+		if (level > MIN) --level;
+	}
 
 	void handleMouse(SDL_Event& event);
 	void draw() const;

@@ -3,7 +3,7 @@
 #include "../core/core_random.hpp"
 #include "../core/core_error.hpp"
 
-#include <SDL2/SDL_events.h>
+#include <SDL2/SDL_keyboard.h>
 
 
 core::Random32 rng32(CORE_GET_RANDOM_SEED);

@@ -6,7 +6,6 @@
 // Button
 //--------------------------------------------------------------
 
-#include "ui_color.hpp"
 #include "../core/core_ttf.hpp"
 #include <SDL2/SDL_rect.h>
 #include <string>
@@ -31,9 +30,18 @@ public:
 
 	void draw() const;
 	ButtonState handleMouse(SDL_Event& event) noexcept;
-	inline bool isState(ButtonState bs) const noexcept {return state == bs;}
 
-	friend class Slider;
+	inline bool isState(ButtonState bs) const noexcept {
+		return state == bs;
+	}
+
+	inline SDL_Rect& getBoundingBox() noexcept {
+		return box;
+	}
+
+	inline const SDL_Rect& getBoundingBox() const noexcept {
+		return box;
+	}
 
 private:
 	SDL_Rect box;

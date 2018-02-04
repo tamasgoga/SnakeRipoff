@@ -21,9 +21,11 @@
 
 #include "g_grid.hpp"
 #include "g_pulse.hpp"
-#include "ui_slider.hpp"
 
 #include <SDL2/SDL_events.h>
+
+
+class Button;
 
 
 namespace ui {

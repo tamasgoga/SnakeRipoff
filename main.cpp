@@ -1,5 +1,7 @@
 /** Snake clone, by Goga Tamas */
 
+#include "game/ui_color.hpp"
+#include "game/ui_button.hpp"
 #include "game/g_main.hpp"
 
 #include <iostream>
