@@ -7,13 +7,14 @@
 //--------------------------------------------------------------
 
 #include "../core/core_ttf.hpp"
+#include "ui_widget.hpp"
 #include <SDL2/SDL_rect.h>
 #include <string>
 
 union SDL_Event;
 
 
-class Button {
+class Button: public Widget {
 public:
 	enum ButtonState {
 		NORMAL,
@@ -33,10 +34,6 @@ public:
 
 	inline bool isState(ButtonState bs) const noexcept {
 		return state == bs;
-	}
-
-	inline SDL_Rect& getBoundingBox() noexcept {
-		return box;
 	}
 
 	inline const SDL_Rect& getBoundingBox() const noexcept {

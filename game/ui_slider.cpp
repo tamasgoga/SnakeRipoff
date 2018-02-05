@@ -30,6 +30,15 @@ Slider::Slider(core::Font& font, int& sliderVariable, int x, int y)
 	} else if (level > MAX) {
 		level = MAX;
 	}
+
+	const auto& incBox = incButton.getBoundingBox();
+	const auto& decBox = decButton.getBoundingBox();
+	box = {
+		decBox.x,
+		decBox.y,
+		incBox.x + incBox.w - decBox.x,
+		incBox.h
+	};
 }
 
 
@@ -37,13 +46,8 @@ void Slider::handleMouse(SDL_Event& event) {
 	int mx, my;
 	SDL_GetMouseState(&mx, &my);
 
-	const auto& incBox = incButton.getBoundingBox();
-	const auto& decBox = decButton.getBoundingBox();
-
 	// check if mouse is inside the slider
-	if (mx >= decBox.x && mx <= incBox.x + incBox.w &&
-	    my >= decBox.y && my <= decBox.y + decBox.h)
-	{
+	if (mx >= box.x && mx <= box.x + box.w && my >= box.y && my <= box.y + box.h) {
 		mousedOver = true;
 
 		// mouse-wheel event
@@ -68,16 +72,14 @@ void Slider::handleMouse(SDL_Event& event) {
 
 
 void Slider::draw() const {
-	const auto& decBox = decButton.getBoundingBox();
-
 	decButton.draw();
-	int posx = decBox.x + 2*Tile::size;
+	int posx = box.x + 2*Tile::size;
 
 	for (int i = 0; i < level; ++i) {
 		if (mousedOver)
-			ui::gTexman->draw(ui::txSimpleFood, {posx + 1, decBox.y + 1, Tile::size - 2, Tile::size - 2});
+			ui::gTexman->draw(ui::txSimpleFood, {posx + 1, box.y + 1, Tile::size - 2, Tile::size - 2});
 		else
-			ui::gTexman->draw(ui::txSnake, posx + 1, decBox.y + 1);
+			ui::gTexman->draw(ui::txSnake, posx + 1, box.y + 1);
 		posx += Tile::size;
 	}
 

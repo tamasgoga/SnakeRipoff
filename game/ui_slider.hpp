@@ -9,7 +9,7 @@
 #include "ui_button.hpp"
 
 
-class Slider {
+class Slider: public Widget {
 public:
 	static const int MIN;
 	static const int MAX;
@@ -27,10 +27,15 @@ public:
 	void handleMouse(SDL_Event& event);
 	void draw() const;
 
+	inline const SDL_Rect& getBoundingBox() const noexcept {
+		return box;
+	}
+
 private:
 	Button decButton, incButton;
 	int& level;
 	bool mousedOver;
+	SDL_Rect box;
 };
 
 
