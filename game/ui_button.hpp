@@ -7,14 +7,13 @@
 //--------------------------------------------------------------
 
 #include "../core/core_ttf.hpp"
-#include "ui_widget.hpp"
 #include <SDL2/SDL_rect.h>
 #include <string>
 
 union SDL_Event;
 
 
-class Button: public Widget {
+class Button {
 public:
 	enum ButtonState {
 		NORMAL,

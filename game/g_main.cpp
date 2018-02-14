@@ -15,6 +15,17 @@ namespace ui {
 } // namespace ui
 
 
+namespace time_step {
+	constexpr int min = 40;
+	constexpr int step = 20;
+	constexpr int base = 220;
+
+	inline int get() {
+		return base - ui::speedLevel * step;
+	}
+} // namespace time_step
+
+
 /** Get a lighter or darker (factor < 0) shade of a color
     Doesn't change the alpha */
 static SDL_Color tint(const SDL_Color& color, float factor) {
@@ -109,7 +120,9 @@ Game::Game()
 	midFtScoreNumber_w = midWindow_w - font.getWidth(ftScoreNumber) / 2;
 	midFtScoreNumber_h = midWindow_h - font.getHeight(ftScoreNumber) / 2 + 10;
 
-	timeStep = calculateTimeStep();
+	timeStep = time_step::get();
+	speedupSeconds = 20000;
+	speedupCounter = 0;
 
 	// initial draw
 	clearDisplay();
@@ -153,6 +166,7 @@ bool Game::run() {
 
 
 void Game::play() {
+	// Actual code
 	using namespace core;
 
 	while (SDL_PollEvent(&event)) {
@@ -202,6 +216,12 @@ void Game::play() {
 	bool hasTicked = clock.elapsed_ms().count() >= timeStep;
 
 	if (hasTicked) {
+		speedupCounter += timeStep;
+		if (speedupCounter >= speedupSeconds && timeStep > time_step::min) {
+			speedupCounter = 0;
+			timeStep -= time_step::step;
+		}
+
 		clock.reset();
 
 		auto oldScore = grid.getScore();

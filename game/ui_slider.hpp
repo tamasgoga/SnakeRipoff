@@ -9,7 +9,7 @@
 #include "ui_button.hpp"
 
 
-class Slider: public Widget {
+class Slider {
 public:
 	static const int MIN;
 	static const int MAX;

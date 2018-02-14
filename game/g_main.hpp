@@ -39,11 +39,6 @@ namespace ui {
 } // namespace ui
 
 
-inline int calculateTimeStep() {
-	return 220 - ui::speedLevel*20;
-}
-
-
 class Game {
 public:
 	/** Constructor */
@@ -69,6 +64,8 @@ private:
 	core::SimpleTimer clock;
 	State state;
 	int timeStep;
+	int speedupSeconds;
+	int speedupCounter;
 	SDL_Event event;
 
 	// textures
