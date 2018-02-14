@@ -45,7 +45,7 @@ public:
 	Game();
 
 	/** Returns false if the user wanted to terminate the app. */
-	bool run();
+	bool run(int speedUpMs);
 
 private:
 	// containers
@@ -63,9 +63,8 @@ private:
 	// management
 	core::SimpleTimer clock;
 	State state;
-	int timeStep;
-	int speedupSeconds;
-	int speedupCounter;
+	//------------- end of c-tor initializers -------------//
+	int speedUpCounter; // accumulator (for checking ms passed)
 	SDL_Event event;
 
 	// textures
@@ -86,7 +85,7 @@ private:
 	int midFtScoreNumber_w,	midFtScoreNumber_h;
 
 	// states
-	void play();
+	void play(int speedUpMs);
 	void pause();
 	void endGame();
 

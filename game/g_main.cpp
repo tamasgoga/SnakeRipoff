@@ -16,13 +16,16 @@ namespace ui {
 
 
 namespace time_step {
+
 	constexpr int min = 40;
 	constexpr int step = 20;
 	constexpr int base = 220;
 
+
 	inline int get() {
 		return base - ui::speedLevel * step;
 	}
+
 } // namespace time_step
 
 
@@ -120,9 +123,7 @@ Game::Game()
 	midFtScoreNumber_w = midWindow_w - font.getWidth(ftScoreNumber) / 2;
 	midFtScoreNumber_h = midWindow_h - font.getHeight(ftScoreNumber) / 2 + 10;
 
-	timeStep = time_step::get();
-	speedupSeconds = 20000;
-	speedupCounter = 0;
+	speedUpCounter = 0;
 
 	// initial draw
 	clearDisplay();
@@ -132,13 +133,13 @@ Game::Game()
 }
 
 
-bool Game::run() {
+bool Game::run(int speedUpMs) {
 	using namespace core;
 
 	while(true) {
 		switch (state) {
 		case State::PLAYING:
-			play();
+			play(speedUpMs);
 			break;
 
 		case State::PAUSED:
@@ -165,7 +166,7 @@ bool Game::run() {
 }
 
 
-void Game::play() {
+void Game::play(int speedUpMs) {
 	// Actual code
 	using namespace core;
 
@@ -213,13 +214,14 @@ void Game::play() {
 
 	/// GAME LOGIC ///
 
+	const int timeStep = time_step::get();
 	bool hasTicked = clock.elapsed_ms().count() >= timeStep;
 
 	if (hasTicked) {
-		speedupCounter += timeStep;
-		if (speedupCounter >= speedupSeconds && timeStep > time_step::min) {
-			speedupCounter = 0;
-			timeStep -= time_step::step;
+		speedUpCounter += timeStep;
+		if (speedUpCounter >= speedUpMs && timeStep > time_step::min) {
+			speedUpCounter = 0;
+			++ui::speedLevel;
 		}
 
 		clock.reset();
@@ -395,7 +397,7 @@ void Game::flashScreenAndDelay() {
 	updateDisplay();
 
 	clock.reset();
-	while (clock.elapsed_ms().count() < timeStep)
+	while (clock.elapsed_ms().count() < time_step::get())
 		; // nothing fancy, just a delay
 
 	// reset screen
@@ -443,7 +445,7 @@ void Game::collapseSnake() {
 			return;
 		}
 
-		if (clock.elapsed_ms().count() < timeStep)
+		if (clock.elapsed_ms().count() < time_step::get())
 			goto L_notReadyYet;
 		clock.reset();
 
