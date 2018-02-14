@@ -12,7 +12,7 @@
   - Effects when:
     - ~~The snake eats food;~~
     - Game speed increases;
-  - Gameplay: speed up over time (this completes classic mode).;
+  - ~~Gameplay: speed up over time (this completes classic mode);~~
   - ~~Credit myself (bottom right on menu screen).~~
 - **0.9:**
   - Endless mode with events and powerups;
