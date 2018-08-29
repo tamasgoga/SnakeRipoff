@@ -4,6 +4,9 @@
 ```SDL2```, ```SDL2-ttf``` -- [Setting up SDL2](http://lazyfoo.net/tutorials/SDL/01_hello_SDL/index.php); [Setting up SDL extensions](http://lazyfoo.net/tutorials/SDL/06_extension_libraries_and_loading_other_image_formats/index.php)
 
 ## ROADMAP ##
+
+These are the updates that are going to happen sooner or lager (except the italic ones).
+
 - **0.8:**
   - UI revision;
   - ~~Reorganize code & split files in ```game/```;~~
@@ -12,7 +15,6 @@
     - ~~The snake eats food;~~
     - Game speed increases;
   - ~~Gameplay: speed up over time (this completes classic mode);~~
-  - Actual random place for the snake to start from;
   - ~~Credit myself (bottom right on menu screen);~~
   - ~~Remove  ```SDL2-image```  dependency.~~
 - **1.0:**
@@ -21,6 +23,9 @@
   - _(?) AI for the snake._
 
 ## FUTURE IDEAS ##
+
+These things might never happen. They're here for future reference.
+
 - Gameplay:
   - Endless mode with events and powerups;
   - "Vicinity food generation";
