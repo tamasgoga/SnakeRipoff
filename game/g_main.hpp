@@ -8,7 +8,7 @@
 
 #define GAME_VERSION_MAJOR	0
 #define GAME_VERSION_MINOR	7
-#define GAME_VERSION_BUILD	14
+#define GAME_VERSION_BUILD	15
 
 #define GAME_VERSION_NAME	"Classy Cleanup"
 
@@ -60,6 +60,9 @@ private:
 	Pulse scoreHighlight;
 	SDL_Color scoreHighlightColor;
 
+	Pulse frateHighlight;
+	SDL_Color frateHighlightColor;
+
 	// management
 	core::SimpleTimer clock;
 	State state;
@@ -77,6 +80,7 @@ private:
 	core::texindex ftScoreNumberHighlight;
 	core::texindex ftFrateTitle;
 	core::texindex ftFrateNumber;
+	core::texindex ftFrateNumberHighlight;
 	core::texindex ftPaused;
 	core::texindex ftGameOver;
 

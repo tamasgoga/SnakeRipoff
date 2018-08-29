@@ -8,12 +8,12 @@
 These are the updates that are going to happen sooner or later.
 
 - **1.0:**
-  - UI revision;
+  - ~~UI revision;~~
   - ~~Reorganize code & split files in ```game/```;~~
   - ~~TTF: changeText() -> load in same place~~ -- _it already works like that_;
-  - Effects when:
+  - ~~Effects when:~~
     - ~~The snake eats food;~~
-    - Game speed increases;
+    - ~~Game speed increases;~~
   - ~~Gameplay: speed up over time (this completes classic mode);~~
   - ~~Credit myself (bottom right on menu screen);~~
   - ~~Remove  ```SDL2-image```  dependency;~~
@@ -42,6 +42,9 @@ These things might never happen. They're here for future reference.
 > Distributed under the MIT license.
 
 ## CHANGELOG ##
+- **0.7.15 "Classy Cleanup":**
+  - Effect when game speed increases;
+  - UI revision.
 - **0.7.14 "Classy Cleanup":**
   - Remove  ```SDL2-image```  dependency;
   - Revised the road-map to reflect something I'll actually accomplish.

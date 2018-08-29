@@ -17,13 +17,18 @@ namespace ui {
 
 namespace time_step {
 
-	constexpr int min = 60;
-	constexpr int step = 20;
-	constexpr int base = 260;
+	constexpr int MIN = 60;
+	constexpr int STEP = 20;
+	constexpr int BASE = 260;
 
 
 	inline int get() {
-		return base - ui::speedLevel * step;
+		return BASE - ui::speedLevel * STEP;
+	}
+
+
+	inline int isValid(int timeStep) {
+		return timeStep > MIN;
 	}
 
 } // namespace time_step
@@ -61,6 +66,8 @@ Game::Game()
 	, scoreText("00000")
 	, scoreHighlight(255, 5, 25)
 	, scoreHighlightColor(ui::tintColor(ui::BLUE, -0.3))
+	, frateHighlight(255, 5, 40)
+	, frateHighlightColor(ui::tintColor(ui::RED, -0.3))
 	, clock(true)
 	, state(State::PLAYING)
 {
@@ -76,8 +83,9 @@ Game::Game()
 	ftScoreTitle = font.loadText("SCORE", ui::WHITE);
 	ftScoreNumber = font.loadText(scoreText, ui::WHITE);
 	ftScoreNumberHighlight = font.loadText("     ", ui::BLUE);
-	ftFrateTitle = font.loadText("TSTEP", ui::WHITE);
-	ftFrateNumber = font.loadText("?", ui::WHITE);
+	ftFrateTitle = font.loadText("LEVEL", ui::WHITE);
+	ftFrateNumber = font.loadText(std::to_string(ui::speedLevel), ui::WHITE);
+	ftFrateNumberHighlight = font.loadText(std::to_string(ui::speedLevel), ui::RED);
 	ftPaused = font.loadText("PAUSED", ui::WHITE);
 	ftGameOver = font.loadText("FINAL SCORE", ui::WHITE);
 
@@ -186,9 +194,13 @@ void Game::play(int speedUpMs) {
 
 	if (hasTicked) {
 		speedUpCounter += timeStep;
-		if (speedUpCounter >= speedUpMs && timeStep > time_step::min) {
+		if (speedUpCounter >= speedUpMs && time_step::isValid(timeStep)) {
 			speedUpCounter = 0;
 			++ui::speedLevel;
+
+			font.changeText(ftFrateNumberHighlight, std::to_string(ui::speedLevel), frateHighlightColor);
+			font.changeText(ftFrateNumber, std::to_string(ui::speedLevel), ui::WHITE);
+			frateHighlight.reset();
 		}
 
 		clock.reset();
@@ -203,16 +215,17 @@ void Game::play(int speedUpMs) {
 			font.changeText(ftScoreNumber, scoreText, ui::WHITE);
 			scoreHighlight.reset();
 		}
-
-		font.changeText(ftFrateNumber, std::to_string(timeStep), ui::WHITE);
 	}
 
 	/// RENDERING ///
 	bool hasScoreHighlChanged = scoreHighlight.hasPulsed();
+	bool hasFrateHighlChanged = frateHighlight.hasPulsed();
 
-	if (hasTicked || hasScoreHighlChanged) {
+	if (hasTicked || hasScoreHighlChanged || hasFrateHighlChanged) {
 		if (hasScoreHighlChanged)
 			font.setAlphaMod(ftScoreNumberHighlight, scoreHighlight.get());
+		if (hasFrateHighlChanged)
+			font.setAlphaMod(ftFrateNumberHighlight, frateHighlight.get());
 
 		clearDisplay();
 		drawGrid();
@@ -332,6 +345,8 @@ void Game::drawGrid() {
 			font.draw(ftScoreNumberHighlight, 10, 30);
 		font.draw(ftFrateTitle, 10, 80);
 		font.draw(ftFrateNumber, 10, 100);
+		if (frateHighlight.isActive())
+			font.draw(ftFrateNumberHighlight, 10, 100);
 	} else {
 		const int bottom_y = ui::playArea.y - font.getHeight(ftScoreNumber);
 		const int top_y = bottom_y - font.getHeight(ftScoreTitle);
@@ -343,6 +358,8 @@ void Game::drawGrid() {
 			font.draw(ftScoreNumberHighlight, 10, bottom_y);
 		font.draw(ftFrateTitle, second_x, top_y);
 		font.draw(ftFrateNumber, second_x, bottom_y);
+		if (frateHighlight.isActive())
+			font.draw(ftFrateNumberHighlight, second_x, bottom_y);
 	}
 }
 
@@ -448,13 +465,13 @@ bool showMenu() {
 	const int menuWidth = (2 * menuButtonWidth + 20);
 
 	const int menuButtonX = (getWindowWidth() - menuWidth) / 2;
-	const int menuButtonY = 340;
+	const int menuButtonY = 280;
 
 	// title text
 	auto ftTitleSeries = titleFont.loadText("Let's Rip Off:", ui::BLUE);
 	auto ftTitleGame = titleFont.loadText("Snake", ui::BLUE);
 	const int titleSeries_posx = (getWindowWidth() - titleFont.getWidth(ftTitleSeries)) / 2;
-	const int titleSeries_posy = 170;
+	const int titleSeries_posy = 170 - 40;
 	const int titleGame_posx = (getWindowWidth() - titleFont.getWidth(ftTitleGame)) / 2;
 	const int titleGame_posy = titleSeries_posy + titleFont.getHeight(ftTitleSeries) + 5;
 
@@ -466,7 +483,7 @@ bool showMenu() {
 	);
 	Button optionsButton(
 		buttonFont,
-		"Options",
+		"Scores",
 		{menuButtonX + menuWidth - menuButtonWidth, menuButtonY, menuButtonWidth, menuButtonHeight}
 	);
 
@@ -484,8 +501,13 @@ bool showMenu() {
 		sliderFont,
 		ui::speedLevel,
 		getWindowWidth()/2 - 7*Tile::size - Tile::size/2,
-		menuButtonY + menuButtonHeight + 2*Tile::size
+		menuButtonY + menuButtonHeight + 2*Tile::size + 40 + 25
 	);
+
+	// slider text
+	auto ftSpeed = smallFont.loadText("-- SPEED --", ui::WHITE);
+	const int speedTextX = (getWindowWidth() - smallFont.getWidth(ftSpeed)) / 2;
+	const int speedTextY = timeStepSlider.getBoundingBox().y - 25;
 
 	// draw the menu
 	auto render = [&] () {
@@ -495,6 +517,7 @@ bool showMenu() {
 		titleFont.draw(ftTitleGame, titleGame_posx, titleGame_posy);
 		playButton.draw();
 		optionsButton.draw();
+		smallFont.draw(ftSpeed, speedTextX, speedTextY);
 		smallFont.draw(ftVersion, 5, 5);
 		smallFont.draw(ftCredits, credit_posx, credit_posy);
 		timeStepSlider.draw();
