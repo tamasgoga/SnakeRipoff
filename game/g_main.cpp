@@ -17,9 +17,9 @@ namespace ui {
 
 namespace time_step {
 
-	constexpr int min = 40;
+	constexpr int min = 60;
 	constexpr int step = 20;
-	constexpr int base = 220;
+	constexpr int base = 260;
 
 
 	inline int get() {
