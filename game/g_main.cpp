@@ -167,7 +167,6 @@ bool Game::run(int speedUpMs) {
 
 
 void Game::play(int speedUpMs) {
-	// Actual code
 	using namespace core;
 
 	while (SDL_PollEvent(&event)) {

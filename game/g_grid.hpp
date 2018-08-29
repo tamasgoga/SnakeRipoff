@@ -61,7 +61,6 @@ public:
 	void draw() const;
 	void handleKeyboard();
 
-	bool moveTile(int& tile);
 	State advanceState();
 	bool collapseSnakeTowardsItsMiddle();
 

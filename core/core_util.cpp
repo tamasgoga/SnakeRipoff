@@ -56,11 +56,12 @@ namespace core {
 
 
 	float rsqrt(float x) {
+		static constexpr int MAGIC = 0x5f3759df;
+
 		float half_x = x * 0.5f;
 		int ieee = *(int*) &x;				// x's IEEE 32 bit representation as an int (pointers required to avoid conversion)
 
-		// another magical constant: 0x5f375a86
-		ieee = 0x5f3759df - (ieee >> 1);	// initial guess of Newton's method (Yup, I'm just as lost as you are!)
+		ieee = MAGIC - (ieee >> 1);			// initial guess of Newton's method (Yup, I'm just as lost as you are!)
 		x = *(float*) &ieee;				// cast back to float
 
 		x = x * (1.5f - half_x*x*x); 		// 1st iteration of Newton's method

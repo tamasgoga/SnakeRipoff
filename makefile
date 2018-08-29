@@ -2,14 +2,15 @@
 
 NAME = snake
 
-WARNINGS = -Wall -Wextra -Werror -Winline
+WARNINGS = -Wall -Wextra -Werror
 COMPILER = clang++-5.0 -std=c++14
 
 GAME_SRC = main.cpp game/*.cpp
 CORE_SRC = core/*.cpp
 SOURCES = $(CORE_SRC) $(GAME_SRC)
 
-SDL = -lSDL2 -lSDL2_image -lSDL2_ttf
+SDL = -lSDL2 -lSDL2_ttf
+# SDL = -lSDL2 -lSDL2_image -lSDL2_ttf
 
 rel: clang
 	date +"%nCompiled on: %A, %T (%Y %b %d)"

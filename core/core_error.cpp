@@ -1,7 +1,7 @@
 #include "core_error.hpp"
 
 #include <SDL2/SDL_error.h>
-#include <SDL2/SDL_image.h>
+// #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
 #include <iostream>
@@ -24,9 +24,9 @@ namespace core {
 	}
 
 
-	void imgErrorMessage(std::string msg) {
+	/*void imgErrorMessage(std::string msg) {
 		std::cerr << "ERROR: " << msg << "\n\tIMG: " << IMG_GetError() << std::endl;
-	}
+	}*/
 
 
 	void ttfErrorMessage(std::string msg) {

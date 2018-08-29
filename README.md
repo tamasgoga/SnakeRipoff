@@ -1,42 +1,47 @@
 [Snake](https://en.wikipedia.org/wiki/Snake_(video_game) "Wikipedia article") clone, by _Goga Tamas_.
 
 ## DEPENDENCIES ##
-```SDL2```, ```SDL2-image```, ```SDL2-ttf``` -- [Setting up SDL2](http://lazyfoo.net/tutorials/SDL/01_hello_SDL/index.php); [Setting up SDL extensions](http://lazyfoo.net/tutorials/SDL/06_extension_libraries_and_loading_other_image_formats/index.php)
+```SDL2```, ```SDL2-ttf``` -- [Setting up SDL2](http://lazyfoo.net/tutorials/SDL/01_hello_SDL/index.php); [Setting up SDL extensions](http://lazyfoo.net/tutorials/SDL/06_extension_libraries_and_loading_other_image_formats/index.php)
 
 ## ROADMAP ##
 - **0.8:**
   - UI revision;
   - ~~Reorganize code & split files in ```game/```;~~
-  - Support multiple (hopefully any) resolutions;
   - ~~TTF: changeText() -> load in same place~~ -- _it already works like that_;
   - Effects when:
     - ~~The snake eats food;~~
     - Game speed increases;
   - ~~Gameplay: speed up over time (this completes classic mode);~~
-  - ~~Credit myself (bottom right on menu screen).~~
-- **0.9:**
-  - Endless mode with events and powerups;
-  - Wall tiles;
-  - Vicinity food generation;
-  - Sound (Old-school bleeps. Melody based on the snake's actions);
-  - Store highscores;
-  - Add notifications/warnings (like "Are you sure you want to quit?").
-- **??:**
   - Actual random place for the snake to start from;
-  - AI for the snake;
-  - Proper ending.
+  - ~~Credit myself (bottom right on menu screen);~~
+  - ~~Remove  ```SDL2-image```  dependency.~~
+- **1.0:**
+  - Store highscores;
+  - Proper ending on the off chance the player actually wins;
+  - _(?) AI for the snake._
 
 ## FUTURE IDEAS ##
 - Gameplay:
+  - Endless mode with events and powerups;
+  - "Vicinity food generation";
+  - Wall tiles;
   - Map editor.
 - Options:
+  - Support multiple (or any) resolutions;
   - Full-screen.
+- Misc:
+  - Add notifications/warnings (like "Are you sure you want to quit?").
+  - Sound (Old-school bleeps. Melody based on the snake's actions);
+  - Actual random place for the snake to start from;
 - **No more _Core_ reworks.**
 
 ## LICENSE ##
 > Distributed under the MIT license.
 
 ## CHANGELOG ##
+- **0.7.14 "Classy Cleanup":**
+  - Remove  ```SDL2-image```  dependency;
+  - Revised the road-map to reflect something I'll actually accomplish.
 - **0.7.13 "Classy Cleanup":**
   - Reorganized code & split files in ```game/```.
 - **0.7.12 "Classy Cleanup":**

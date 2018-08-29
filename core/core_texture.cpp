@@ -4,7 +4,7 @@
 
 #include <SDL2/SDL_render.h>
 #include <SDL2/SDL_rect.h>
-#include <SDL2/SDL_image.h>
+// #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_surface.h>
 
 #include <string>
@@ -66,10 +66,12 @@ namespace core {
 
 
 	Texman::texindex Texman::load(const char* path) {
-		SDL_Surface* surface = IMG_Load(path);
+		// SDL_Surface* surface = IMG_Load(path);
+		SDL_Surface* surface = SDL_LoadBMP(path);
 
 		if (surface == nullptr) {
-			throw LoadingFailure("Failed to load \"" + std::string(path) + "\" :: " + IMG_GetError());
+			// throw LoadingFailure("Failed to load \"" + std::string(path) + "\" :: " + IMG_GetError());
+			throw LoadingFailure("Failed to load \"" + std::string(path) + "\" :: " + SDL_GetError());
 		}
 
 		const int width = surface->w;
@@ -91,17 +93,20 @@ namespace core {
 
 
 	Texman::texindex Texman::load(const char* path, uint redKey, uint greenKey, uint blueKey) {
-		SDL_Surface* surface = IMG_Load(path);
+		// SDL_Surface* surface = IMG_Load(path);
+		SDL_Surface* surface = SDL_LoadBMP(path);
 
 		if (surface == nullptr) {
-			throw LoadingFailure("Failed to load \"" + std::string(path) + "\" :: " + IMG_GetError());
+			// throw LoadingFailure("Failed to load \"" + std::string(path) + "\" :: " + IMG_GetError());
+			throw LoadingFailure("Failed to load \"" + std::string(path) + "\" :: " + SDL_GetError());
 		}
 
 		const int width = surface->w;
 		const int height = surface->h;
 
 		if (SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format, redKey, greenKey, blueKey)) != 0) {
-			throw LoadingFailure("Failed to color-key \"" + std::string(path) + "\" :: " + IMG_GetError());
+			// throw LoadingFailure("Failed to color-key \"" + std::string(path) + "\" :: " + IMG_GetError());
+			throw LoadingFailure("Failed to color-key \"" + std::string(path) + "\" :: " + SDL_GetError());
 		}
 
 		SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);

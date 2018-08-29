@@ -1,7 +1,7 @@
 #include "core_base.hpp"
 
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+// #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
 #include <iostream>
@@ -73,7 +73,7 @@ namespace core {
 		core::window = nullptr;
 
 		TTF_Quit();
-		IMG_Quit();
+		// IMG_Quit();
 		SDL_Quit();
 	}
 
@@ -209,11 +209,10 @@ static bool init_env() noexcept {
 	}
 
 	// init SDL_image
-	int imgFlags = IMG_INIT_PNG;
-	if (!(IMG_Init(imgFlags) & imgFlags)) {
+	/*if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
 		core::imgErrorMessage("Failed to initialize SDL_image.");
 		return false;
-	}
+	}*/
 
 	// init SDL_ttf
 	if (TTF_Init() != 0) {

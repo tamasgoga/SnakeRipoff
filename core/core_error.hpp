@@ -12,10 +12,10 @@
 namespace core {
 
 	/** Handles for all the different types of error messages */
-	void errorMessage(std::string msg);     // used for library independent error messages
-	void sdlErrorMessage(std::string msg);  // also displays SDL_GetError()
-	void imgErrorMessage(std::string msg);  // also displays IMG_GetError()
-	void ttfErrorMessage(std::string msg);  // also displays TTF_GetError();
+	void errorMessage(std::string msg);        // used for library independent error messages
+	void sdlErrorMessage(std::string msg);     // also displays SDL_GetError()
+	// void imgErrorMessage(std::string msg);  // also displays IMG_GetError()
+	void ttfErrorMessage(std::string msg);     // also displays TTF_GetError();
 
 
 	/** Base class for all Core exceptions */
