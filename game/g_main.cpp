@@ -29,35 +29,6 @@ namespace time_step {
 } // namespace time_step
 
 
-/** Get a lighter or darker (factor < 0) shade of a color
-    Doesn't change the alpha */
-static SDL_Color tint(const SDL_Color& color, float factor) {
-	bool lighten = true;
-
-	if (factor < 0) {
-		lighten = false;
-		factor = -factor;
-	}
-
-	if (lighten) {
-		return {
-			uint8_t(color.r + (255 - color.r) * factor),
-			uint8_t(color.g + (255 - color.g) * factor),
-			uint8_t(color.b + (255 - color.b) * factor),
-			color.a
-		};
-	}
-
-	factor = 1.f + factor;
-	return {
-		uint8_t(color.r * factor),
-		uint8_t(color.g * factor),
-		uint8_t(color.b * factor),
-		color.a
-	};
-}
-
-
 /** Changes num in place, and returns a string containing the digits where they changed and spaces otherwise
     Sample return value: " 5 12"
     Assumes that num.size() is at least 5 */
@@ -89,7 +60,7 @@ Game::Game()
 	, font(ui::fontPath->path.c_str(), 20)
 	, scoreText("00000")
 	, scoreHighlight(255, 5, 25)
-	, scoreHighlightColor(tint(ui::BLUE, -0.3))
+	, scoreHighlightColor(ui::tintColor(ui::BLUE, -0.3))
 	, clock(true)
 	, state(State::PLAYING)
 {
@@ -108,7 +79,7 @@ Game::Game()
 	ftFrateTitle = font.loadText("TSTEP", ui::WHITE);
 	ftFrateNumber = font.loadText("?", ui::WHITE);
 	ftPaused = font.loadText("PAUSED", ui::WHITE);
-	ftGameOver = font.loadText("GAME OVER", ui::WHITE);
+	ftGameOver = font.loadText("FINAL SCORE", ui::WHITE);
 
 	font.setAlphaMod(ftScoreTitle, 180);
 	font.setAlphaMod(ftFrateTitle, 180);
@@ -147,13 +118,10 @@ bool Game::run(int speedUpMs) {
 			break;
 
 		case State::OVER:
+		case State::WON:
 			flashScreenAndDelay();
 			collapseSnake();
 			endGame();
-			break;
-
-		case State::WON:
-			endGame();	// do a proper thing here
 			break;
 
 		case State::MENU:

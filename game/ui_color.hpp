@@ -16,6 +16,11 @@ namespace ui {
 	extern const SDL_Color BLUE;
 	// yellow: 251, 167, 5 (title)
 
+
+	/** Get a lighter or darker (factor < 0) shade of a color
+	    Doesn't change the alpha */
+	SDL_Color tintColor(const SDL_Color& color, float factor);
+
 } // namespace ui
 
 

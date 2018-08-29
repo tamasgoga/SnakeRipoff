@@ -5,9 +5,9 @@
 
 ## ROADMAP ##
 
-These are the updates that are going to happen sooner or lager (except the italic ones).
+These are the updates that are going to happen sooner or later.
 
-- **0.8:**
+- **1.0:**
   - UI revision;
   - ~~Reorganize code & split files in ```game/```;~~
   - ~~TTF: changeText() -> load in same place~~ -- _it already works like that_;
@@ -16,11 +16,8 @@ These are the updates that are going to happen sooner or lager (except the itali
     - Game speed increases;
   - ~~Gameplay: speed up over time (this completes classic mode);~~
   - ~~Credit myself (bottom right on menu screen);~~
-  - ~~Remove  ```SDL2-image```  dependency.~~
-- **1.0:**
+  - ~~Remove  ```SDL2-image```  dependency;~~
   - Store highscores;
-  - Proper ending on the off chance the player actually wins;
-  - _(?) AI for the snake._
 
 ## FUTURE IDEAS ##
 
@@ -35,9 +32,10 @@ These things might never happen. They're here for future reference.
   - Support multiple (or any) resolutions;
   - Full-screen.
 - Misc:
-  - Add notifications/warnings (like "Are you sure you want to quit?").
+  - Add notifications/warnings (like "Are you sure you want to quit?");
   - Sound (Old-school bleeps. Melody based on the snake's actions);
   - Actual random place for the snake to start from;
+  - AI for the snake.
 - **No more _Core_ reworks.**
 
 ## LICENSE ##
