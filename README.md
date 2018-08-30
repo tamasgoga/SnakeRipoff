@@ -18,8 +18,8 @@ These are the updates that are going to happen sooner or later.
   - ~~Credit myself (bottom right on menu screen);~~
   - ~~Remove  ```SDL2-image```  dependency;~~
   - Store highscores.
-- **0.8:**
-  - Final testing, polish & eventual bugfixes.
+- **1.0:**
+  - Final testing, polish & potential bugfixes.
 
 ## FUTURE IDEAS ##
 

@@ -450,6 +450,7 @@ void Game::collapseSnake() {
 //--------------------------------------------------------------
 
 
+// true: play, false: quit
 bool showMenu() {
 	using namespace core;
 
@@ -589,7 +590,7 @@ bool showMenu() {
 }
 
 
-// returns false if fully quit
+// returns false if SDL_QUIT
 bool showScores() {
 	using namespace core;
 
