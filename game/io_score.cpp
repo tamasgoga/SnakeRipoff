@@ -48,7 +48,7 @@ namespace io {
 	void ScoreFile::save(uint score) {
 		getInstance();
 
-		auto now = static_cast<long long>(duration_cast<chrono::milliseconds>(high_resolution_clock::now().time_since_epoch()).count());
+		auto now = static_cast<long long>(duration_cast<chrono::milliseconds>(system_clock::now().time_since_epoch()).count());
 
 		if (addScore({now, score})) {
 			ofstream f(SAVE_FILE_REL_PATH);
