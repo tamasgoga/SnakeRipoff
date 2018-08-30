@@ -4,9 +4,7 @@
 #include <string>
 #include <sstream>
 #include <chrono>
-#include <ctime>
 #include <algorithm>
-#include <iostream> // FOR TESTING PURPOSES
 
 #include "../core/core_base.hpp"
 #include "../core/core_error.hpp"
@@ -47,14 +45,6 @@ namespace io {
 		f.close();
 
 		sort(scores.begin(), scores.end(), CompareScores());
-
-		cout << "File open {\n";
-		int i = 0;
-		for (auto& s: scores) {
-			++i;
-			cout << "\t(" << i << ")\t" << s.timestamp << ", " << s.score << endl;
-		}
-		cout << "}\n";
 	}
 
 
@@ -66,7 +56,6 @@ namespace io {
 			for (auto& s: scores)
 				f << s.timestamp << ',' << s.score << '\n';
 			f.close();
-			cout << "Your final score @ " << now << ": " << score << endl;
 		}
 	}
 

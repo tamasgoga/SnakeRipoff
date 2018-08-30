@@ -44,6 +44,8 @@ These things might never happen. They're here for future reference.
 > Distributed under the MIT license.
 
 ## CHANGELOG ##
+- **0.7.17 "Almost There":**
+  - Highscore save feature now works, needs to be put in UI, though!
 - **0.7.16 "Almost There":**
   - Added a very bare-bones high-score save feature (not done yet).
 - **0.7.15 "Classy Cleanup":**

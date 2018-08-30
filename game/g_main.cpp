@@ -3,6 +3,7 @@
 #include "ui_slider.hpp"
 
 #include "../core/core_draw.hpp"
+#include "../core/core_util.hpp"
 
 
 namespace ui {
@@ -483,7 +484,7 @@ bool showMenu() {
 		"Play",
 		{menuButtonX, menuButtonY, menuButtonWidth, menuButtonHeight}
 	);
-	Button optionsButton(
+	Button scoresButton(
 		buttonFont,
 		"Scores",
 		{menuButtonX + menuWidth - menuButtonWidth, menuButtonY, menuButtonWidth, menuButtonHeight}
@@ -512,13 +513,13 @@ bool showMenu() {
 	const int speedTextY = timeStepSlider.getBoundingBox().y - 25;
 
 	// draw the menu
-	auto render = [&] () {
+	auto renderMenuPage = [&] () {
 		clearDisplay();
 
 		titleFont.draw(ftTitleSeries, titleSeries_posx, titleSeries_posy);
 		titleFont.draw(ftTitleGame, titleGame_posx, titleGame_posy);
 		playButton.draw();
-		optionsButton.draw();
+		scoresButton.draw();
 		smallFont.draw(ftSpeed, speedTextX, speedTextY);
 		smallFont.draw(ftVersion, 5, 5);
 		smallFont.draw(ftCredits, credit_posx, credit_posy);
@@ -529,7 +530,7 @@ bool showMenu() {
 	};
 
 	// initial draw
-	render();
+	renderMenuPage();
 
 	// event & draw loop
 	while (SDL_WaitEvent(&menuEvent)) {
@@ -557,7 +558,7 @@ bool showMenu() {
 			case SDL_MOUSEBUTTONUP:
 			case SDL_MOUSEWHEEL:
 				playButton.handleMouse(menuEvent);
-				optionsButton.handleMouse(menuEvent);
+				scoresButton.handleMouse(menuEvent);
 				timeStepSlider.handleMouse(menuEvent);
 				ui::quitButton->handleMouse(menuEvent);
 				break;
@@ -569,8 +570,76 @@ bool showMenu() {
 		if (ui::quitButton->isState(Button::CLICKED))
 			return false;
 
-		render();
+		// make sure to check this last
+		if (scoresButton.isState(Button::SELECTED)) {
+			if (!showScores())
+				return false;
+
+			int mouseX, mouseY;
+			SDL_GetMouseState(&mouseX, &mouseY);
+
+			// unfortunately we have to manually reset this, probably a bug with the button
+			scoresButton.setState(isInside(mouseX, mouseY, scoresButton.getBoundingBox()) ? Button::HOVER : Button::NORMAL);
+		}
+
+		renderMenuPage();
 	}
 
-	throw Failure("menu() ended at end of function (should NEVER happen)");
+	throw Failure("MENU ended at end of function (should NEVER happen)");
+}
+
+
+// returns false if fully quit
+bool showScores() {
+	using namespace core;
+
+	SDL_Event event;
+
+	core::Texman texman;
+	auto txBlackOverlay = texman.create(getWindowWidth(), getWindowHeight(), 0,0,0);
+
+	auto renderScoresPage = [&] () {
+		clearDisplay();
+
+		texman.draw(txBlackOverlay, 0, 0);
+		ui::quitButton->draw();
+
+		updateDisplay();
+	};
+
+	// initial draw
+	renderScoresPage();
+
+	// event & draw loop
+	while (SDL_WaitEvent(&event)) {
+		switch (event.type) {
+			case SDL_QUIT:
+				return false;
+				break;
+
+			case SDL_KEYDOWN:
+				switch (event.key.keysym.sym) {
+				case SDLK_ESCAPE:
+				case SDLK_RETURN:
+					return true;
+					break;
+				} // event.key.keysym.sym
+
+				break;
+
+			case SDL_MOUSEMOTION:
+			case SDL_MOUSEBUTTONDOWN:
+			case SDL_MOUSEBUTTONUP:
+			case SDL_MOUSEWHEEL:
+				ui::quitButton->handleMouse(event);
+				break;
+		}
+
+		if (ui::quitButton->isState(Button::CLICKED))
+			return true;
+
+		renderScoresPage();
+	}
+
+	throw Failure("SCORE page ended at end of function (should NEVER happen)");
 }

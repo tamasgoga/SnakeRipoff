@@ -8,7 +8,7 @@
 
 #define GAME_VERSION_MAJOR	0
 #define GAME_VERSION_MINOR	7
-#define GAME_VERSION_BUILD	16
+#define GAME_VERSION_BUILD	17
 
 #define GAME_VERSION_NAME	"Almost There"
 
@@ -105,5 +105,7 @@ private:
 
 
 bool showMenu();
+bool showScores();
+
 
 #endif // SNAKE_SNAKE_HPP

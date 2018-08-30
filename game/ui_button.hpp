@@ -35,6 +35,10 @@ public:
 		return state == bs;
 	}
 
+	inline void setState(ButtonState bs) noexcept {
+		state = bs;
+	}
+
 	inline const SDL_Rect& getBoundingBox() const noexcept {
 		return box;
 	}
