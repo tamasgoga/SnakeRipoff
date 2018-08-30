@@ -42,10 +42,13 @@ These things might never happen. They're here for future reference.
 > Distributed under the MIT license.
 
 ## CHANGELOG ##
+- **0.7.16 "Almost there":**
+  - Added a very bare-bones high-score save feature (not done yet).
 - **0.7.15 "Classy Cleanup":**
   - Effect when game speed increases;
   - UI revision.
 - **0.7.14 "Classy Cleanup":**
+  - _Project resumed on August 29, 2018;_
   - Remove  ```SDL2-image```  dependency;
   - Revised the road-map to reflect something I'll actually accomplish.
 - **0.7.13 "Classy Cleanup":**

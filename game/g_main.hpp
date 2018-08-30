@@ -8,7 +8,7 @@
 
 #define GAME_VERSION_MAJOR	0
 #define GAME_VERSION_MINOR	7
-#define GAME_VERSION_BUILD	15
+#define GAME_VERSION_BUILD	16
 
 #define GAME_VERSION_NAME	"Classy Cleanup"
 
@@ -22,6 +22,7 @@
 
 #include "g_grid.hpp"
 #include "g_pulse.hpp"
+#include "io_score.hpp"
 
 #include <SDL2/SDL_events.h>
 

@@ -127,6 +127,8 @@ bool Game::run(int speedUpMs) {
 
 		case State::OVER:
 		case State::WON:
+			io::ScoreFile::getInstance().save(grid.getScore());
+
 			flashScreenAndDelay();
 			collapseSnake();
 			endGame();

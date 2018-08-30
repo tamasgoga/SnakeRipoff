@@ -35,10 +35,10 @@ void noCoreMain() {
 
 bool core::init() noexcept {
 	// flags
-	toggleSubsystemFlagsOff(INIT_AUDIO);      // audio OFF
+	toggleSubsystemFlagsOff(INIT_AUDIO);
 
 	// management
-	setAppInfo("TerriblyMediocre", "Snake");  // "Terribly Mediocre Software" ^_^
+	setAppInfo("gogatamas", "Snake");
 	setNoCoreFn(noCoreMain);
 
 	// window attributes
@@ -86,6 +86,10 @@ void core::main() {
 
 	ui::txSnake = pTexman->create(Tile::size - 2, Tile::size - 2, ui::BLUE.r, ui::BLUE.g, ui::BLUE.b);
 	ui::txSimpleFood = pTexman->create(Tile::size - 4, Tile::size - 4, ui::RED.r , ui::RED.g, ui::RED.b);
+
+
+	// initialize score save file
+	io::ScoreFile::getInstance();
 
 	// main loop
 	while (showMenu()) {
