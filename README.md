@@ -42,7 +42,7 @@ These things might never happen. They're here for future reference.
 > Distributed under the MIT license.
 
 ## CHANGELOG ##
-- **0.7.16 "Almost there":**
+- **0.7.16 "Almost There":**
   - Added a very bare-bones high-score save feature (not done yet).
 - **0.7.15 "Classy Cleanup":**
   - Effect when game speed increases;

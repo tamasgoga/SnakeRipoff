@@ -10,7 +10,7 @@
 #define GAME_VERSION_MINOR	7
 #define GAME_VERSION_BUILD	16
 
-#define GAME_VERSION_NAME	"Classy Cleanup"
+#define GAME_VERSION_NAME	"Almost There"
 
 
 //--------------------------------------------------------------
