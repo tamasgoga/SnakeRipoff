@@ -8,7 +8,8 @@
 
 namespace io {
 
-	/** Singleton that holds the high-scores */
+	/** Singleton that holds the high-scores.
+	    Holds 10 scores at most. */
 	class ScoreFile {
 		public:
 			// Get an instance
@@ -30,10 +31,15 @@ namespace io {
 
 
 		private:
+			// C-tor, reads the score file if it exists
 			ScoreFile();
 
-			std::vector<score> scores;
 
+			// Add a score to the vector
+			bool addScore(score s);
+
+
+			std::vector<score> scores;
 			static const char* SAVE_FILE_REL_PATH;
 
 		// Singleton related stuff

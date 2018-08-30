@@ -5,6 +5,7 @@
 #include <sstream>
 #include <chrono>
 #include <ctime>
+#include <algorithm>
 #include <iostream> // FOR TESTING PURPOSES
 
 #include "../core/core_base.hpp"
@@ -16,8 +17,15 @@ using namespace std::chrono;
 
 namespace io {
 
-
 	const char* ScoreFile::SAVE_FILE_REL_PATH = "res/snake.save";
+
+
+	class CompareScores {
+	public:
+		inline bool operator() (const ScoreFile::score& a, const ScoreFile::score& b) {
+			return (a.score > b.score);
+		}
+	};
 
 
 	ScoreFile::ScoreFile()
@@ -26,7 +34,6 @@ namespace io {
 		string timestamp, score;
 
 		ifstream f(SAVE_FILE_REL_PATH);
-		cout << "File open {\n";
 		while (getline(f, timestamp, ',')) {
 			getline(f, score);
 
@@ -36,20 +43,46 @@ namespace io {
 			score_ss >> s.score;
 
 			scores.push_back(s);
+		}
+		f.close();
 
-			cout << '\t' << s.timestamp << ", " << s.score << endl;
+		sort(scores.begin(), scores.end(), CompareScores());
+
+		cout << "File open {\n";
+		int i = 0;
+		for (auto& s: scores) {
+			++i;
+			cout << "\t(" << i << ")\t" << s.timestamp << ", " << s.score << endl;
 		}
 		cout << "}\n";
-		f.close();
 	}
 
 
 	void ScoreFile::save(uint score) {
 		auto now = static_cast<long long>(duration_cast<chrono::milliseconds>(high_resolution_clock::now().time_since_epoch()).count());
-		ofstream f(SAVE_FILE_REL_PATH);
-		f << now << ',' << score << '\n';
-		f.close();
-		cout << "Your final score @ " << now << ": " << score << endl;
+
+		if (addScore({now, score})) {
+			ofstream f(SAVE_FILE_REL_PATH);
+			for (auto& s: scores)
+				f << s.timestamp << ',' << s.score << '\n';
+			f.close();
+			cout << "Your final score @ " << now << ": " << score << endl;
+		}
+	}
+
+
+	bool ScoreFile::addScore(score s) {
+		if (scores.size() >= 10 && s.score <= scores[scores.size() - 1].score)
+			return false;
+
+		if (scores.size() < 10)
+			scores.push_back(s);
+		else
+			scores[scores.size() - 1] = s;
+
+		sort(scores.begin(), scores.end(), CompareScores());
+
+		return true;
 	}
 
 } // namespace io

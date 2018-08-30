@@ -7,7 +7,7 @@
 
 These are the updates that are going to happen sooner or later.
 
-- **1.0:**
+- **0.8:**
   - ~~UI revision;~~
   - ~~Reorganize code & split files in ```game/```;~~
   - ~~TTF: changeText() -> load in same place~~ -- _it already works like that_;
@@ -17,7 +17,9 @@ These are the updates that are going to happen sooner or later.
   - ~~Gameplay: speed up over time (this completes classic mode);~~
   - ~~Credit myself (bottom right on menu screen);~~
   - ~~Remove  ```SDL2-image```  dependency;~~
-  - Store highscores;
+  - Store highscores.
+- **0.8:**
+  - Final testing, polish & eventual bugfixes.
 
 ## FUTURE IDEAS ##
 
