@@ -594,6 +594,7 @@ bool showMenu() {
 bool showScores() {
 	using namespace core;
 
+	const auto& scores = io::ScoreFile::getInstance();
 	SDL_Event event;
 
 	core::Texman texman;
@@ -610,6 +611,12 @@ bool showScores() {
 
 	// initial draw
 	renderScoresPage();
+
+	// temporary
+	errorMessage("SCORES:");
+	for (io::ScoreFile::size_type i = 0; i < scores.size(); ++i) {
+		errorMessage(std::to_string(scores[i].timestamp) + ": " + std::to_string(scores[i].score));
+	}
 
 	// event & draw loop
 	while (SDL_WaitEvent(&event)) {

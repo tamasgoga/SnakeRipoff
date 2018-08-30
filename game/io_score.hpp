@@ -12,13 +12,6 @@ namespace io {
 	    Holds 10 scores at most. */
 	class ScoreFile {
 		public:
-			// Get an instance
-			static ScoreFile& getInstance() {
-				static ScoreFile instance;
-				return instance;
-			}
-
-
 			/** Holds one score */
 			struct score {
 				long long timestamp;
@@ -26,8 +19,33 @@ namespace io {
 			};
 
 
+			using size_type = std::vector<score>::size_type;
+
+
+			// Get an instance
+			static ScoreFile& getInstance() {
+				static ScoreFile instance;
+				return instance;
+			}
+
+
 			// Save one score
 			void save(uint score);
+
+
+			score& operator[](size_type i) {
+				return scores[i < 10 ? i : 9];
+			}
+
+
+			const score& operator[](size_type i) const {
+				return scores[i < 10 ? i : 9];
+			}
+
+
+			size_type size() const {
+				return scores.size();
+			}
 
 
 		private:
@@ -40,7 +58,7 @@ namespace io {
 
 
 			std::vector<score> scores;
-			static const char* SAVE_FILE_REL_PATH;
+			const char* SAVE_FILE_REL_PATH = "res/snake.save";
 
 		// Singleton related stuff
 		public:

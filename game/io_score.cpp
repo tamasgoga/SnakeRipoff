@@ -15,9 +15,6 @@ using namespace std::chrono;
 
 namespace io {
 
-	const char* ScoreFile::SAVE_FILE_REL_PATH = "res/snake.save";
-
-
 	class CompareScores {
 	public:
 		inline bool operator() (const ScoreFile::score& a, const ScoreFile::score& b) {
@@ -49,6 +46,8 @@ namespace io {
 
 
 	void ScoreFile::save(uint score) {
+		getInstance();
+
 		auto now = static_cast<long long>(duration_cast<chrono::milliseconds>(high_resolution_clock::now().time_since_epoch()).count());
 
 		if (addScore({now, score})) {
@@ -61,6 +60,8 @@ namespace io {
 
 
 	bool ScoreFile::addScore(score s) {
+		getInstance();
+		
 		if (scores.size() >= 10 && s.score <= scores[scores.size() - 1].score)
 			return false;
 
