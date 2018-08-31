@@ -17,7 +17,7 @@ These are the updates that are going to happen sooner or later.
   - ~~Gameplay: speed up over time (this completes classic mode);~~
   - ~~Credit myself (bottom right on menu screen);~~
   - ~~Remove  ```SDL2-image```  dependency;~~
-  - Store highscores.
+  - ~~Store highscores.~~
 - **1.0:**
   - Final testing, polish & potential bugfixes.
 
@@ -44,6 +44,9 @@ These things might never happen. They're here for future reference.
 > Distributed under the MIT license.
 
 ## CHANGELOG ##
+- **0.7.18 "Almost There":**
+  - Primitive scoreboard UI;
+  - Gave up on working with date in C++, too much hassle for a small project like this;
 - **0.7.17 "Almost There":**
   - Highscore save feature now works, needs to be put in UI, though!
 - **0.7.16 "Almost There":**

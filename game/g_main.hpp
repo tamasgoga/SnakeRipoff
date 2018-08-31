@@ -8,7 +8,7 @@
 
 #define GAME_VERSION_MAJOR	0
 #define GAME_VERSION_MINOR	7
-#define GAME_VERSION_BUILD	17
+#define GAME_VERSION_BUILD	18
 
 #define GAME_VERSION_NAME	"Almost There"
 
