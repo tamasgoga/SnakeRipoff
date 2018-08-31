@@ -607,20 +607,28 @@ bool showScores() {
 	ftScores.reserve(SCORE_BOARD_LEN);
 
 	// load scores
+	int maxTextWidth = 0;
 	for (int i = 0; i < SCORE_BOARD_LEN; ++i) {
 		ftScores.push_back(font.loadText(
-			std::string(i < 9 ? " " : "") + std::to_string(i + 1) + ". " + std::to_string(scores[i]),
+			std::string(i < 9 ? " " : "") + std::to_string(i + 1) + ".   " + std::to_string(scores[i]),
 			ui::WHITE
 		));
+
+		int w = font.getWidth(ftScores[i]);
+		if (w > maxTextWidth)
+			maxTextWidth = w;
 	}
 
-	auto renderScoresPage = [&texman, &font, txBlackOverlay, ftScores, SCORE_BOARD_LEN] () {
+	const int textPosX = (getWindowWidth() - maxTextWidth) / 2;
+	const int textPosY = SCORE_BOARD_LEN > 0 ? (getWindowHeight() - (font.getHeight(ftScores[0]) * 10 + FONT_SIZE * 10)) / 2 : 0;
+
+	auto renderScoresPage = [&texman, &font, txBlackOverlay, ftScores, SCORE_BOARD_LEN, textPosX, textPosY] () {
 		clearDisplay();
 
 		texman.draw(txBlackOverlay, 0, 0);
 
 		for (int i = 0; i < SCORE_BOARD_LEN; ++i) {
-			font.draw(ftScores[i], 100, 100 + i * FONT_SIZE + FONT_SIZE / 2);
+			font.draw(ftScores[i], textPosX, textPosY + i * FONT_SIZE + FONT_SIZE);
 		}
 
 		ui::quitButton->draw();

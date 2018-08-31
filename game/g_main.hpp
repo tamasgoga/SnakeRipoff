@@ -7,10 +7,10 @@
 //--------------------------------------------------------------
 
 #define GAME_VERSION_MAJOR	0
-#define GAME_VERSION_MINOR	7
-#define GAME_VERSION_BUILD	18
+#define GAME_VERSION_MINOR	8
+#define GAME_VERSION_BUILD	0
 
-#define GAME_VERSION_NAME	"Almost There"
+#define GAME_VERSION_NAME	"Beta"
 
 
 //--------------------------------------------------------------

@@ -7,18 +7,8 @@
 
 These are the updates that are going to happen sooner or later.
 
-- **0.8:**
-  - ~~UI revision;~~
-  - ~~Reorganize code & split files in ```game/```;~~
-  - ~~TTF: changeText() -> load in same place~~ -- _it already works like that_;
-  - ~~Effects when:~~
-    - ~~The snake eats food;~~
-    - ~~Game speed increases;~~
-  - ~~Gameplay: speed up over time (this completes classic mode);~~
-  - ~~Credit myself (bottom right on menu screen);~~
-  - ~~Remove  ```SDL2-image```  dependency;~~
-  - ~~Store highscores.~~
 - **1.0:**
+  - Prettier scoreboard page;
   - Final testing, polish & potential bugfixes.
 
 ## FUTURE IDEAS ##
@@ -44,6 +34,9 @@ These things might never happen. They're here for future reference.
 > Distributed under the MIT license.
 
 ## CHANGELOG ##
+- **0.8.0 "Beta":**
+  - Finished an OK looking scoreboard;
+  - _Project in BETA on August 31, 2018._
 - **0.7.18 "Almost There":**
   - Primitive scoreboard UI;
   - Gave up on working with date in C++, too much hassle for a small project like this;
