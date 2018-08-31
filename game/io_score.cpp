@@ -3,22 +3,20 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include <chrono>
 #include <algorithm>
 
 #include "../core/core_base.hpp"
 #include "../core/core_error.hpp"
 
 using namespace std;
-using namespace std::chrono;
 
 
 namespace io {
 
 	class CompareScores {
 	public:
-		inline bool operator() (const ScoreFile::score& a, const ScoreFile::score& b) {
-			return (a.score > b.score);
+		inline bool operator() (uint a, uint b) {
+			return (a > b);
 		}
 	};
 
@@ -26,18 +24,15 @@ namespace io {
 	ScoreFile::ScoreFile()
 		: scores()
 	{
-		string timestamp, score;
+		string scoreStr;
 
 		ifstream f(SAVE_FILE_REL_PATH);
-		while (getline(f, timestamp, ',')) {
-			getline(f, score);
+		while (getline(f, scoreStr)) {
+			istringstream score_ss(scoreStr);
+			uint score;
+			score_ss >> score;
 
-			struct score s;
-			istringstream timestamp_ss(timestamp), score_ss(score);
-			timestamp_ss >> s.timestamp;
-			score_ss >> s.score;
-
-			scores.push_back(s);
+			scores.push_back(score);
 		}
 		f.close();
 
@@ -48,27 +43,25 @@ namespace io {
 	void ScoreFile::save(uint score) {
 		getInstance();
 
-		auto now = static_cast<long long>(duration_cast<chrono::milliseconds>(system_clock::now().time_since_epoch()).count());
-
-		if (addScore({now, score})) {
+		if (addScore(score)) {
 			ofstream f(SAVE_FILE_REL_PATH);
-			for (auto& s: scores)
-				f << s.timestamp << ',' << s.score << '\n';
+			for (auto s: scores)
+				f << s << '\n';
 			f.close();
 		}
 	}
 
 
-	bool ScoreFile::addScore(score s) {
+	bool ScoreFile::addScore(uint score) {
 		getInstance();
 		
-		if (scores.size() >= 10 && s.score <= scores[scores.size() - 1].score)
+		if (scores.size() >= 10 && score <= scores[scores.size() - 1])
 			return false;
 
 		if (scores.size() < 10)
-			scores.push_back(s);
+			scores.push_back(score);
 		else
-			scores[scores.size() - 1] = s;
+			scores[scores.size() - 1] = score;
 
 		sort(scores.begin(), scores.end(), CompareScores());
 

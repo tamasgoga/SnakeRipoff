@@ -12,14 +12,7 @@ namespace io {
 	    Holds 10 scores at most. */
 	class ScoreFile {
 		public:
-			/** Holds one score */
-			struct score {
-				long long timestamp;
-				uint score;
-			};
-
-
-			using size_type = std::vector<score>::size_type;
+			using size_type = std::vector<uint>::size_type;
 
 
 			// Get an instance
@@ -33,12 +26,12 @@ namespace io {
 			void save(uint score);
 
 
-			score& operator[](size_type i) {
+			uint& operator[](size_type i) {
 				return scores[i < 10 ? i : 9];
 			}
 
 
-			const score& operator[](size_type i) const {
+			const uint& operator[](size_type i) const {
 				return scores[i < 10 ? i : 9];
 			}
 
@@ -54,10 +47,10 @@ namespace io {
 
 
 			// Add a score to the vector
-			bool addScore(score s);
+			bool addScore(uint score);
 
 
-			std::vector<score> scores;
+			std::vector<uint> scores;
 			const char* SAVE_FILE_REL_PATH = "res/snake.save";
 
 		// Singleton related stuff

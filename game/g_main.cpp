@@ -595,15 +595,34 @@ bool showScores() {
 	using namespace core;
 
 	const auto& scores = io::ScoreFile::getInstance();
+	static constexpr int FONT_SIZE = 15;
+	const int SCORE_BOARD_LEN = scores.size() < 10 ? scores.size() : 10;
+
 	SDL_Event event;
-
 	core::Texman texman;
-	auto txBlackOverlay = texman.create(getWindowWidth(), getWindowHeight(), 0,0,0);
+	Font font(ui::fontPath->path.c_str(), FONT_SIZE);
 
-	auto renderScoresPage = [&] () {
+	auto txBlackOverlay = texman.create(getWindowWidth(), getWindowHeight(), 0,0,0);
+	std::vector<texindex> ftScores;
+	ftScores.reserve(SCORE_BOARD_LEN);
+
+	// load scores
+	for (int i = 0; i < SCORE_BOARD_LEN; ++i) {
+		ftScores.push_back(font.loadText(
+			std::string(i < 9 ? " " : "") + std::to_string(i + 1) + ". " + std::to_string(scores[i]),
+			ui::WHITE
+		));
+	}
+
+	auto renderScoresPage = [&texman, &font, txBlackOverlay, ftScores, SCORE_BOARD_LEN] () {
 		clearDisplay();
 
 		texman.draw(txBlackOverlay, 0, 0);
+
+		for (int i = 0; i < SCORE_BOARD_LEN; ++i) {
+			font.draw(ftScores[i], 100, 100 + i * FONT_SIZE + FONT_SIZE / 2);
+		}
+
 		ui::quitButton->draw();
 
 		updateDisplay();
@@ -611,12 +630,6 @@ bool showScores() {
 
 	// initial draw
 	renderScoresPage();
-
-	// temporary
-	errorMessage("SCORES:");
-	for (io::ScoreFile::size_type i = 0; i < scores.size(); ++i) {
-		errorMessage(std::to_string(scores[i].timestamp) + ": " + std::to_string(scores[i].score));
-	}
 
 	// event & draw loop
 	while (SDL_WaitEvent(&event)) {
