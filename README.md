@@ -11,7 +11,7 @@ Use the ```arrow keys``` to move the snake. ```F1``` toggles _help mode_ (grid i
 These are the updates that are going to happen sooner or later.
 
 - **1.0:**
-  - Prettier scoreboard page;
+  - Better random food generation;
   - Final testing, polish & potential bugfixes.
 
 ## FUTURE IDEAS ##
@@ -37,6 +37,8 @@ These things might never happen. They're here for future reference.
 > Distributed under the MIT license.
 
 ## CHANGELOG ##
+- **0.8.2 "Beta":**
+  - Completed scoreboard page.
 - **0.8.1 "Beta":**
   - Added help mode & fiddled around with the code for old times sake.
 - **0.8.0 "Beta":**

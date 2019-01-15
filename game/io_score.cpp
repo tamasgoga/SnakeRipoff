@@ -52,6 +52,14 @@ namespace io {
 	}
 
 
+	void ScoreFile::reset() {
+		scores.clear();
+		getInstance();
+		ofstream f(SAVE_FILE_REL_PATH, ofstream::out | ofstream::trunc);
+		f.close();
+	}
+
+
 	bool ScoreFile::addScore(uint score) {
 		getInstance();
 		

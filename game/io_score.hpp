@@ -25,6 +25,10 @@ namespace io {
 			// Save one score
 			void save(uint score);
 
+			
+			// Delete previous results
+			void reset();
+
 
 			uint& operator[](size_type i) {
 				return scores[i < 10 ? i : 9];

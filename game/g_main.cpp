@@ -594,9 +594,13 @@ bool showMenu() {
 bool showScores() {
 	using namespace core;
 
-	const auto& scores = io::ScoreFile::getInstance();
+	// variables
+	auto& scores = io::ScoreFile::getInstance();
 	static constexpr int FONT_SIZE = 15;
-	const int SCORE_BOARD_LEN = scores.size() < 10 ? scores.size() : 10;
+	static constexpr int MIN_SCORE_BOARD_LEN = 10;
+	auto getScoreBoardLength = [&scores] () {
+		return scores.size() < MIN_SCORE_BOARD_LEN ? scores.size() : MIN_SCORE_BOARD_LEN;
+	};
 
 	SDL_Event event;
 	core::Texman texman;
@@ -604,33 +608,70 @@ bool showScores() {
 
 	auto txBlackOverlay = texman.create(getWindowWidth(), getWindowHeight(), 0,0,0);
 	std::vector<texindex> ftScores;
-	ftScores.reserve(SCORE_BOARD_LEN);
+	ftScores.reserve(getScoreBoardLength());
 
-	// load scores
+	// title
+	Font titleFont(ui::fontPath->path.c_str(), 40);
+	auto ftScoreTitle = titleFont.loadText("Scoreboard", ui::RED);
+
+	// scores
 	int maxTextWidth = 0;
-	for (int i = 0; i < SCORE_BOARD_LEN; ++i) {
-		ftScores.push_back(font.loadText(
-			std::string(i < 9 ? " " : "") + std::to_string(i + 1) + ".   " + std::to_string(scores[i]),
-			ui::WHITE
-		));
 
-		int w = font.getWidth(ftScores[i]);
-		if (w > maxTextWidth)
-			maxTextWidth = w;
-	}
+	auto resetScoreBoard = [&scores, &ftScores, &font, &maxTextWidth, &getScoreBoardLength] () {
+		ftScores.clear();
+
+		int len = getScoreBoardLength();
+		for (int i = 0; i < len; ++i) {
+			ftScores.push_back(font.loadText(
+				std::string(i < 9 ? " " : "") + std::to_string(i + 1) + ".   " + std::to_string(scores[i]),
+				ui::WHITE
+			));
+
+			int w = font.getWidth(ftScores[i]);
+			if (w > maxTextWidth) {
+				maxTextWidth = w;
+			}
+		}
+	};
+
+	resetScoreBoard();
 
 	const int textPosX = (getWindowWidth() - maxTextWidth) / 2;
-	const int textPosY = SCORE_BOARD_LEN > 0 ? (getWindowHeight() - (font.getHeight(ftScores[0]) * 10 + FONT_SIZE * 10)) / 2 : 0;
+	const int textPosY = (getWindowHeight() - ((FONT_SIZE + 1) * 11)) / 2;
 
-	auto renderScoresPage = [&texman, &font, txBlackOverlay, ftScores, SCORE_BOARD_LEN, textPosX, textPosY] () {
+	// reset button
+	Font buttonFont(ui::fontPath->path.c_str(), 30);
+	const int buttonWidth = Tile::size * 10;
+	Button resetButton = Button(
+		buttonFont,
+		"Reset",
+		{
+			(getWindowWidth() - buttonWidth) / 2,
+			textPosY + FONT_SIZE * (MIN_SCORE_BOARD_LEN + 3),
+			buttonWidth,
+			Tile::size * 3
+		}
+	);
+
+	auto renderScoresPage = [
+			&texman, &font, &resetButton, &titleFont, ftScoreTitle,
+			txBlackOverlay, ftScores, &getScoreBoardLength, textPosX, textPosY
+		] () {
 		clearDisplay();
 
 		texman.draw(txBlackOverlay, 0, 0);
+		titleFont.draw(
+			ftScoreTitle,
+			(getWindowWidth() - titleFont.getWidth(ftScoreTitle)) / 2,
+			textPosY - FONT_SIZE - titleFont.getHeight(ftScoreTitle)
+		);
 
-		for (int i = 0; i < SCORE_BOARD_LEN; ++i) {
+		int len = getScoreBoardLength();
+		for (int i = 0; i < len; ++i) {
 			font.draw(ftScores[i], textPosX, textPosY + i * FONT_SIZE + FONT_SIZE);
 		}
 
+		resetButton.draw();
 		ui::quitButton->draw();
 
 		updateDisplay();
@@ -660,12 +701,19 @@ bool showScores() {
 			case SDL_MOUSEBUTTONDOWN:
 			case SDL_MOUSEBUTTONUP:
 			case SDL_MOUSEWHEEL:
+				resetButton.handleMouse(event);
 				ui::quitButton->handleMouse(event);
 				break;
 		}
 
-		if (ui::quitButton->isState(Button::CLICKED))
+		if (resetButton.isState(Button::CLICKED)) {
+			scores.reset();
+			resetScoreBoard();
+		}
+
+		if (ui::quitButton->isState(Button::CLICKED)) {
 			return true;
+		}
 
 		renderScoresPage();
 	}
