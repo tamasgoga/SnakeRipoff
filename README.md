@@ -8,14 +8,6 @@ Use the ```arrow keys``` to move the snake. ```F1``` toggles _help mode_ (grid i
 ## DEPENDENCIES ##
 ```SDL2```, ```SDL2-ttf``` -- [Setting up SDL2](http://lazyfoo.net/tutorials/SDL/01_hello_SDL/index.php); [Setting up SDL extensions](http://lazyfoo.net/tutorials/SDL/06_extension_libraries_and_loading_other_image_formats/index.php)
 
-## ROADMAP ##
-
-These are the updates that are going to happen sooner or later.
-
-- **1.0:**
-  - Better random food generation;
-  - Final testing, polish & potential bugfixes.
-
 ## FUTURE IDEAS ##
 
 These things might never happen. They're here for future reference.
@@ -39,6 +31,9 @@ These things might never happen. They're here for future reference.
 > Distributed under the MIT license.
 
 ## CHANGELOG ##
+- **1.0.0 "Release":** _(15th Jan 2019, 14:00)_
+  - Better random food generation;
+  - At long last, we're here. ^_^
 - **0.8.2 "Beta":**
   - Completed scoreboard page.
 - **0.8.1 "Beta":**

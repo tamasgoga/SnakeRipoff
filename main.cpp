@@ -91,7 +91,7 @@ void core::main() {
 	// main loop
 	while (showMenu()) {
 		Game game;
-		if (!game.run(20000))
+		if (!game.run(30000))
 			break;
 	}
 }

@@ -72,36 +72,32 @@ Grid::Grid()
 
 
 // returns State::WON if no more food can be generated
+// (!) NOTE! Had problems with this algorithm last time I've implemented it.
+//           It was probably due tue fatigue, and my own mistakes, but it doesn't hurt to keep this in mind.
 State Grid::generateFood() {
-	// won
-	if (snakeSize == MAX)
+	if (snakeSize == MAX) {
 		return State::WON;
-
-	int freeTileCount = MAX - snakeSize;
-
-	if (freeTileCount > TILES_IN_ROW) {
-		// generate a random number
-		do {
-			simpleFood = core::randomInt(rng32, 0, MAX - 1);
-		} while (grid[simpleFood].entity != Tile::NONE);
-
-	} else {
-		// the snake is very large, pick one of the empty spaces
-		int emptyTiles[TILES_IN_ROW];
-		int emptyTilesCount = 0;
-
-		for (int i = 0; i < MAX; ++i) {
-			if (grid[i].entity == Tile::NONE) {
-				emptyTiles[emptyTilesCount++] = i;
-
-				if (emptyTilesCount == TILES_IN_ROW)
-					break;
-			}
-		}
-
-		simpleFood = emptyTiles[core::randomInt(rng32, 0, emptyTilesCount - 1)];
 	}
 
+	int bucketIdx = core::randomInt(rng32, 0, MAX - snakeSize - 1);
+
+	// find start pos
+	int start = 0;
+	while (grid[start].entity != Tile::NONE) {
+		++start;
+	}
+
+	// find food position
+	int bucketCnt = 0;
+	int pos = start;
+	while (bucketCnt < bucketIdx) {
+		if (grid[pos].entity == Tile::NONE) {
+			++bucketCnt;
+		}
+		++pos;
+	}
+
+	simpleFood = pos;
 	grid[simpleFood].entity = Tile::SIMPLE_FOOD;
 
 	return State::PLAYING;
