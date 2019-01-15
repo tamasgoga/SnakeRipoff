@@ -72,8 +72,6 @@ Grid::Grid()
 
 
 // returns State::WON if no more food can be generated
-// (!) NOTE! Had problems with this algorithm last time I've implemented it.
-//           It was probably due tue fatigue, and my own mistakes, but it doesn't hurt to keep this in mind.
 State Grid::generateFood() {
 	if (snakeSize == MAX) {
 		return State::WON;
