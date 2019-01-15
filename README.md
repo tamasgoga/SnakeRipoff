@@ -1,5 +1,7 @@
 [Snake](https://en.wikipedia.org/wiki/Snake_(video_game) "Wikipedia article") clone, by _Goga Tamás_.
 
+![gitimage.png](https://raw.githubusercontent.com/tamasgoga/SnakeRipoff/master/res/gitimage.png)
+
 ## CONTROLS ##
 Use the ```arrow keys``` to move the snake. ```F1``` toggles _help mode_ (grid is clearly defined), for now.
 
