@@ -31,6 +31,8 @@ These things might never happen. They're here for future reference.
 > Distributed under the MIT license.
 
 ## CHANGELOG ##
+- **1.0.1 "Release":**
+  - Reverted the "better" food generation as it was buggy to the old, safe-but-potentially-slow version.
 - **1.0.0 "Release":** _(15th Jan 2019, 14:00)_
   - Better random food generation;
   - At long last, we're here. ^_^

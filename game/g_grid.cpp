@@ -79,25 +79,29 @@ State Grid::generateFood() {
 		return State::WON;
 	}
 
-	int bucketIdx = core::randomInt(rng32, 0, MAX - snakeSize - 1);
+	int freeTileCount = MAX - snakeSize;
 
-	// find start pos
-	int start = 0;
-	while (grid[start].entity != Tile::NONE) {
-		++start;
-	}
+	if (freeTileCount > TILES_IN_ROW) {
+		// generate a random number
+		do {
+			simpleFood = core::randomInt(rng32, 0, MAX - 1);
+		} while (grid[simpleFood].entity != Tile::NONE);
+	} else {
+		// the snake is very large, pick one of the empty spaces
+		int emptyTiles[TILES_IN_ROW];
+		int emptyTilesCount = 0;
 
-	// find food position
-	int bucketCnt = 0;
-	int pos = start;
-	while (bucketCnt < bucketIdx) {
-		if (grid[pos].entity == Tile::NONE) {
-			++bucketCnt;
+		for (int i = 0; i < MAX; ++i) {
+			if (grid[i].entity == Tile::NONE) {
+				emptyTiles[emptyTilesCount++] = i;
+				if (emptyTilesCount == TILES_IN_ROW) {
+					break;
+				}
+			}
 		}
-		++pos;
+		simpleFood = emptyTiles[core::randomInt(rng32, 0, emptyTilesCount - 1)];
 	}
 
-	simpleFood = pos;
 	grid[simpleFood].entity = Tile::SIMPLE_FOOD;
 
 	return State::PLAYING;
