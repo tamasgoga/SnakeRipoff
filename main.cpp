@@ -86,6 +86,7 @@ void core::main() {
 
 	ui::txSnake = pTexman->create(Tile::size - 2, Tile::size - 2, ui::BLUE.r, ui::BLUE.g, ui::BLUE.b);
 	ui::txSimpleFood = pTexman->create(Tile::size - 4, Tile::size - 4, ui::RED.r , ui::RED.g, ui::RED.b);
+	ui::txHelpBackground = pTexman->create(Tile::size - 2, Tile::size - 2, ui::GRAY.r, ui::GRAY.g, ui::GRAY.b);
 
 	// main loop
 	while (showMenu()) {

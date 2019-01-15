@@ -20,6 +20,7 @@ namespace ui {
 
 	extern core::texindex txSnake;
 	extern core::texindex txSimpleFood;
+	extern core::texindex txHelpBackground;
 
 	extern int speedLevel;
 	extern SDL_Rect playArea;
@@ -64,11 +65,15 @@ public:
 	State advanceState();
 	bool collapseSnakeTowardsItsMiddle();
 
-	inline uint getScore() {
+	inline uint getScore() noexcept {
 		return score;
 	}
 
 private:
+	inline void incScore() noexcept {
+		score += ui::speedLevel;
+	}
+
 	// tiles & snake
 	Tile grid[TILES_IN_ROW * TILES_IN_ROW];
 	int snake[TILES_IN_ROW * TILES_IN_ROW];
@@ -82,7 +87,8 @@ private:
 	Direction direction;		// the direction that we are attempting to move towards
 	Direction currentDirection;	// the direction that we actually moved towards in the last time-step
 
-	// buttons held
+	// other
+	bool isHelpOn = false;
 };
 
 

@@ -15,6 +15,7 @@ namespace ui {
 
 	core::texindex txSnake;
 	core::texindex txSimpleFood;
+	core::texindex txHelpBackground;
 
 	int speedLevel;
 	SDL_Rect playArea;
@@ -77,6 +78,7 @@ State Grid::generateFood() {
 		return State::WON;
 
 	int freeTileCount = MAX - snakeSize;
+
 	if (freeTileCount > TILES_IN_ROW) {
 		// generate a random number
 		do {
@@ -121,7 +123,11 @@ void Grid::draw() const {
 			ui::gTexman->draw(ui::txSimpleFood, tile.x + 2, tile.y + 2);
 			break;
 
-		default: break;
+		default:
+			if (isHelpOn) {
+				ui::gTexman->draw(ui::txHelpBackground, tile.x + 1, tile.y + 1);
+			}
+			break;
 		}
 	}
 }
@@ -130,8 +136,8 @@ void Grid::draw() const {
 void Grid::handleKeyboard() {
 	const Uint8* keystates = SDL_GetKeyboardState(nullptr);
 
+	// vertical movement
 	if (currentDirection == Direction::UP || currentDirection == Direction::DOWN) {
-		// normal movement
 		if (keystates[SDL_SCANCODE_LEFT] && !keystates[SDL_SCANCODE_RIGHT]) {
 			direction = Direction::LEFT;
 		} else if (keystates[SDL_SCANCODE_RIGHT] && !keystates[SDL_SCANCODE_LEFT]) {
@@ -139,13 +145,18 @@ void Grid::handleKeyboard() {
 		}
 	}
 
+	// horizontal movement
 	else if (currentDirection == Direction::LEFT || currentDirection == Direction::RIGHT) {
-		// normal movement
 		if (keystates[SDL_SCANCODE_UP] && !keystates[SDL_SCANCODE_DOWN]) {
 			direction = Direction::UP;
 		} else if (keystates[SDL_SCANCODE_DOWN] && !keystates[SDL_SCANCODE_UP]) {
 			direction = Direction::DOWN;
 		}
+	}
+
+	// help toggle
+	if (keystates[SDL_SCANCODE_F1]) {
+		isHelpOn = !isHelpOn;
 	}
 }
 
@@ -153,7 +164,7 @@ void Grid::handleKeyboard() {
 // returns a game state
 State Grid::advanceState() {
 	if (snakeSize == 0)
-		throw core::Failure("How the fuck wasn't the snake initialized?! I had one job!!");
+		throw core::Failure("How the f*ck wasn't the snake initialized?! I had one job!!");
 
 	// next & previous positions (obviously the head at the beginning)
 	int prev = snake[0];
@@ -194,7 +205,7 @@ State Grid::advanceState() {
 	// check if food, move head
 	bool newFoodNeeded = false;
 	if (grid[snake[0]].entity == Tile::SIMPLE_FOOD) {
-		score += ui::speedLevel;
+		incScore();
 		newFoodNeeded = true;
 	} else if (grid[snake[0]].entity != Tile::NONE) {
 		snake[0] = prev;

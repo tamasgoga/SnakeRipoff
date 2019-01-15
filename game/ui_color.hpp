@@ -14,6 +14,7 @@ namespace ui {
 	extern const SDL_Color WHITE;
 	extern const SDL_Color RED;
 	extern const SDL_Color BLUE;
+	extern const SDL_Color GRAY;
 	// yellow: 251, 167, 5 (title)
 
 

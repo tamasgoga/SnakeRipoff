@@ -8,7 +8,7 @@
 
 #define GAME_VERSION_MAJOR	0
 #define GAME_VERSION_MINOR	8
-#define GAME_VERSION_BUILD	0
+#define GAME_VERSION_BUILD	1
 
 #define GAME_VERSION_NAME	"Beta"
 

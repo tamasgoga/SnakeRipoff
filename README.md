@@ -1,5 +1,8 @@
 [Snake](https://en.wikipedia.org/wiki/Snake_(video_game) "Wikipedia article") clone, by _Goga Tamás_.
 
+## CONTROLS ##
+Use the ```arrow keys``` to move the snake. ```F1``` toggles _help mode_ (grid is clearly defined), for now.
+
 ## DEPENDENCIES ##
 ```SDL2```, ```SDL2-ttf``` -- [Setting up SDL2](http://lazyfoo.net/tutorials/SDL/01_hello_SDL/index.php); [Setting up SDL extensions](http://lazyfoo.net/tutorials/SDL/06_extension_libraries_and_loading_other_image_formats/index.php)
 
@@ -34,6 +37,8 @@ These things might never happen. They're here for future reference.
 > Distributed under the MIT license.
 
 ## CHANGELOG ##
+- **0.8.1 "Beta":**
+  - Added help mode & fiddled around with the code for old times sake.
 - **0.8.0 "Beta":**
   - Finished an OK looking scoreboard;
   - _Project in BETA on August 31, 2018._
