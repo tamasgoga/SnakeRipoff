@@ -29,23 +29,17 @@ Grid::Grid()
 	: grid()
 	, snake()
 	, snakeHead(0)
-	, snakeSize(1)
+	, snakeSize(0)
 {
-	// create snake
-	int i = 12;
-	const int bodyLength = i + INIT_SNAKE_SIZE;
+	static constexpr int START_ROW = 15;
+	static constexpr int START_COL = 12;
 
-	// head
-	snake[0] = 15 * TILES_IN_ROW + i;
-	grid[15 * TILES_IN_ROW + i].entity = Tile::SNAKE_HEAD;
-
-	// body
-	for (i = i + 1; i < bodyLength; ++i) {
-		snake[snakeSize++] = 15 * TILES_IN_ROW + i;
-		grid[15 * TILES_IN_ROW + i].entity = Tile::SNAKE_BODY;
+	for (int i = 0; i < INIT_SNAKE_SIZE; ++i) {
+		int pos = START_ROW * TILES_IN_ROW + i + START_COL;
+		snake[snakeSize++] = pos;
+		grid[pos].makeSnake(i + 1);
 	}
 
-	// movement
 	direction = Direction::LEFT;
 	currentDirection = Direction::LEFT;
 
@@ -66,15 +60,16 @@ State Grid::generateFood() {
 		// generate a random number
 		do {
 			simpleFood = core::randomInt(rng32, 0, MAX - 1);
-		} while (grid[simpleFood].entity != Tile::NONE);
+		} while (!grid[simpleFood].isEmpty());
 	} else {
 		// the snake is very large, pick one of the empty spaces
 		int emptyTiles[TILES_IN_ROW];
 		int emptyTilesCount = 0;
 
 		for (int i = 0; i < MAX; ++i) {
-			if (grid[i].entity == Tile::NONE) {
+			if (grid[i].isEmpty()) {
 				emptyTiles[emptyTilesCount++] = i;
+
 				if (emptyTilesCount == TILES_IN_ROW) {
 					break;
 				}
@@ -83,7 +78,7 @@ State Grid::generateFood() {
 		simpleFood = emptyTiles[core::randomInt(rng32, 0, emptyTilesCount - 1)];
 	}
 
-	grid[simpleFood].entity = Tile::SIMPLE_FOOD;
+	grid[simpleFood].makeSimpleFood();
 
 	return State::PLAYING;
 }
@@ -100,28 +95,17 @@ void Grid::draw() const {
 		for (int c = 0; c < TILES_IN_ROW; ++c) {
 			curr = r * TILES_IN_ROW + c;
 
-			switch (grid[curr].entity) {
-			case Tile::SNAKE_HEAD:
+			if (grid[curr].isSnakeHead()) {
 				fullTile.x = posX;
 				fullTile.y = posY;
 				ui::gTexman->draw(ui::txSnake, fullTile);
-				break;
-
-			case Tile::SNAKE_BODY:
+			} else if (grid[curr].isSnakeBody()) {
 				ui::gTexman->draw(ui::txSnake, posX + 1, posY + 1);
-				break;
-
-			case Tile::SIMPLE_FOOD:
+			} else if (grid[curr].isSimpleFood()) {
 				ui::gTexman->draw(ui::txSimpleFood, posX + 2, posY + 2);
-				break;
-
-			default:
-				if (isHelpOn) {
-					ui::gTexman->draw(ui::txHelpBackground, posX + 1, posY + 1);
-				}
-				break;
+			} else if (isHelpOn) {
+				ui::gTexman->draw(ui::txHelpBackground, posX + 1, posY + 1);
 			}
-			
 
 			posX += ui::tileSize;
 		}
@@ -203,15 +187,15 @@ State Grid::advanceState() {
 
 	// check if food, move head
 	bool newFoodNeeded = false;
-	if (grid[snake[0]].entity == Tile::SIMPLE_FOOD) {
+	if (grid[snake[0]].isSimpleFood()) {
 		incScore();
 		newFoodNeeded = true;
-	} else if (grid[snake[0]].entity != Tile::NONE) {
+	} else if (!grid[snake[0]].isEmpty()) {
 		snake[0] = prev;
 		return State::OVER;
 	}
 
-	grid[snake[0]].entity = Tile::SNAKE_HEAD;
+	grid[snake[0]].makeSnakeHead();
 
 	// move rest
 	int temp;
@@ -220,7 +204,7 @@ State Grid::advanceState() {
 		snake[i] = prev;
 		prev = temp;
 
-		grid[snake[i]].entity = Tile::SNAKE_BODY;
+		grid[snake[i]].makeSnake(i + 1);
 	}
 
 	// set the direction
@@ -231,7 +215,7 @@ State Grid::advanceState() {
 		snake[snakeSize++] = prev;
 		return generateFood();
 	} else {
-		grid[prev].entity = Tile::NONE;
+		grid[prev].makeEmpty();
 	}
 
 	return State::PLAYING;
@@ -244,11 +228,11 @@ bool Grid::collapseSnakeTowardsItsMiddle() {
 		return false;
 
 	// collapse
-	grid[snake[snakeHead]].entity = Tile::NONE;
-	grid[snake[snakeSize--]].entity = Tile::NONE;
+	grid[snake[snakeHead]].makeEmpty();
+	grid[snake[snakeSize--]].makeEmpty();
 
 	// size matters :p
-	grid[snake[++snakeHead]].entity = Tile::SNAKE_HEAD;
+	grid[snake[++snakeHead]].makeSnakeHead();
 
 	return true;
 }
