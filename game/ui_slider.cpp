@@ -1,5 +1,4 @@
 #include "ui_slider.hpp"
-#include "g_tile.hpp"
 
 #include <SDL2/SDL_mouse.h>
 #include <SDL2/SDL_events.h>
@@ -16,12 +15,14 @@ namespace ui {
 	extern core::texindex txSnake;
 	extern core::texindex txSimpleFood;
 
+	extern int tileSize;
+
 } // namespace ui
 
 
 Slider::Slider(core::Font& font, int& sliderVariable, int x, int y)
-	: decButton(font, "-", {x, y, Tile::size, Tile::size})
-	, incButton(font, "+", {x + Tile::size*13, y, Tile::size, Tile::size})
+	: decButton(font, "-", {x, y, ui::tileSize, ui::tileSize})
+	, incButton(font, "+", {x + ui::tileSize*13, y, ui::tileSize, ui::tileSize})
 	, level(sliderVariable)
 	, mousedOver(false)
 {
@@ -73,14 +74,14 @@ void Slider::handleMouse(SDL_Event& event) {
 
 void Slider::draw() const {
 	decButton.draw();
-	int posx = box.x + 2*Tile::size;
+	int posx = box.x + 2*ui::tileSize;
 
 	for (int i = 0; i < level; ++i) {
 		if (mousedOver)
-			ui::gTexman->draw(ui::txSimpleFood, {posx + 1, box.y + 1, Tile::size - 2, Tile::size - 2});
+			ui::gTexman->draw(ui::txSimpleFood, {posx + 1, box.y + 1, ui::tileSize - 2, ui::tileSize - 2});
 		else
 			ui::gTexman->draw(ui::txSnake, posx + 1, box.y + 1);
-		posx += Tile::size;
+		posx += ui::tileSize;
 	}
 
 	incButton.draw();

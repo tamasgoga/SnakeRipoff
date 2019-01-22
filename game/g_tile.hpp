@@ -9,6 +9,13 @@
 #include <SDL2/SDL_rect.h>
 
 
+/**
+ * > Not each tile should know its position. That was a dumb idea
+ * > 32bit int for each tile. First half for FLAGS, other 16 bits for snake-body-part-index,
+ * since I want to keep the death effect.
+ */
+
+
 struct Tile {
 	enum Entity {
 		NONE,
@@ -22,17 +29,16 @@ struct Tile {
 		COUNT
 	};
 
-	int x, y;
 	Entity entity;
 
-	static int size;
-
 	Tile() noexcept;
-	Tile(int x, int y, Entity entity) noexcept;
+	Tile(Entity entity) noexcept;
 
-	inline operator SDL_Rect() const noexcept {
-		return {x, y, size, size};
-	}
+	Tile(const Tile&) = default;
+	Tile& operator=(const Tile&) = default;
+
+	Tile(Tile&&) = default;
+	Tile& operator=(Tile&&) = default;
 };
 
 

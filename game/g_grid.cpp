@@ -20,6 +20,8 @@ namespace ui {
 	int speedLevel;
 	SDL_Rect playArea;
 
+	int tileSize;
+
 } // namespace ui
 
 
@@ -29,26 +31,7 @@ Grid::Grid()
 	, snakeHead(0)
 	, snakeSize(1)
 {
-	// set additional variables
-	int posx, posy, curr;
-	posx = ui::playArea.x;
-	posy = ui::playArea.y;
-
-	// build grid
-	for (int r = 0; r < TILES_IN_ROW; ++r) {
-		for (int c = 0; c < TILES_IN_ROW; ++c) {
-			curr = r * TILES_IN_ROW + c;
-
-			grid[curr].x = posx;
-			grid[curr].y = posy;
-
-			posx += Tile::size;
-		}
-
-		posx = ui::playArea.x;
-		posy += Tile::size;
-	}
-
+	// create snake
 	int i = 12;
 	const int bodyLength = i + INIT_SNAKE_SIZE;
 
@@ -107,26 +90,44 @@ State Grid::generateFood() {
 
 
 void Grid::draw() const {
-	for (auto tile: grid) {
-		switch (tile.entity) {
-		case Tile::SNAKE_HEAD:
-			ui::gTexman->draw(ui::txSnake, tile);
-			break;
+	int posX = ui::playArea.x;
+	int posY = ui::playArea.y;
+	SDL_Rect fullTile = { posX, posY, ui::tileSize, ui::tileSize };
 
-		case Tile::SNAKE_BODY:
-			ui::gTexman->draw(ui::txSnake, tile.x + 1, tile.y + 1);
-			break;
+	int curr;
 
-		case Tile::SIMPLE_FOOD:
-			ui::gTexman->draw(ui::txSimpleFood, tile.x + 2, tile.y + 2);
-			break;
+	for (int r = 0; r < TILES_IN_ROW; ++r) {
+		for (int c = 0; c < TILES_IN_ROW; ++c) {
+			curr = r * TILES_IN_ROW + c;
 
-		default:
-			if (isHelpOn) {
-				ui::gTexman->draw(ui::txHelpBackground, tile.x + 1, tile.y + 1);
+			switch (grid[curr].entity) {
+			case Tile::SNAKE_HEAD:
+				fullTile.x = posX;
+				fullTile.y = posY;
+				ui::gTexman->draw(ui::txSnake, fullTile);
+				break;
+
+			case Tile::SNAKE_BODY:
+				ui::gTexman->draw(ui::txSnake, posX + 1, posY + 1);
+				break;
+
+			case Tile::SIMPLE_FOOD:
+				ui::gTexman->draw(ui::txSimpleFood, posX + 2, posY + 2);
+				break;
+
+			default:
+				if (isHelpOn) {
+					ui::gTexman->draw(ui::txHelpBackground, posX + 1, posY + 1);
+				}
+				break;
 			}
-			break;
+			
+
+			posX += ui::tileSize;
 		}
+
+		posX = ui::playArea.x;
+		posY += ui::tileSize;
 	}
 }
 

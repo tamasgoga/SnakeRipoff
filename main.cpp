@@ -58,7 +58,7 @@ bool core::init() noexcept {
 		ui::playArea.y = (windowHeight - windowWidth) / 2;
 	}
 
-	Tile::size = ui::playArea.w / TILES_IN_ROW;
+	ui::tileSize = ui::playArea.w / TILES_IN_ROW;
 	ui::speedLevel = 5;
 
 	return true;
@@ -66,27 +66,30 @@ bool core::init() noexcept {
 
 
 void core::main() {
-	// smart pointers (auto memory management)
-	auto pFontPath = std::make_unique<AppDirPath>("res/ponde___.ttf");
-	auto pSmallButtonFont = std::make_unique<Font>(pFontPath->path.c_str(), 10);
-	auto pQuitButton = std::make_unique<Button>(
+	using namespace std;
+
+	// smart pointers
+	auto pFontPath = make_unique<AppDirPath>("res/ponde___.ttf");
+	auto pSmallButtonFont = make_unique<Font>(pFontPath->path.c_str(), 10);
+	auto pQuitButton = make_unique<Button>(
 		Button(
 			*pSmallButtonFont,
 			"x",
-			{getWindowWidth() - Tile::size - 10, 10, Tile::size, Tile::size}
+			{getWindowWidth() - ui::tileSize - 10, 10, ui::tileSize, ui::tileSize}
 		)
 	);
-	auto pTexman = std::make_unique<core::Texman>();
+	auto pTexman = make_unique<core::Texman>();
 
-	// assign smart pointers to non-owning globals (ease of access)
+	// assign smart pointers to non-owning globals
 	ui::fontPath = pFontPath.get();
 	ui::smallButtonFont = pSmallButtonFont.get();
 	ui::quitButton = pQuitButton.get();
 	ui::gTexman = pTexman.get();
 
-	ui::txSnake = pTexman->create(Tile::size - 2, Tile::size - 2, ui::BLUE.r, ui::BLUE.g, ui::BLUE.b);
-	ui::txSimpleFood = pTexman->create(Tile::size - 4, Tile::size - 4, ui::RED.r , ui::RED.g, ui::RED.b);
-	ui::txHelpBackground = pTexman->create(Tile::size - 2, Tile::size - 2, ui::GRAY.r, ui::GRAY.g, ui::GRAY.b);
+	// other stuff
+	ui::txSnake = ui::gTexman->create(ui::tileSize - 2, ui::tileSize - 2, ui::BLUE.r, ui::BLUE.g, ui::BLUE.b);
+	ui::txSimpleFood = ui::gTexman->create(ui::tileSize - 4, ui::tileSize - 4, ui::RED.r , ui::RED.g, ui::RED.b);
+	ui::txHelpBackground = ui::gTexman->create(ui::tileSize - 2, ui::tileSize - 2, ui::GRAY.r, ui::GRAY.g, ui::GRAY.b);
 
 	// main loop
 	while (showMenu()) {

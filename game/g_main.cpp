@@ -463,8 +463,8 @@ bool showMenu() {
 	Font buttonFont(ui::fontPath->path.c_str(), 30);
 
 	// general variables
-	const int menuButtonWidth = Tile::size * 10;
-	const int menuButtonHeight = Tile::size * 3;
+	const int menuButtonWidth = ui::tileSize * 10;
+	const int menuButtonHeight = ui::tileSize * 3;
 
 	const int menuWidth = (2 * menuButtonWidth + 20);
 
@@ -504,8 +504,8 @@ bool showMenu() {
 	Slider timeStepSlider(
 		sliderFont,
 		ui::speedLevel,
-		getWindowWidth()/2 - 7*Tile::size - Tile::size/2,
-		menuButtonY + menuButtonHeight + 2*Tile::size + 40 + 25
+		getWindowWidth()/2 - 7*ui::tileSize - ui::tileSize/2,
+		menuButtonY + menuButtonHeight + 2*ui::tileSize + 40 + 25
 	);
 
 	// slider text
@@ -641,7 +641,7 @@ bool showScores() {
 
 	// reset button
 	Font buttonFont(ui::fontPath->path.c_str(), 30);
-	const int buttonWidth = Tile::size * 10;
+	const int buttonWidth = ui::tileSize * 10;
 	Button resetButton = Button(
 		buttonFont,
 		"Reset",
@@ -649,7 +649,7 @@ bool showScores() {
 			(getWindowWidth() - buttonWidth) / 2,
 			textPosY + FONT_SIZE * (MIN_SCORE_BOARD_LEN + 3),
 			buttonWidth,
-			Tile::size * 3
+			ui::tileSize * 3
 		}
 	);
 

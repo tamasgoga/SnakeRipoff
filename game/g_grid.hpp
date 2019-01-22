@@ -25,6 +25,8 @@ namespace ui {
 	extern int speedLevel;
 	extern SDL_Rect playArea;
 
+	extern int tileSize;
+
 } // namespace ui
 
 
