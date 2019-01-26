@@ -6,14 +6,13 @@
 // In-game tile
 //--------------------------------------------------------------
 
+#include "g_state.hpp"
 #include "g_tile.hpp"
 #include "../core/core_texture.hpp"
 #include <SDL2/SDL_rect.h>
 
 
-constexpr int TILES_IN_ROW = 30;
-
-
+// (!) move all of these in one file for clarity? -- specify delcaration file
 namespace ui {
 
 	extern core::Texman* gTexman;
@@ -30,16 +29,6 @@ namespace ui {
 } // namespace ui
 
 
-enum class State {
-	PLAYING,
-	PAUSED,
-	OVER,
-	WON,
-	MENU,
-	QUIT
-};
-
-
 enum class Direction {
 	NONE	= 0x0,	// 0000
 
@@ -52,12 +41,14 @@ enum class Direction {
 
 class Grid {
 public:
-	// statics constants
-	static const int MAX				= TILES_IN_ROW * TILES_IN_ROW;
-	static const int INIT_SNAKE_SIZE	= 4;
+	static constexpr int TILES_IN_ROW       = 30;
+	static constexpr int MAX				= TILES_IN_ROW * TILES_IN_ROW;
+	static constexpr int INIT_SNAKE_SIZE	= 4;
 
 	// interface
 	Grid();
+
+	// (!) lack of constructors
 
 	State generateFood();
 
@@ -67,17 +58,21 @@ public:
 	State advanceState();
 	bool collapseSnakeTowardsItsMiddle();
 
-	inline uint getScore() noexcept {
+	// (!) the grid should not know the score?
+	uint getScore() noexcept {
 		return score;
 	}
 
 private:
-	inline void incScore() noexcept {
+	// (!) the grid should not know the score?
+	void incScore() noexcept {
 		score += ui::speedLevel;
 	}
 
+	// (!) dude, why so many arrays?! why not std::array?
 	// tiles & snake
 	Tile grid[TILES_IN_ROW * TILES_IN_ROW];
+	// (!) get rid of second array! NOW!
 	int snake[TILES_IN_ROW * TILES_IN_ROW];
 	int snakeHead, snakeSize;
 

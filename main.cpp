@@ -58,7 +58,7 @@ bool core::init() noexcept {
 		ui::playArea.y = (windowHeight - windowWidth) / 2;
 	}
 
-	ui::tileSize = ui::playArea.w / TILES_IN_ROW;
+	ui::tileSize = ui::playArea.w / Grid::TILES_IN_ROW;
 	ui::speedLevel = 5;
 
 	return true;
