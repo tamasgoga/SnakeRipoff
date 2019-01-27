@@ -11,6 +11,8 @@
 #include "g_state.hpp"
 #include "g_tile.hpp"
 
+#include <array>
+
 
 enum class Direction {
 	NONE	= 0x0,	// 0000
@@ -27,6 +29,9 @@ public:
 	static constexpr int TILES_IN_ROW       = 30;
 	static constexpr int MAX				= TILES_IN_ROW * TILES_IN_ROW;
 	static constexpr int INIT_SNAKE_SIZE	= 4;
+
+	using TileArray = std::array<Tile, MAX>;
+	using index = TileArray::size_type;
 
 	// interface
 	Grid();
@@ -48,9 +53,12 @@ private:
 	// (!) the grid should not know the score?
 	void incScore() noexcept;
 
-	// (!) dude, why so many arrays?! why not std::array?
+	index findNextSnakePart(index pos);
+	index findPrevSnakePart(index pos);
+
+	// (!) dude, why so many arrays?!
 	// tiles & snake
-	Tile grid[TILES_IN_ROW * TILES_IN_ROW];
+	TileArray grid;
 	// (!) get rid of second array! NOW!
 	int snake[TILES_IN_ROW * TILES_IN_ROW];
 	int snakeHead, snakeSize;

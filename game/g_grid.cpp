@@ -51,19 +51,22 @@ Grid::Grid()
 
 // returns State::WON if no more food can be generated
 State Grid::generateFood() {
+	static constexpr int MAX_TRIES = 10;
+
 	if (snakeSize == MAX) {
 		return State::WON;
 	}
 
-	int freeTileCount = MAX - snakeSize;
+	int tryCount = 0;
+	while (true) {
+		simpleFood = core::randomInt(rng32, 0, MAX - 1);
 
-	if (freeTileCount > TILES_IN_ROW) {
-		// generate a random number
-		do {
-			simpleFood = core::randomInt(rng32, 0, MAX - 1);
-		} while (!grid[simpleFood].isEmpty());
-	} else {
-		// the snake is very large, pick one of the empty spaces
+		if (grid[simpleFood].isEmpty()) break;
+		if (++tryCount >= MAX_TRIES) break;
+	}
+
+	if (tryCount >= MAX_TRIES) {
+		// pick one of the empty spaces
 		int emptyTiles[TILES_IN_ROW];
 		int emptyTilesCount = 0;
 
@@ -246,4 +249,14 @@ uint Grid::getScore() noexcept {
 
 void Grid::incScore() noexcept {
 	score += ui::speedLevel;
+}
+
+
+Grid::index Grid::findNextSnakePart(Grid::index pos) {
+	return pos;
+}
+
+
+Grid::index Grid::findPrevSnakePart(Grid::index pos) {
+	return pos;
 }

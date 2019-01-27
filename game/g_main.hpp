@@ -8,7 +8,7 @@
 
 #define GAME_VERSION_MAJOR	1
 #define GAME_VERSION_MINOR	0
-#define GAME_VERSION_BUILD	2
+#define GAME_VERSION_BUILD	3
 
 #define GAME_VERSION_NAME	"Release"
 

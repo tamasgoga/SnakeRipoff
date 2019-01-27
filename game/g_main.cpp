@@ -79,7 +79,7 @@ Game::Game()
 	const int window_w = getWindowWidth();
 	const int window_h = getWindowHeight();
 
-	txBlackOverlay = texman.create(window_w, window_h, 0,0,0);
+	txBlackOverlay = texman.create(window_w, window_h, ui::BLACK.r, ui::BLACK.g, ui::BLACK.b);
 	texman.setAlphaMod(txBlackOverlay, 170);
 	txWhiteOverlay = texman.create(window_w, window_h, 255, 255, 255);
 
@@ -108,7 +108,7 @@ Game::Game()
 	speedUpCounter = 0;
 
 	// initial draw
-	clearDisplay();
+	fillDisplay(ui::BLACK.r, ui::BLACK.g, ui::BLACK.b);
 	drawGrid();
 	ui::quitButton->draw();
 	updateDisplay();
@@ -232,7 +232,7 @@ void Game::play(int speedUpMs) {
 		if (hasFrateHighlChanged)
 			font.setAlphaMod(ftFrateNumberHighlight, frateHighlight.get());
 
-		clearDisplay();
+		fillDisplay(ui::BLACK.r, ui::BLACK.g, ui::BLACK.b);
 		drawGrid();
 		ui::quitButton->draw();
 		updateDisplay();
@@ -243,7 +243,7 @@ void Game::play(int speedUpMs) {
 void Game::pause() {
 	using namespace core;
 
-	clearDisplay();
+	fillDisplay(ui::BLACK.r, ui::BLACK.g, ui::BLACK.b);
 
 	drawGrid();
 	texman.draw(txBlackOverlay, 0, 0);
@@ -278,7 +278,7 @@ void Game::pause() {
 			return;
 		}
 
-		clearDisplay();
+		fillDisplay(ui::BLACK.r, ui::BLACK.g, ui::BLACK.b);
 
 		drawGrid();
 		texman.draw(txBlackOverlay, 0, 0);
@@ -293,7 +293,7 @@ void Game::pause() {
 void Game::endGame() {
 	using namespace core;
 
-	clearDisplay();
+	fillDisplay(ui::BLACK.r, ui::BLACK.g, ui::BLACK.b);
 
 	drawGameOver();
 	ui::quitButton->draw();
@@ -326,7 +326,7 @@ void Game::endGame() {
 			return;
 		}
 
-		clearDisplay();
+		fillDisplay(ui::BLACK.r, ui::BLACK.g, ui::BLACK.b);
 
 		drawGameOver();
 		ui::quitButton->draw();
@@ -390,7 +390,7 @@ void Game::flashScreenAndDelay() {
 		; // nothing fancy, just a delay
 
 	// reset screen
-	clearDisplay();
+	fillDisplay(ui::BLACK.r, ui::BLACK.g, ui::BLACK.b);
 	drawGrid();
 	ui::quitButton->draw();
 	updateDisplay();
@@ -438,7 +438,7 @@ void Game::collapseSnake() {
 			goto L_notReadyYet;
 		clock.reset();
 
-		clearDisplay();
+		fillDisplay(ui::BLACK.r, ui::BLACK.g, ui::BLACK.b);
 		drawGrid();
 		ui::quitButton->draw();
 		updateDisplay();
@@ -495,8 +495,8 @@ bool showMenu() {
 
 	// credits text
 	auto ftVersion = smallFont.loadText("Version: " + std::to_string(GAME_VERSION_MAJOR) + "." + std::to_string(GAME_VERSION_MINOR)
-	                                    + "." + std::to_string(GAME_VERSION_BUILD) + " " + GAME_VERSION_NAME, ui::RED);
-	auto ftCredits = smallFont.loadText("by Goga Tamas", ui::RED);
+	                                    + "." + std::to_string(GAME_VERSION_BUILD) + " " + GAME_VERSION_NAME, ui::WHITE);
+	auto ftCredits = smallFont.loadText("by Goga Tamas", ui::WHITE);
 
 	const int credit_posx = getWindowWidth() - smallFont.getWidth(ftCredits) - 5;
 	const int credit_posy = getWindowHeight() - smallFont.getHeight(ftCredits) - 5;
@@ -517,7 +517,7 @@ bool showMenu() {
 
 	// draw the menu
 	auto renderMenuPage = [&] () {
-		clearDisplay();
+		fillDisplay(ui::BLACK.r, ui::BLACK.g, ui::BLACK.b);
 
 		titleFont.draw(ftTitleSeries, titleSeries_posx, titleSeries_posy);
 		titleFont.draw(ftTitleGame, titleGame_posx, titleGame_posy);
@@ -605,10 +605,8 @@ bool showScores() {
 	};
 
 	SDL_Event event;
-	core::Texman texman;
 	Font font(ui::fontPath->path.c_str(), FONT_SIZE);
 
-	auto txBlackOverlay = texman.create(getWindowWidth(), getWindowHeight(), 0,0,0);
 	std::vector<texindex> ftScores;
 	ftScores.reserve(getScoreBoardLength());
 
@@ -656,12 +654,11 @@ bool showScores() {
 	);
 
 	auto renderScoresPage = [
-			&texman, &font, &resetButton, &titleFont, ftScoreTitle,
-			txBlackOverlay, ftScores, &getScoreBoardLength, textPosX, textPosY
+			&font, &resetButton, &titleFont, ftScoreTitle,
+			ftScores, &getScoreBoardLength, textPosX, textPosY
 		] () {
-		clearDisplay();
+		fillDisplay(ui::BLACK.r, ui::BLACK.g, ui::BLACK.b);
 
-		texman.draw(txBlackOverlay, 0, 0);
 		titleFont.draw(
 			ftScoreTitle,
 			(getWindowWidth() - titleFont.getWidth(ftScoreTitle)) / 2,

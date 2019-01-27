@@ -31,6 +31,9 @@ These things might never happen. They're here for future reference.
 > Distributed under the MIT license.
 
 ## CHANGELOG ##
+- **1.0.3 "Release":**
+  - A bit better random generation;
+  - Improved color-palette.
 - **1.0.2 "Release":**
   - Started re- factoring/thinking the game code as it is very unorganized (was not the main focus of dev up til now).
 - **1.0.1 "Release":**
