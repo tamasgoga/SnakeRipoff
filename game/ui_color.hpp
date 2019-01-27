@@ -11,11 +11,11 @@
 
 namespace ui {
 
-	extern const SDL_Color WHITE;
-	extern const SDL_Color RED;
-	extern const SDL_Color BLUE;
-	extern const SDL_Color GRAY;
-	// yellow: 251, 167, 5 (title)
+	constexpr SDL_Color WHITE  = { 210, 210, 210, 255 };
+	constexpr SDL_Color RED    = { 191,  13,  79, 255 };
+	constexpr SDL_Color BLUE   = {  19, 123, 158, 255 };
+	constexpr SDL_Color GRAY   = {  33,  33,  33, 255 };
+	constexpr SDL_Color YELLOW = { 251, 167,   5, 255 };
 
 
 	/** Get a lighter or darker (factor < 0) shade of a color

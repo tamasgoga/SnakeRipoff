@@ -1,5 +1,6 @@
 #include "g_grid.hpp"
 
+#include "../core/core_texture.hpp"
 #include "../core/core_random.hpp"
 #include "../core/core_error.hpp"
 
@@ -235,4 +236,14 @@ bool Grid::collapseSnakeTowardsItsMiddle() {
 	grid[snake[++snakeHead]].makeSnakeHead();
 
 	return true;
+}
+
+
+uint Grid::getScore() noexcept {
+	return score;
+}
+
+
+void Grid::incScore() noexcept {
+	score += ui::speedLevel;
 }

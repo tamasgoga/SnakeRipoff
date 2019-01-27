@@ -6,27 +6,10 @@
 // In-game tile
 //--------------------------------------------------------------
 
+#include "../core/core_def.hpp"
+
 #include "g_state.hpp"
 #include "g_tile.hpp"
-#include "../core/core_texture.hpp"
-#include <SDL2/SDL_rect.h>
-
-
-// (!) move all of these in one file for clarity? -- specify delcaration file
-namespace ui {
-
-	extern core::Texman* gTexman;
-
-	extern core::texindex txSnake;
-	extern core::texindex txSimpleFood;
-	extern core::texindex txHelpBackground;
-
-	extern int speedLevel;
-	extern SDL_Rect playArea;
-
-	extern int tileSize;
-
-} // namespace ui
 
 
 enum class Direction {
@@ -59,15 +42,11 @@ public:
 	bool collapseSnakeTowardsItsMiddle();
 
 	// (!) the grid should not know the score?
-	uint getScore() noexcept {
-		return score;
-	}
+	uint getScore() noexcept;
 
 private:
 	// (!) the grid should not know the score?
-	void incScore() noexcept {
-		score += ui::speedLevel;
-	}
+	void incScore() noexcept;
 
 	// (!) dude, why so many arrays?! why not std::array?
 	// tiles & snake

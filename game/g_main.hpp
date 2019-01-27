@@ -17,7 +17,6 @@
 // Game code
 //--------------------------------------------------------------
 
-#include "../core/core_base.hpp"
 #include "../core/core_ttf.hpp"
 
 #include "g_grid.hpp"
@@ -25,19 +24,6 @@
 #include "io_score.hpp"
 
 #include <SDL2/SDL_events.h>
-
-
-class Button;
-
-
-namespace ui {
-
-	extern core::AppDirPath* fontPath;
-
-	extern core::Font* smallButtonFont;
-	extern Button* quitButton;
-
-} // namespace ui
 
 
 class Game {

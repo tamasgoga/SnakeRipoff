@@ -1,7 +1,9 @@
 #include "g_main.hpp"
+#include "ui_globals.hpp"
 #include "ui_color.hpp"
 #include "ui_slider.hpp"
 
+#include "../core/core_base.hpp"
 #include "../core/core_draw.hpp"
 #include "../core/core_util.hpp"
 
@@ -612,7 +614,7 @@ bool showScores() {
 
 	// title
 	Font titleFont(ui::fontPath->path.c_str(), 40);
-	auto ftScoreTitle = titleFont.loadText("Scoreboard", ui::RED);
+	auto ftScoreTitle = titleFont.loadText("Scoreboard", ui::YELLOW);
 
 	// scores
 	int maxTextWidth = 0;
