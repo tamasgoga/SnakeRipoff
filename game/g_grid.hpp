@@ -30,9 +30,6 @@ public:
 	static constexpr int MAX				= TILES_IN_ROW * TILES_IN_ROW;
 	static constexpr int INIT_SNAKE_SIZE	= 4;
 
-	using TileArray = std::array<Tile, MAX>;
-	using index = TileArray::size_type;
-
 	// interface
 	Grid();
 
@@ -53,12 +50,11 @@ private:
 	// (!) the grid should not know the score?
 	void incScore() noexcept;
 
-	index findNextSnakePart(index pos);
-	index findPrevSnakePart(index pos);
+	int findSnakeNextPart(int pos, bool isPrev = false) const;
 
 	// (!) dude, why so many arrays?!
 	// tiles & snake
-	TileArray grid;
+	std::array<Tile, MAX> grid;
 	// (!) get rid of second array! NOW!
 	int snake[TILES_IN_ROW * TILES_IN_ROW];
 	int snakeHead, snakeSize;
