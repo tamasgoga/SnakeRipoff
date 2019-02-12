@@ -9,19 +9,10 @@
 #include <SDL2/SDL_rect.h>
 #include "../core/core_texture.hpp"
 
+
 class Button;
+namespace core { struct AppDirPath; class Font; }
 
-namespace core {
-
-    struct AppDirPath;
-    class Font;
-
-}
-
-/**
- * I'll be working towards getting rid of as many of these as possible.
- * Maybe the some fancy "dependency-injection" would solve most of our issues.
- */
 
 namespace ui {
 

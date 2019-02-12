@@ -50,7 +50,7 @@ Grid::Grid()
 
 
 // returns State::WON if no more food can be generated
-State Grid::generateFood() {
+State Grid::generateFood() noexcept {
 	static constexpr int MAX_TRIES = 10;
 
 	if (snakeSize == MAX) {
@@ -88,7 +88,7 @@ State Grid::generateFood() {
 }
 
 
-void Grid::draw() const {
+void Grid::draw() const noexcept {
 	int posX = ui::playArea.x;
 	int posY = ui::playArea.y;
 	SDL_Rect fullTile = { posX, posY, ui::tileSize, ui::tileSize };
@@ -120,7 +120,7 @@ void Grid::draw() const {
 }
 
 
-void Grid::handleKeyboard() {
+void Grid::handleKeyboard() noexcept {
 	const Uint8* keystates = SDL_GetKeyboardState(nullptr);
 
 	// vertical movement
@@ -227,7 +227,7 @@ State Grid::advanceState() {
 
 
 // used when killing the snake; returns false if the snake collapsed already
-bool Grid::collapseSnakeTowardsItsMiddle() {
+bool Grid::collapseSnakeTowardsItsMiddle() noexcept {
 	if (snakeHead > snakeSize)
 		return false;
 
@@ -242,21 +242,11 @@ bool Grid::collapseSnakeTowardsItsMiddle() {
 }
 
 
-uint Grid::getScore() noexcept {
+uint Grid::getScore() const noexcept {
 	return score;
 }
 
 
 void Grid::incScore() noexcept {
 	score += ui::speedLevel;
-}
-
-
-Grid::index Grid::findNextSnakePart(Grid::index pos) {
-	return pos;
-}
-
-
-Grid::index Grid::findPrevSnakePart(Grid::index pos) {
-	return pos;
 }

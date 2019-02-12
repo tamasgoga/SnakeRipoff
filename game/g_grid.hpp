@@ -30,37 +30,30 @@ public:
 	static constexpr int MAX				= TILES_IN_ROW * TILES_IN_ROW;
 	static constexpr int INIT_SNAKE_SIZE	= 4;
 
-	using TileArray = std::array<Tile, MAX>;
-	using index = TileArray::size_type;
-
-	// interface
 	Grid();
 
-	// (!) lack of constructors
+	Grid(const Grid&) = default;
+	Grid& operator=(const Grid&) = default;
 
-	State generateFood();
+	Grid(Grid&&) = default;
+	Grid& operator=(Grid&&) = default;
 
-	void draw() const;
-	void handleKeyboard();
+	State generateFood() noexcept;
+
+	void draw() const noexcept;
+	void handleKeyboard() noexcept;
 
 	State advanceState();
-	bool collapseSnakeTowardsItsMiddle();
+	bool collapseSnakeTowardsItsMiddle() noexcept;
 
-	// (!) the grid should not know the score?
-	uint getScore() noexcept;
+	uint getScore() const noexcept;
 
 private:
-	// (!) the grid should not know the score?
 	void incScore() noexcept;
 
-	index findNextSnakePart(index pos);
-	index findPrevSnakePart(index pos);
-
-	// (!) dude, why so many arrays?!
 	// tiles & snake
-	TileArray grid;
-	// (!) get rid of second array! NOW!
-	int snake[TILES_IN_ROW * TILES_IN_ROW];
+	std::array<Tile, MAX> grid;
+	std::array<int, MAX> snake;
 	int snakeHead, snakeSize;
 
 	// everything relating to food

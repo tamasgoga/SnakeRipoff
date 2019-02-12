@@ -8,29 +8,14 @@ Use the ```arrow keys``` to move the snake. ```F1``` toggles _help mode_ (grid i
 ## DEPENDENCIES ##
 ```SDL2```, ```SDL2-ttf``` -- [Setting up SDL2](http://lazyfoo.net/tutorials/SDL/01_hello_SDL/index.php); [Setting up SDL extensions](http://lazyfoo.net/tutorials/SDL/06_extension_libraries_and_loading_other_image_formats/index.php)
 
-## FUTURE IDEAS ##
-
-These things might never happen. They're here for future reference.
-
-- Gameplay:
-  - Endless mode with events and powerups;
-  - "Vicinity food generation";
-  - Wall tiles;
-  - Map editor.
-- Options:
-  - Support multiple (or any) resolutions;
-  - Full-screen.
-- Misc:
-  - Add notifications/warnings (like "Are you sure you want to quit?");
-  - Sound (Old-school bleeps. Melody based on the snake's actions);
-  - Actual random place for the snake to start from;
-  - AI for the snake.
-- **No more _Core_ reworks.**
-
 ## LICENSE ##
 > Distributed under the MIT license.
 
 ## CHANGELOG ##
+- **1.0.4 "Release":**
+  - Tried out some ideas, decided they would take too long;
+  - Brought the code back to a semi-stable state;
+  - Probably the last version to the game _(12th Feb 2019, 11:32)_.
 - **1.0.3 "Release":**
   - A bit better random generation;
   - Improved color-palette.
@@ -82,3 +67,22 @@ These things might never happen. They're here for future reference.
   - _Project started in the 2nd quarter of 2016;_
   - First version, because no project should start from zero (plus, a most of the Core library was done);
   - A functioning, rough prototype of the game.
+
+## FUTURE IDEAS (that will never happen) ##
+
+These things will never happen, but I'd like to keep them for my own future amusement.
+
+- Gameplay:
+  - Endless mode with events and powerups;
+  - "Vicinity food generation";
+  - Wall tiles;
+  - Map editor.
+- Options:
+  - Support multiple (or any) resolutions;
+  - Full-screen.
+- Misc:
+  - Add notifications/warnings (like "Are you sure you want to quit?");
+  - Sound (Old-school bleeps. Melody based on the snake's actions);
+  - Actual random place for the snake to start from;
+  - AI for the snake.
+- **No more _Core_ reworks.**
