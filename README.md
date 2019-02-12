@@ -15,7 +15,7 @@ Use the ```arrow keys``` to move the snake. ```F1``` toggles _help mode_ (grid t
 - **1.0.4 "Release":**
   - Tried out some ideas, decided they would take too long;
   - Brought the code back to a semi-stable state;
-  - Probably the last version to the game _(12th Feb 2019, 11:32)_.
+  - Probably the last version of the game _(12th Feb 2019, 11:32)_.
 - **1.0.3 "Release":**
   - A bit better random generation;
   - Improved color-palette.
