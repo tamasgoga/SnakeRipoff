@@ -252,44 +252,11 @@ void Grid::incScore() noexcept {
 }
 
 
-int Grid::findSnakeNextPart(int pos, bool isPrev) const {
-	uint nextPos = isPrev ? uint(pos) - 1 : uint(pos) + 1;
+Grid::index Grid::findNextSnakePart(Grid::index pos) {
+	return pos;
+}
 
-	// up
-	if (pos < TILES_IN_ROW) {
-		int idx = (TILES_IN_ROW - 1) * TILES_IN_ROW + pos;
-		if (grid[idx].getSnakeIndex() == nextPos) return idx;
-	} else {
-		int idx = pos - TILES_IN_ROW;
-		if (grid[idx].getSnakeIndex() == nextPos) return idx;
-	}
 
-	// down
-	if (pos >= (TILES_IN_ROW - 1) * TILES_IN_ROW) {
-		int idx = pos % TILES_IN_ROW;
-		if (grid[idx].getSnakeIndex() == nextPos) return idx;
-	} else {
-		int idx = pos + TILES_IN_ROW;
-		if (grid[idx].getSnakeIndex() == nextPos) return idx;
-	}
-
-	// left
-	if (pos % TILES_IN_ROW == 0) {
-		int idx = pos + (TILES_IN_ROW - 1);
-		if (grid[idx].getSnakeIndex() == nextPos) return idx;
-	} else {
-		int idx = pos - 1;
-		if (grid[idx].getSnakeIndex() == nextPos) return idx;
-	}
-
-	// right
-	if (pos % TILES_IN_ROW == TILES_IN_ROW - 1) {
-		int idx = pos - (TILES_IN_ROW - 1);
-		if (grid[idx].getSnakeIndex() == nextPos) return idx;
-	} else {
-		int idx = pos + 1;
-		if (grid[idx].getSnakeIndex() == nextPos) return idx;
-	}
-
-	throw core::Failure("THIS SHOULD NEVER HAPPEN! Could not find next position: " + std::to_string(pos) + " -> " +std::to_string(nextPos));
+Grid::index Grid::findPrevSnakePart(Grid::index pos) {
+	return pos;
 }
