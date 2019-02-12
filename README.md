@@ -3,7 +3,7 @@
 ![gitimage.png](https://raw.githubusercontent.com/tamasgoga/SnakeRipoff/master/res/gitimage.png)
 
 ## CONTROLS ##
-Use the ```arrow keys``` to move the snake. ```F1``` toggles _help mode_ (grid is clearly defined), for now.
+Use the ```arrow keys``` to move the snake. ```F1``` toggles _help mode_ (grid tiles become more clearly defined).
 
 ## DEPENDENCIES ##
 ```SDL2```, ```SDL2-ttf``` -- [Setting up SDL2](http://lazyfoo.net/tutorials/SDL/01_hello_SDL/index.php); [Setting up SDL extensions](http://lazyfoo.net/tutorials/SDL/06_extension_libraries_and_loading_other_image_formats/index.php)
